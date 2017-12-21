@@ -3,7 +3,8 @@ import rimraf from 'rimraf';
 import fs from 'fs';
 import {chalkSuccess} from './chalkConfig';
 
-/* eslint-disable no-console */
+import ReducerTemplate from './templates/reducer';
+import ConfigTemplate from './templates/config';
 
 const pathsToRemove = [
   './src/actions/*',
@@ -15,23 +16,34 @@ const pathsToRemove = [
   './src/reducers/*',
   './src/store/store.spec.js',
   './src/styles',
+  './src/types',
   './src/index.js',
+  './bin/templates',
   './bin/removeDemo.js'
 ];
 
 const filesToCreate = [
-  {
-    path: './src/components/emptyTest.spec.js',
-    content: '// Must have at least one test file in this directory or Mocha will throw an error.'
-  },
   {
     path: './src/index.js',
     content: '// Set up your application entry point here...'
   },
   {
     path: './src/reducers/index.js',
-    content: '// Set up your root reducer here...\n import { combineReducers } from \'redux\';\n export default combineReducers;'
+    content: ReducerTemplate
+  },
+  {
+    path: './src/config/index.js',
+    content: ConfigTemplate
   }
+];
+
+const pathsToCreate = [
+  './src/adapters',
+  './src/containers',
+  './src/helpers',
+  './src/lib',
+  './src/screens',
+  './src/services',
 ];
 
 function removePath(path, callback) {
@@ -64,6 +76,11 @@ pathsToRemove.map(path => {
       // Now we can create files since we're done deleting.
       filesToCreate.map(file => createFile(file));
     }
+  });
+  
+  // Create standard React-Redux folders
+  pathsToCreate.map(dir => {
+    !fs.existsSync(dir) && fs.mkdirSync(dir);
   });
 });
 
