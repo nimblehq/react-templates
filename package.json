@@ -1,5 +1,5 @@
 {
-  "name": "buriReact",
+  "name": "reactTemplate",
   "version": "0.1.0",
   "description": "Starter kit for creating apps with React and Redux",
   "scripts": {
@@ -111,6 +111,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/burigems/buriReact"
+    "url": "https://github.com/nimbl3/react-template"
   }
 }
