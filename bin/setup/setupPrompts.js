@@ -1,4 +1,3 @@
-// Define prompts for use with npm 'prompt' module in setup script
 module.exports = [
   {
     name: 'projectName',
