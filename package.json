@@ -1,10 +1,7 @@
 {
-  "name": "react-slingshot",
-  "version": "7.0.1",
+  "name": "buriReact",
+  "version": "0.1.0",
   "description": "Starter kit for creating apps with React and Redux",
-  "engines": {
-    "npm": ">=3"
-  },
   "scripts": {
     "preinstall": "node tools/nodeVersionCheck.js",
     "setup": "node tools/setup/setupMessage.js && npm install && node tools/setup/setup.js",
@@ -28,7 +25,7 @@
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
   },
-  "author": "Cory House",
+  "author": "Abhinav Mishra",
   "license": "MIT",
   "dependencies": {
     "object-assign": "4.1.1",
@@ -108,13 +105,12 @@
     "edit",
     "webpack",
     "redux",
-    "flux",
     "boilerplate",
     "starter"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/coryhouse/react-slingshot"
+    "url": "https://github.com/burigems/buriReact"
   },
   "jest": {
     "moduleNameMapper": {
@@ -125,47 +121,6 @@
       "raf/polyfill",
       "./tools/enzymeTestAdapterSetup.js"
     ]
-  },
-  "babel": {
-    "env": {
-      "development": {
-        "presets": [
-          "env",
-          "react",
-          "react-hmre",
-          "stage-1"
-        ]
-      },
-      "production": {
-        "presets": [
-          [
-            "env",
-            {
-              "es2015": {
-                "modules": false
-              },
-              "targets": {
-                "ie": 9,
-                "uglify": true
-              }
-            }
-          ],
-          "react",
-          "stage-1"
-        ],
-        "plugins": [
-          "transform-react-constant-elements",
-          "transform-react-remove-prop-types"
-        ]
-      },
-      "test": {
-        "presets": [
-          "env",
-          "react",
-          "stage-1"
-        ]
-      }
-    }
   },
   "eslintConfig": {
     "root": true,
