@@ -17,11 +17,11 @@
     "remove-dist": "rimraf ./dist",
     "prebuild": "npm run lint && npm run test && npm run clean-dist",
     "build": "babel-node tools/build.js && npm run open:dist",
-    "test": "jest",
+    "test": "jest --config config/jest.json",
     "test:CI": "babel-node tools/testCi.js",
     "test:cover": "npm run test -- --coverage ",
     "test:cover:CI": "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --config config/jest.json --watch",
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
   },
@@ -44,6 +44,7 @@
     "babel-eslint": "8.0.3",
     "babel-jest": "22.0.3",
     "babel-loader": "7.1.2",
+    "babel-plugin-dynamic-import-node": "1.2.0",
     "babel-plugin-transform-react-constant-elements": "6.23.0",
     "babel-plugin-transform-react-remove-prop-types": "0.4.12",
     "babel-polyfill": "6.26.0",
@@ -111,16 +112,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/burigems/buriReact"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
-      "\\.(css|less)$": "<rootDir>/tools/assetsTransformer.js"
-    },
-    "setupFiles": [
-      "raf/polyfill",
-      "./tools/enzymeTestAdapterSetup.js"
-    ]
   },
   "eslintConfig": {
     "root": true,

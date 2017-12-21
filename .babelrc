@@ -1,4 +1,5 @@
 {
+  "plugins": ["syntax-dynamic-import"],
   "env": {
     "development": {
       "presets": [
@@ -35,7 +36,8 @@
         "env",
         "react",
         "stage-1"
-      ]
+      ],
+      "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]
     }
   }
 }
