@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {scrubFormatting} from '../utils/numberFormat';
 
+/**
+ * FuelSavingsResults Component
+ */
 const FuelSavingsResults = ({savings}) => {
   const savingsExist = scrubFormatting(savings.monthly) > 0;
   const savingsClass = savingsExist ? 'savings' : 'loss';
@@ -35,6 +38,9 @@ const FuelSavingsResults = ({savings}) => {
 };
 
 FuelSavingsResults.propTypes = {
+  /**
+   * Holds the savings object
+   * */
   savings: PropTypes.object.isRequired
 };
 

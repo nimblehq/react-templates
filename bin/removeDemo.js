@@ -14,19 +14,15 @@ const pathsToRemove = [
   './src/containers/*',
   './src/images',
   './src/reducers/*',
+  './src/screens/*',
   './src/store/store.spec.js',
   './src/styles',
   './src/types',
-  './src/index.js',
   './bin/templates',
   './bin/removeDemo.js'
 ];
 
 const filesToCreate = [
-  {
-    path: './src/index.js',
-    content: '// Set up your application entry point here...'
-  },
   {
     path: './src/reducers/index.js',
     content: ReducerTemplate
@@ -43,7 +39,7 @@ const pathsToCreate = [
   './src/helpers',
   './src/lib',
   './src/screens',
-  './src/services',
+  './src/services'
 ];
 
 function removePath(path, callback) {

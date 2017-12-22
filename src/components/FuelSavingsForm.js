@@ -4,6 +4,9 @@ import FuelSavingsResults from './FuelSavingsResults';
 import FuelSavingsTextInput from './FuelSavingsTextInput';
 import {fuelSavings} from '../types';
 
+/**
+ * FuelSavingsForm Component
+ */
 const FuelSavingsForm = ({fuelSavings, onSaveClick, onChange}) => (
   <div>
     <h2>Fuel Savings Analysis</h2>
@@ -62,8 +65,17 @@ const FuelSavingsForm = ({fuelSavings, onSaveClick, onChange}) => (
 );
 
 FuelSavingsForm.propTypes = {
+  /**
+   * Holds the save event handler for the form
+   * */
   onSaveClick: func.isRequired,
+  /**
+   * Holds the change event handler for the form
+   * */
   onChange: func.isRequired,
+  /**
+   * Holds the fuelSavings store
+   * */
   fuelSavings: fuelSavings.isRequired
 };
 
