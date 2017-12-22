@@ -28,6 +28,9 @@ export default merge(sharedConfig, {
     new webpack.DefinePlugin(GLOBALS),
     // Generate an external css file with a hash in the filename
     new ExtractTextPlugin('[name].[contenthash].css'),
+    new webpack.ProvidePlugin({
+      'I18n': path.resolve(__dirname, '..', 'config/i18n/client.js')
+    }),
     // Generate HTML file that contains references to generated bundles. See here for how this works: https://github.com/ampedandwired/html-webpack-plugin#basic-usage
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '..', 'src/index.ejs'),

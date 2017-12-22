@@ -9,7 +9,7 @@ import {fuelSavings} from '../types';
  */
 const FuelSavingsForm = ({fuelSavings, onSaveClick, onChange}) => (
   <div>
-    <h2>Fuel Savings Analysis</h2>
+    <h2>{I18n.t('title')}</h2>
     <table>
       <tbody>
         <tr>

@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 
 import sharedConfig from './webpack.config';
+import I18n from './i18n/client';
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('development'),
@@ -27,6 +28,9 @@ export default merge(sharedConfig, {
     new webpack.DefinePlugin(GLOBALS),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      'I18n': I18n
+    }),
     // Create HTML file that includes references to bundled CSS and JS.
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '..', 'src/index.ejs'),

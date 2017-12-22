@@ -7,6 +7,7 @@ import App from '../screens/App';
 
 export default class Root extends Component {
   render() {
+    debugger
     const { store, history } = this.props;
     return (
       <Provider store={store}>
