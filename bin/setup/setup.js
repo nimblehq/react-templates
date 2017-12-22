@@ -1,8 +1,7 @@
-/* eslint-disable no-var */
 var rimraf = require('rimraf');
 var chalk = require('chalk');
-var replace = require("replace");
-var prompt = require("prompt");
+var replace = require('replace');
+var prompt = require('prompt');
 var prompts = require('./setupPrompts');
 
 var chalkSuccess = chalk.green;
@@ -15,8 +14,8 @@ console.log(chalkSuccess('Dependencies installed.'));
 
 prompt.start();
 
-console.log(chalkWarn("WARNING:  Preparing to delete local git repository..."));
-prompt.get([{name: 'deleteGit', description: "Delete the git repository?  [Y/n]"}], function(err, result) {
+console.log(chalkWarn('WARNING:  Preparing to delete local git repository...'));
+prompt.get([{name: 'deleteGit', description: 'Delete the git repository?  [Y/n]'}], function(err, result) {
   var deleteGit = result.deleteGit.toUpperCase();
 
   if (err) {
@@ -86,9 +85,9 @@ prompt.get([{name: 'deleteGit', description: "Delete the git repository?  [Y/n]"
         silent: true
       });
 
-      // remove all setup scripts from the 'tools' folder
+      // remove all setup scripts from the 'bin' folder
       console.log(chalkSuccess('\nSetup complete! Cleaning up...\n'));
-      rimraf('./tools/setup', error => {
+      rimraf('./bin/setup', error => {
         if (error) throw new Error(error);
       });
     });
