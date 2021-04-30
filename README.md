@@ -18,3 +18,23 @@ For more information, please refer to:
 
 - [Getting Started](https://create-react-app.dev/docs/getting-started) – How to create a new app.
 - [User Guide](https://create-react-app.dev) – How to develop apps bootstrapped with Create React App.
+
+
+## License
+
+This project is Copyright (c) 2014 and onwards. It is free software,
+and may be redistributed under the terms specified in the [LICENSE] file.
+
+[LICENSE]: /LICENSE
+
+## About
+
+![Nimble](https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png)
+
+This project is maintained and funded by Nimble.
+
+We love open source and do our part in sharing our work with the community!
+See [our other projects][community] or [hire our team][hire] to help build your product.
+
+[community]: https://github.com/nimblehq
+[hire]: https://nimblehq.co/
