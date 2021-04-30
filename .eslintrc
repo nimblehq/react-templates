@@ -1,8 +1,0 @@
-{
-  "extends": [
-    "@nimbl3/eslint-config-nimbl3"
-  ],
-  "rules": {
-    // Additional, per-project rules...
-  }
-}
