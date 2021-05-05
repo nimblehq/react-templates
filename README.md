@@ -51,8 +51,8 @@ For more information, please refer to:
 ```
 
 We use `Typescript` by default for our React applications. Along with the standard files from a `create-react-app` 
-project, the folder structure in the `src` folder is created as per our project structure
-[conevention](https://nimblehq.co/compass/development/code-conventions/react/#project-structure).
+project, the folder structure in the `src` folder is created as per the
+[React Conevention](https://nimblehq.co/compass/development/code-conventions/react/#project-structure).
 
 ## License
 
