@@ -8,9 +8,20 @@ module.exports = {
   extends: [
     '@nimbl3/eslint-config-nimbl3',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:import/errors',
-    'prettier'
+    'plugin:prettier/recommended'
+  ],
+  overrides: [
+    {
+      files: 'src/tests/**/*.test.ts',
+      extends: [
+        'plugin:jest/recommended',
+        'plugin:jest/style'
+      ]
+    }
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -20,7 +31,6 @@ module.exports = {
       jsx: true
     }
   },
-  plugins: ['react', '@typescript-eslint', 'prettier', 'react-hooks'],
   rules: {
     'max-len': ['error', { code: 120 }],
     'react-hooks/rules-of-hooks': 'error',
