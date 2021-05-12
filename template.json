@@ -32,9 +32,10 @@
     "scripts": {
       "lint": "eslint ./src --ext .ts,.tsx",
       "lint:fix": "eslint ./src --ext .ts,.tsx --fix",
-      "prettier": "prettier \"src/**/*.{ts,html}\" --write",
       "stylelint": "stylelint '**/*.scss'",
-      "stylelint:fix": "stylelint '**/*.scss' --fix"
+      "stylelint:fix": "stylelint '**/*.scss' --fix",
+      "codebase:lint": "yarn lint && yarn stylelint",
+      "codebase:fix": "yarn lint:fix && yarn stylelint:fix"
     }
   }
 }
