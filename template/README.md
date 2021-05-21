@@ -27,7 +27,13 @@ All of the commands except `eject` will still work, but they will point to the c
 
 `yarn lint:fix`: Fix auto-correctable ESLint errors in the project.
 
-`yarn prettier`: Run Prettier in the project.
+`yarn stylelint`: Run Stylelint in the project.
+
+`yarn stylelint:fix`: Fix auto-correctable Stylelint errors in the project.
+
+`yarn codebase:lint`: Run ESLint and Stylelint together in the project.
+
+`yarn codebase:fix`: Fix auto-correctable ESLint and Stylelint errors together in the project.
 
 ## Learn More
 
