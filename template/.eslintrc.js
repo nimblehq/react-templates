@@ -12,7 +12,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:import/errors',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    "plugin:cypress/recommended"
   ],
   overrides: [
     {
