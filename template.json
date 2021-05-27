@@ -41,7 +41,8 @@
       "stylelint:fix": "stylelint '**/*.scss' --fix",
       "codebase:lint": "yarn lint && yarn stylelint",
       "codebase:fix": "yarn lint:fix && yarn stylelint:fix",
-      "cypress:run": "cypress run"
+      "cypress:run": "cypress run",
+      "cypress:open": "cypress open"
     }
   }
 }
