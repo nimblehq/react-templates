@@ -21,6 +21,12 @@ module.exports = {
         'plugin:jest/recommended',
         'plugin:jest/style'
       ]
+    },
+    {
+      files: 'cypress/**/*.ts',
+      extends: [
+        'plugin:cypress/recommended'
+      ]
     }
   ],
   parser: '@typescript-eslint/parser',
