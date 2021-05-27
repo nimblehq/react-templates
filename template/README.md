@@ -35,6 +35,10 @@ All of the commands except `eject` will still work, but they will point to the c
 
 `yarn codebase:fix`: Fix auto-correctable ESLint and Stylelint errors together in the project.
 
+`yarn cypress:run`: Runs Cypress tests to completion. By default, cypress run will run all tests headlessly in the Electron browser. [Check options](https://docs.cypress.io/guides/guides/command-line#cypress-run)
+
+`yarn cypress:open`: Opens the Cypress Test Runner. [Check options](https://docs.cypress.io/guides/guides/command-line#cypress-open)
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
