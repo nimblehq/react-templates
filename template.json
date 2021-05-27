@@ -4,6 +4,7 @@
       "@testing-library/jest-dom": "5.11.4",
       "@testing-library/react": "11.1.0",
       "@testing-library/user-event": "12.1.10",
+      "@testing-library/cypress": "7.0.4",
       "@types/node": "12.0.0",
       "@types/react": "17.0.0",
       "@types/react-dom": "17.0.0",
@@ -12,6 +13,7 @@
       "web-vitals": "1.0.1",
       "axios": "0.21.1",
       "cypress": "7.4.0",
+      "cypress-react-selector": "2.3.6",
       "eslint": "7.25.0",
       "prettier": "2.2.1",
       "@nimbl3/eslint-config-nimbl3": "2.1.1",
@@ -38,7 +40,7 @@
       "stylelint:fix": "stylelint '**/*.scss' --fix",
       "codebase:lint": "yarn lint && yarn stylelint",
       "codebase:fix": "yarn lint:fix && yarn stylelint:fix",
-      "cypress:open": "cypress open"
+      "cypress:run": "cypress run"
     }
   }
 }
