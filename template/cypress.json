@@ -1,0 +1,11 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "testFiles": ["**/*.spec.ts"],
+  "cypress-react-selector": {
+    "root": "#root"
+  },
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
+  }
+}
