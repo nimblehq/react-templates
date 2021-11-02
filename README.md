@@ -9,15 +9,23 @@
 
 ---
 
-Our templates offer a rich boilerplate to jump start React-based application development for [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+    <a href="https://www.npmjs.com/package/cra-template-nimble"><img src="https://badgen.net/npm/v/cra-template-nimble" /></a>
+    <a href="https://www.npmjs.com/package/cra-template-nimble"><img src="https://badgen.net/npm/dy/cra-template-nimble" /></a>
+</p>
 
-## Get Started
+Our templates offer a rich boilerplate to jump-start React-based application development for [Create React App](https://github.com/facebook/create-react-app).
 
-### Use the template
+## Getting Started
 
-To use this template, add `--template nimble` when creating a new app.
+### Prerequisites
 
-For example:
+[![node-version-image][node-v-src]](https://nodejs.org/download/release/v14.18.1/)
+
+### Usage
+
+To use this template, add `--template nimble` when creating a new app from the `create-react-app` package.
+
 
 ```sh
 npx create-react-app my-app --template nimble
@@ -27,9 +35,9 @@ npx create-react-app my-app --template nimble
 yarn create react-app my-app --template nimble
 ```
 
-For more information, please refer to:
+For more information about `create-react-app`, please refer to:
 
-- [Getting Started](https://create-react-app.dev/docs/getting-started) – How to create a new app.
+- [Getting Started](https://create-react-app.dev/docs/getting-started) — How to create a new app.
 - [User Guide](https://create-react-app.dev) – How to develop apps bootstrapped with Create React App.
 
 ## Template structure
@@ -50,9 +58,8 @@ For more information, please refer to:
 └── template.json
 ```
 
-We use `Typescript` by default for our React applications. Along with the standard files from a `create-react-app` 
-project, the folder structure in the `src` folder is created as per the
-[React Conevention](https://nimblehq.co/compass/development/code-conventions/react/#project-structure).
+`Typescript` is used by default for our React applications. To the standard files from a non-ejected `create-react-app` project, this templates ads a folder structure in `/src` that follows our
+[React Convention](https://nimblehq.co/compass/development/code-conventions/javascript/react/#project-structure).
 
 ## License
 
@@ -65,10 +72,11 @@ and may be redistributed under the terms specified in the [LICENSE] file.
 
 ![Nimble](https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png)
 
-This project is maintained and funded by Nimble.
+This project is maintained and funded by [Nimble](https://nimblehq.co).
 
 We love open source and do our part in sharing our work with the community!
 See [our other projects][community] or [hire our team][hire] to help build your product.
 
 [community]: https://github.com/nimblehq
 [hire]: https://nimblehq.co/
+[node-v-src]: https://img.shields.io/badge/node-14.x.x-brightgreen.svg
