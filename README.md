@@ -14,7 +14,7 @@
     <a href="https://www.npmjs.com/package/cra-template-nimble"><img src="https://badgen.net/npm/dy/cra-template-nimble" /></a>
 </p>
 
-Our templates offer a rich boilerplate to jump-start React-based application development for [Create React App](https://github.com/facebook/create-react-app).
+Our template offers a rich boilerplate to jump-start React-based application development for [Create React App](https://github.com/facebook/create-react-app).
 
 ## Getting Started
 
@@ -58,7 +58,7 @@ For more information about `create-react-app`, please refer to:
 └── template.json
 ```
 
-`Typescript` is used by default for our React applications. To the standard files from a non-ejected `create-react-app` project, this templates ads a folder structure in `/src` that follows our
+`Typescript` is used by default for our React applications. To the standard files from a non-ejected `create-react-app` project, this templates adds a folder structure in `/src` that follows our
 [React Convention](https://nimblehq.co/compass/development/code-conventions/javascript/react/#project-structure).
 
 ## License
