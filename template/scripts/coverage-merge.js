@@ -6,12 +6,14 @@ const { execSync } = require('child_process')
 const fs = require('fs-extra')
 const COVERAGE_JEST_FOLDER = 'coverage'
 const COVERAGE_CYPRESS_FOLDER = 'coverage/cypress'
+const NYC_FOLDER = '.nyc_output'
 const REPORTS_FOLDER = 'coverage/reports'
 const FINAL_OUTPUT_FOLDER = 'coverage/merged'
 const run = (commands) => {
   commands.forEach((command) => execSync(command, { stdio: 'inherit' }))
 }
 // Create the reports folder and move the reports from cypress and jest inside it
+fs.emptyDirSync(NYC_FOLDER)
 fs.emptyDirSync(REPORTS_FOLDER)
 fs.copyFileSync(`${COVERAGE_CYPRESS_FOLDER}/coverage-final.json`, `${REPORTS_FOLDER}/from-cypress.json`)
 fs.copyFileSync(`${COVERAGE_JEST_FOLDER}/coverage-final.json`, `${REPORTS_FOLDER}/from-jest.json`)
