@@ -36,7 +36,7 @@
       "stylelint-config-property-sort-order-smacss": "7.1.0"
     },
     "scripts": {
-      "start": "react-scripts -r @cypress/instrument-cra start start",
+      "start": "react-scripts -r @cypress/instrument-cra start",
       "test:coverage": "react-scripts test --coverage --watchAll=false && yarn cypress:run && node ./scripts/coverage-merge.js && nyc report",
       "lint": "eslint ./src ./cypress --ext .ts,.tsx",
       "lint:fix": "eslint ./src ./cypress --ext .ts,.tsx --fix",

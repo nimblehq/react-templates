@@ -12,6 +12,8 @@ In the project directory, you can run:
 
 `yarn test:coverage`: Both Unit Tests (Jest) and UI Tests (cypress) generate test coverage analytics. The below command runs all tests and merges both coverage files into a single report.
 
+> Use the `.nyc_output/out.json` artefact in your CI/CD pipeline to reuse the code coverage data.
+
 `yarn build`: Builds the app for production to the `build` folder. It correctly bundles React in production mode and
 optimizes the build for the best performance. The build is minified and the filenames include the hashes. Your app is ready to be deployed!
 
