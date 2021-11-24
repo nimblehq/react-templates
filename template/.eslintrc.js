@@ -6,7 +6,7 @@ module.exports = {
     jest: true
   },
   extends: [
-    '@nimbl3/eslint-config-nimbl3',
+    '@nimblehq/eslint-config-nimble',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
