@@ -24,7 +24,7 @@ Our template offers a rich boilerplate to jump-start React-based application dev
 
 ### Usage
 
-To use this template, add `--template nimble` when creating a new app from the `create-react-app` package.
+To use this template, add `--template nimble` when creating a new app from the `create-react-app` command.
 
 
 ```sh
@@ -59,7 +59,7 @@ For more information about `create-react-app`, please refer to:
 ```
 
 `Typescript` is used by default for our React applications.
-To the standard files from a non-ejected `create-react-app` project, this template adds a folder structure in `/src` that follows our [React Convention](https://nimblehq.co/compass/development/code-conventions/javascript/react/#project-structure).
+With the standard files from a non-ejected `create-react-app` project, this template adds a folder structure in `/src` that follows our [React Convention](https://nimblehq.co/compass/development/code-conventions/javascript/react/#project-structure).
 
 ## License
 
