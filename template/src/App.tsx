@@ -12,9 +12,7 @@ function App(): JSX.Element {
     <div className="app">
       <header className="app-header">
         <img src={logo} className="app-logo" alt="logo" />
-        <p>
-          {t('sample_page.edit')} <code>src/App.tsx</code> {t('sample_page.and_save_to_reload')}.
-        </p>
+        <p>{t('sample_page.message', { codeSample: '<code>src/App.tsx</code>' })}</p>
         <a className="app-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           {t('sample_page.learn_react')}
         </a>

@@ -1,7 +1,6 @@
 {
   "sample_page": {
-    "edit": "Edit",
-    "and_save_to_reload": "and save to reload",
+    "message": "Edit {{codeSample}} and save to reload",
     "learn_react": "Learn React"
   }
 }
