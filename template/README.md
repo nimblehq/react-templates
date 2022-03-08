@@ -41,6 +41,20 @@ All of the commands except `eject` will still work, but they will point to the c
 
 `yarn cypress:open`: Opens the Cypress Test Runner. [Check options](https://docs.cypress.io/guides/guides/command-line#cypress-open)
 
+## Localization
+
+This project uses the [react-i18next](https://react.i18next.com/) package to handle the project locales.
+
+To add a new language
+
+- Add the new language bigram to the `supportedLanguages` array in `src/i18n.ts` — use this array to list all available languages in a 'change language' component
+- Add the new translation file in `public/locales/{lang_bigram}/translation.json`
+
+To change the default fallback language
+
+- Either edit the value of the environment variable `REACT_APP_DEFAULT_LANGUAGE` (cf. the `env.example` file)
+- Either directly edit the const `DEFAULT_FALLBACK_LANGUAGE` in `src/i18n.ts`
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
