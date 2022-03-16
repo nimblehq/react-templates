@@ -1,3 +1,5 @@
+https://github.com/nimblehq/{YOUR_REPOSITORY}/issues/?
+
 ## What happened 👀
 
 Describe the big picture of your changes here to communicate to the team why we should accept this pull request.
@@ -8,4 +10,4 @@ Describe in detail how to test the changes. Referenced documentation is welcome 
 
 ## Proof Of Work 📹
 
-Show us the implementation: screenshots, gif, etc. P.S. Maximum details possible
+Show us the implementation: screenshots, GIF, etc. P.S. Maximum details possible

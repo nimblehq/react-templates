@@ -7,7 +7,7 @@ labels: "type : bug"
 
 ## Issue
 
-Describe the issue you are facing. Show us the implementation: screenshots, gif, etc.
+Describe the issue you are facing. Show us the implementation: screenshots, GIF, etc.
 
 ## Expected
 
