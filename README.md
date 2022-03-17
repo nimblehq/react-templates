@@ -61,6 +61,18 @@ For more information about `create-react-app`, please refer to:
 `Typescript` is used by default for our React applications.
 With the standard files from a non-ejected `create-react-app` project, this template adds a folder structure in `/src` that follows our [React Convention](https://nimblehq.co/compass/development/code-conventions/javascript/react/#project-structure).
 
+## How to contribute
+
+To test the template locally, simply run the template install command with the path of your local `react-template` repository, prefixed by `file:`:
+
+```sh
+npx create-react-app my-app --template file:{../path/to/your/local/template/repo}
+
+# or
+
+yarn create react-app my-app --template file:{../path/to/your/local/template/repo}
+```
+
 ## License
 
 This project is Copyright (c) 2014 and onwards.
