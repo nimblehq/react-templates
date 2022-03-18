@@ -1,7 +1,7 @@
 import 'react-i18next';
 import { TFuncKey } from 'react-i18next';
 
-import defaultRes from '../../public/locales/en/translation.json'
+import defaultRes from '../../public/locales/en/translation.json';
 
 export type TranslationKey = TFuncKey<'translation', undefined, { translation: typeof defaultRes }>;
 

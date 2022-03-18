@@ -1,8 +1,8 @@
-import axios, { Method as HTTPMethod, ResponseType, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { Method as HTTPMethod, ResponseType, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export const defaultOptions: { responseType: ResponseType } = {
-  responseType: 'json'
-}
+  responseType: 'json',
+};
 
 /**
  * The main API access function that comes preconfigured with useful defaults.
@@ -14,17 +14,21 @@ export const defaultOptions: { responseType: ResponseType } = {
  *                   an error object for its reason
  */
 
-const requestManager = (method: HTTPMethod, endpoint: string, requestOptions: AxiosRequestConfig = {}) => {
+const requestManager = (
+  method: HTTPMethod,
+  endpoint: string,
+  requestOptions: AxiosRequestConfig = {}
+): Promise<AxiosResponse> => {
   const requestParams: AxiosRequestConfig = {
     method,
     url: endpoint,
     ...defaultOptions,
-    ...requestOptions
-  }
+    ...requestOptions,
+  };
 
-  return axios.request(requestParams).then((response: AxiosResponse<any>) => {
-    return response.data
-  })
-}
+  return axios.request(requestParams).then((response: AxiosResponse) => {
+    return response.data;
+  });
+};
 
-export default requestManager
+export default requestManager;

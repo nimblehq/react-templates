@@ -33,9 +33,6 @@ module.exports = {
     },
   },
   rules: {
-    semi: 'error',
-    'comma-dangle': ['error', 'always-multiline'],
-    'max-len': ['error', { code: 130 }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-filename-extension': [2, { extensions: ['.tsx'] }],

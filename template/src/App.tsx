@@ -1,12 +1,12 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import logo from './assets/images/logo.svg'
-import './dummy.scss'
-import './assets/stylesheets/application.scss'
+import logo from './assets/images/logo.svg';
+import './dummy.scss';
+import './assets/stylesheets/application.scss';
 
 function App(): JSX.Element {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="app">
@@ -24,7 +24,7 @@ function App(): JSX.Element {
         </a>
       </header>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
