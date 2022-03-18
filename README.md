@@ -20,7 +20,7 @@ Our template offers a rich boilerplate to jump-start React-based application dev
 
 ### Prerequisites
 
-[![node-version-image][node-v-src]](https://nodejs.org/download/release/v14.18.1/)
+[![node-version-image][node-v-src]](https://nodejs.org/download/release/v14.18.2/)
 
 ### Usage
 
