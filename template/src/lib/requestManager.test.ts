@@ -1,7 +1,5 @@
 /* eslint camelcase: ["error", {allow: ["snake_case_key"]}] */
-import axios, { AxiosResponse } from 'axios';
-
-import { mockAxiosError } from 'tests/error';
+import axios from 'axios';
 
 import requestManager, { defaultOptions } from './requestManager';
 
