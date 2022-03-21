@@ -5,7 +5,7 @@ import logo from './assets/images/logo.svg';
 import './dummy.scss';
 import './assets/stylesheets/application.scss';
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (
