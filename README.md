@@ -20,7 +20,7 @@ Our template offers a rich boilerplate to jump-start React-based application dev
 
 ### Prerequisites
 
-[![node-version-image][node-v-src]](https://nodejs.org/download/release/v14.18.2/)
+[![node-version-image](https://img.shields.io/badge/node-16.14.2-brightgreen.svg)](https://nodejs.org/download/release/v16.14.2/)
 
 ### Usage
 
@@ -91,4 +91,3 @@ See [our other projects][community] or [hire our team][hire] to help build your 
 
 [community]: https://github.com/nimblehq
 [hire]: https://nimblehq.co/
-[node-v-src]: https://img.shields.io/badge/node-14.x.x-brightgreen.svg
