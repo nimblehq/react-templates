@@ -1,4 +1,3 @@
-/* eslint camelcase: ["error", {allow: ["snake_case_key"]}] */
 import axios from 'axios';
 
 import requestManager, { defaultOptions } from './requestManager';

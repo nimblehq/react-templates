@@ -3,7 +3,7 @@ module.exports = {
     es6: true,
     browser: true,
     node: true,
-    jest: true
+    jest: true,
   },
   extends: [
     '@nimblehq/eslint-config-nimble',
@@ -12,33 +12,27 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:import/errors',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
   ],
   overrides: [
     {
       files: 'src/tests/**/*.test.ts',
-      extends: [
-        'plugin:jest/recommended',
-        'plugin:jest/style'
-      ]
+      extends: ['plugin:jest/recommended', 'plugin:jest/style'],
     },
     {
       files: 'cypress/**/*.ts',
-      extends: [
-        'plugin:cypress/recommended'
-      ]
-    }
+      extends: ['plugin:cypress/recommended'],
+    },
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true
-    }
+      jsx: true,
+    },
   },
   rules: {
-    'max-len': ['error', { code: 120 }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-filename-extension': [2, { extensions: ['.tsx'] }],
@@ -50,21 +44,21 @@ module.exports = {
           {
             pattern: 'react*',
             group: 'external',
-            position: 'before'
+            position: 'before',
           },
           {
             pattern: 'css/*|*.scss|*.svg|.png',
             group: 'internal',
-            position: 'after'
-          }
+            position: 'after',
+          },
         ],
         pathGroupsExcludedImportTypes: ['react'],
         'newlines-between': 'always',
         alphabetize: {
           order: 'asc',
-          caseInsensitive: true
-        }
-      }
+          caseInsensitive: true,
+        },
+      },
     ],
     'import/extensions': [
       'error',
@@ -74,8 +68,8 @@ module.exports = {
         svg: 'always',
         png: 'always',
         json: 'always',
-        spec: 'always'
-      }
+        spec: 'always',
+      },
     ],
     'no-use-before-define': 'off',
     'no-unused-vars': 'off',
@@ -83,15 +77,18 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-use-before-define': ['error'],
+    'prettier/prettier': ['error'],
   },
   settings: {
     react: {
-      version: 'detect'
+      version: 'detect',
     },
     'import/resolver': {
+      typescript: {},
       node: {
-        extensions: ['.ts', '.tsx']
-      }
-    }
-  }
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
+      },
+    },
+  },
 }

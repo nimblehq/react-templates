@@ -1,12 +1,12 @@
-import { initReactI18next } from 'react-i18next'
+import { initReactI18next } from 'react-i18next';
 
-import i18n from 'i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import Backend from 'i18next-http-backend'
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import Backend from 'i18next-http-backend';
 
-export const supportedLanguages = ['en']
+export const supportedLanguages = ['en'];
 
-const DEFAULT_FALLBACK_LANGUAGE = 'en'
+const DEFAULT_FALLBACK_LANGUAGE = 'en';
 
 const configureI18n = (): void => {
   i18n
@@ -27,9 +27,9 @@ const configureI18n = (): void => {
       supportedLngs: supportedLanguages,
 
       interpolation: {
-        escapeValue: false // not needed for react as it escapes by default
-      }
-    })
-}
+        escapeValue: false, // not needed for react as it escapes by default
+      },
+    });
+};
 
-export default configureI18n
+export default configureI18n;

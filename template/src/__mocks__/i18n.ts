@@ -1,3 +1,3 @@
-const configureI18n = jest.fn()
+const configureI18n = jest.fn();
 
-export default configureI18n
+export default configureI18n;
