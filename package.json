@@ -1,6 +1,6 @@
 {
   "name": "cra-template-nimble",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "keywords": [
     "react",
     "create-react-app",
@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": "^14.18.2 || ^16 || ^17"
   },
   "bugs": {
     "url": "https://github.com/nimblehq/react-templates/issues"
