@@ -1,3 +1,8 @@
-# These developers will be requested for review when someone opens a pull request.
-# Uncomment the line below and mention the reviewers with their github handles
-# *       @webchapter
+# Team Lead
+* @carryall
+
+# Team Members
+* @bterone @hanam1ni @hoangmirs @malparty @rsole @tyrro
+
+# Engineering Leads
+CODEOWNERS @nimblehq/engineering-leads
