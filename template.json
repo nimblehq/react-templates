@@ -49,6 +49,7 @@
       "stylelint:fix": "stylelint '**/*.scss' --fix",
       "codebase:lint": "yarn lint && yarn stylelint",
       "codebase:fix": "yarn lint:fix && yarn stylelint:fix",
+      "cypress": "start-server-and-test start 3000 cypress:run",
       "cypress:run": "cypress run",
       "cypress:open": "cypress open"
     },
@@ -62,7 +63,8 @@
       "excludeAfterRemap": true
     },
     "devDependencies": {
-      "@cypress/instrument-cra": "1.4.0"
+      "@cypress/instrument-cra": "1.4.0",
+      "start-server-and-test": "1.14.0"
     }
   }
 }
