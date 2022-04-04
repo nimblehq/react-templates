@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import logo from '../assets/images/logo.svg';
+import logo from 'assets/images/logo.svg';
 
 const HomeScreen = (): JSX.Element => {
   const { t } = useTranslation();

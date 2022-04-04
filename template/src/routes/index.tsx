@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 
-import HomeScreen from '../screens/Home';
+import HomeScreen from 'screens/Home';
 
 const routes: RouteObject[] = [
   {
