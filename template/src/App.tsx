@@ -1,24 +1,15 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useRoutes } from 'react-router-dom';
 
-import logo from './assets/images/logo.svg';
 import './dummy.scss';
 import './assets/stylesheets/application.scss';
 
-const App = (): JSX.Element => {
-  const { t } = useTranslation();
+import routes from './routes';
 
-  return (
-    <div className="app">
-      <header className="app-header">
-        <img src={logo} className="app-logo" alt="logo" />
-        <p>{t('sample_page.message', { codeSample: '<code>src/App.tsx</code>' })}</p>
-        <a className="app-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer" data-test-id="app-link">
-          {t('sample_page.learn_react')}
-        </a>
-      </header>
-    </div>
-  );
+const App = (): JSX.Element => {
+  const appRoutes = useRoutes(routes);
+
+  return <>{appRoutes}</>;
 };
 
 export default App;

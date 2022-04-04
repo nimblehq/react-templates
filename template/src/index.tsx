@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import configureI18n from './i18n';
@@ -10,7 +11,9 @@ configureI18n();
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback="loading">
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
