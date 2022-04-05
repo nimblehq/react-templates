@@ -2,11 +2,11 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import App from './App';
+import HomeScreen from './Home';
 
-describe('App', () => {
+describe('HomeScreen', () => {
   it('renders learn react link', () => {
-    render(<App />);
+    render(<HomeScreen />);
 
     const linkElement = screen.getByTestId('app-link');
 
