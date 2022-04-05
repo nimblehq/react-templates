@@ -1,21 +1,28 @@
-name: 'Netlify Deploy'
-
+name: Netlify Release
 on:
   push:
     branches: ['main', 'master']
-
 jobs:
-  deploy:
-    name: 'Deploy'
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
-      - uses: jsmrcaga/action-netlify-deploy@master
+      - uses: actions/checkout@v2
+
+
+      - name: Install modules
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
         with:
+          publish-dir: './build'
+          deploy-message: "Deploy from GitHub Actions"
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
-          NETLIFY_DEPLOY_TO_PROD: true
-          install_command: yarn
-          build_command: yarn build
+        timeout-minutes: 1
