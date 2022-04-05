@@ -1,31 +1,27 @@
-name: 'Netlify Preview Deploy'
-
+name: Netlify Preview
 on:
   push:
     branches-ignore: ['main', 'master']
-
 jobs:
-  deploy:
-    name: 'Deploy'
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      # Sets the branch name as environment variable
-      - uses: nelonoel/branch-name@v1.0.1
-      - uses: jsmrcaga/action-netlify-deploy@master
+
+      - name: Install modules
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
         with:
+          publish-dir: './build'
+          deploy-message: "Preview deployed from GitHub Actions"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          deploy_alias: ${{ env.BRANCH_NAME }}
-          install_command: yarn
-          build_command: yarn build
-
-      # Creates a status check with link to preview
-      - name: Status check
-        uses: Sibz/github-status-action@v1.1.1
-        with:
-          authToken: ${{ secrets.GITHUB_TOKEN }}
-          context: Netlify preview
-          state: success
-          target_url: https://${{ env.BRANCH_NAME }}--my-site.netlify.app
+        timeout-minutes: 1
