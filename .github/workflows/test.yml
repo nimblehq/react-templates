@@ -4,7 +4,7 @@ on: push
 
 jobs:
   test:
-    name: Run linters and tests
+    name: Bootstrap app, run linters and tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,7 +17,7 @@ jobs:
           cache: 'npm'
 
       - name: Bootstrap React App
-        run: npx create-react-app test-app
+        run: npx create-react-app test-app --template file:./
 
       - name: Run test
         working-directory: ./test-app
