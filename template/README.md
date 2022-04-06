@@ -59,7 +59,7 @@ To change the default fallback language
 
 ### GitHub Actions for Netlify
 
-The `.github/workflow` folder already includes GitHub Actions to deploy previews and releases of your app in Netlify.
+The `.github/workflows` folder already includes GitHub Actions to deploy previews and releases of your app in Netlify.
 
 How to use it?
 
