@@ -70,7 +70,8 @@ How to use it?
 3. Push your code to the repository.
 
 Any push under `main` or `master` triggers a release in production.
-Any push under another branch triggers a preview deployment in `{branch-name}.{site-url}`
+Any push under another branch triggers a preview deployment.
+Once a preview is deployed, the Preview URL is displayed in the Pull Request thread.
 
 ## Learn More
 
