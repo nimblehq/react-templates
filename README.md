@@ -28,7 +28,7 @@ To use this template, add `--template nimble` when creating a new app from the `
 
 
 ```sh
-npx create-react-app@latest my-app --template nimble
+npx create-react-app my-app --template nimble
 
 # or
 
