@@ -1,13 +1,14 @@
-name: Netlify Release
+name: Deploy to Netlify
+
 on:
   push:
     branches: ['main', 'master']
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-
 
       - name: Install modules
         run: yarn

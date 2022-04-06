@@ -1,13 +1,14 @@
-name: Netlify Preview
+name: Deploy Netlify Preview
+
 on:
   push:
     branches-ignore: ['main', 'master']
+
 jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-
 
       - name: Install modules
         run: yarn
