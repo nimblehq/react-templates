@@ -1,11 +1,11 @@
-name: Deploy Netlify Preview
+name: Deploy Preview to Netlify
 
 on:
   push:
     branches-ignore: ['main', 'master']
 
 jobs:
-  build:
+  deploy-preview:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
