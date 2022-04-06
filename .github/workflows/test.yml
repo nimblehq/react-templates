@@ -1,0 +1,32 @@
+name: Test
+
+on: push
+
+jobs:
+  test:
+    name: Run linters and tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node and restore cached dependencies
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Bootstrap React App
+        run: npx create-react-app test-app
+
+      - name: Run test
+        working-directory: ./test-app
+        run: npm run lint
+      
+      - name: Run unit tests
+        working-directory: ./test-app
+        run: npm test
+
+      - name: Run integration tests
+        working-directory: ./test-app
+        run: npm run cypress
