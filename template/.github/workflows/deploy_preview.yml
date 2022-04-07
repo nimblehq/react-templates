@@ -1,8 +1,6 @@
 name: Deploy Preview to Netlify
 
-on:
-  push:
-    branches-ignore: ['main', 'master']
+on: [pull_request, workflow_dispatch]
 
 jobs:
   deploy-preview:
@@ -20,7 +18,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
         with:
           publish-dir: './build'
-          deploy-message: "Preview deployed from GitHub Actions"
+          deploy-message: '#${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}'
           github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
