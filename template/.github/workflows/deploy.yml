@@ -1,8 +1,12 @@
-name: Deploy to Netlify
-
+name: Netlify Release
 on:
   push:
     branches: ['main', 'master']
+  workflow_dispatch:
+    inputs:
+      deploy-msg:
+        description: 'Deploy Message (visible in Netlify)'
+        required: true
 
 jobs:
   deploy:
@@ -20,7 +24,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
         with:
           publish-dir: './build'
-          deploy-message: "Deploy from GitHub Actions"
+          deploy-message: "Deploy from GitHub Actions. ${{ github.event.inputs.deploy-msg }}"
           production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
