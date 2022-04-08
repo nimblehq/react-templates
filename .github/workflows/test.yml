@@ -4,12 +4,17 @@ on: push
 
 jobs:
   test:
-    name: Bootstrap app, run linters and tests
+    name: Bootstrap app, run linters and tests with Node ${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [14, 16]
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -22,13 +27,13 @@ jobs:
       - name: Bootstrap React App
         run: npx create-react-app test-app --template file:./
 
-      - name: Run test
+      - name: Run linters
         working-directory: ./test-app
         run: npm run lint
       
       - name: Run unit tests
         working-directory: ./test-app
-        run: npm test
+        run: npm run test
 
       - name: Run integration tests
         working-directory: ./test-app
