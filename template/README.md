@@ -55,6 +55,24 @@ To change the default fallback language
 - Either edit the value of the environment variable `REACT_APP_DEFAULT_LANGUAGE` (cf. the `env.example` file)
 - Either directly edit the const `DEFAULT_FALLBACK_LANGUAGE` in `src/i18n.ts`
 
+## Deployment
+
+### GitHub Actions for Netlify
+
+The `.github/workflows` folder already includes GitHub Actions to deploy previews and releases of your app in Netlify.
+
+How to use it?
+
+1. Create a new empty application in Netlify (use Drag&Drop and drop their demo project)
+2. Configure the following action secrets in the Github repository:
+  - `NETLIFY_SITE_ID` available in the `Site settings` tab.
+  - `NETLIFY_AUTH_TOKEN`: created under `User settings, Applications, Personal access tokens`
+3. Push your code to the repository.
+
+Any push under `main` or `master` triggers a release in production.
+Any push under another branch triggers a preview deployment.
+Once a preview is deployed, the Preview URL is displayed in the Pull Request thread.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
