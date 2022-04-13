@@ -43,13 +43,13 @@
     },
     "scripts": {
       "start": "react-scripts -r @cypress/instrument-cra start",
-      "test:coverage": "react-scripts test --coverage --watchAll=false && yarn cypress:run && node ./scripts/coverage-merge.js && nyc report",
+      "test:coverage": "react-scripts test --coverage --watchAll=false && npm run cypress:run && node ./scripts/coverage-merge.js && nyc report",
       "lint": "eslint ./src ./cypress --ext .ts,.tsx",
       "lint:fix": "eslint ./src ./cypress --ext .ts,.tsx --fix",
       "stylelint": "stylelint '**/*.scss'",
       "stylelint:fix": "stylelint '**/*.scss' --fix",
-      "codebase:lint": "yarn lint && yarn stylelint",
-      "codebase:fix": "yarn lint:fix && yarn stylelint:fix",
+      "codebase:lint": "npm run lint && npm run stylelint",
+      "codebase:fix": "npm run lint:fix && npm run stylelint:fix",
       "cypress": "start-server-and-test start 3000 cypress:run",
       "cypress:run": "cypress run",
       "cypress:open": "cypress open"

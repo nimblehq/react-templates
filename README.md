@@ -29,10 +29,6 @@ To use this template, add `--template nimble` when creating a new app from the `
 
 ```sh
 npx create-react-app my-app --template nimble
-
-# or
-
-yarn create react-app my-app --template nimble
 ```
 
 For more information about `create-react-app`, please refer to:
@@ -67,10 +63,6 @@ To test the template locally, simply run the template install command with the p
 
 ```sh
 npx create-react-app my-app --template file:{../path/to/your/local/template/repo}
-
-# or
-
-yarn create react-app my-app --template file:{../path/to/your/local/template/repo}
 ```
 
 ## License
