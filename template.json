@@ -44,6 +44,7 @@
     "scripts": {
       "start": "react-scripts -r @cypress/instrument-cra start",
       "test:coverage": "react-scripts test --coverage --watchAll=false && npm run cypress:run && node ./scripts/coverage-merge.js && nyc report",
+      "test:merge-coverage": "node ./scripts/coverage-merge.js",
       "lint": "eslint ./src ./cypress --ext .ts,.tsx",
       "lint:fix": "eslint ./src ./cypress --ext .ts,.tsx --fix",
       "stylelint": "stylelint '**/*.scss'",
@@ -65,6 +66,10 @@
     },
     "devDependencies": {
       "@cypress/instrument-cra": "1.4.0",
+      "danger": "10.9.0",
+      "danger-plugin-code-coverage": "1.1.9",
+      "danger-plugin-istanbul-coverage": "1.6.2",
+      "danger-plugin-jest-codecov": "0.0.8",
       "start-server-and-test": "1.14.0"
     }
   }
