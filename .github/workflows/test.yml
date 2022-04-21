@@ -29,8 +29,8 @@ jobs:
 
       - name: Run linters
         working-directory: ./test-app
-        run: npm run lint
-      
+        run: npm run codebase:lint
+
       - name: Run unit tests
         working-directory: ./test-app
         run: npm run test
