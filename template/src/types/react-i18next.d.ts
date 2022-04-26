@@ -1,4 +1,3 @@
-import 'react-i18next';
 import { TFuncKey } from 'react-i18next';
 
 import defaultRes from '../../public/locales/en/translation.json';
