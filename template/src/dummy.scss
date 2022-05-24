@@ -1,3 +1,5 @@
+@use 'src/assets/stylesheets/application' as app;
+
 body {
   margin: 0;
 
@@ -36,14 +38,14 @@ code {
   justify-content: center;
   min-height: 100vh;
 
-  background-color: #282c34;
+  background-color: app.$bg-color;
 
   color: #fff;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(#{app.rem(10px)} + 2vmin);
 }
 
 .app-link {
-  color: #61dafb;
+  color: app.$link-color;
 }
 
 @keyframes app-logo-spin {
