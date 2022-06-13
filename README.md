@@ -15,6 +15,7 @@
 </p>
 
 Our template offers a rich boilerplate to jump-start React-based application development with [Create React App](https://github.com/facebook/create-react-app).
+The complete list of features included in this template is available in [the Wiki](https://github.com/nimblehq/react-templates/wiki).
 
 ## Getting Started
 
