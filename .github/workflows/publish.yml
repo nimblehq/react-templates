@@ -21,7 +21,6 @@ jobs:
           node-version: "16"
           cache: "npm"
           registry-url: "https://registry.npmjs.org"
-          scope: '@nimblehq'
 
       - name: Install dependencies
         run: npm ci
