@@ -1,0 +1,23 @@
+name: Publish wiki
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+    - uses: Decathlon/wiki-page-creator-action@v2.0.2
+      env:
+        GH_PAT: ${{ secrets.WIKI_ACTION_TOKEN }}
+        ACTION_MAIL: dev@nimblehq.co
+        ACTION_NAME: team-nimblehq
+        OWNER: nimblehq
+        REPO_NAME: react-templates
+        MD_FOLDER: .github/wiki
+        WIKI_PUSH_MESSAGE: Push from Github action
