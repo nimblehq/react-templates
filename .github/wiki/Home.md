@@ -33,3 +33,13 @@ In addition to Create-React-App, this template provides the following features:
 ## GitLab
 
 - GitLab templates for Merge Requests
+
+# Recommended React Libraries
+
+| Domain | This was great | This was bad | This has not been tried, but it seems interesting! |
+|---|---|---|---|
+| HTML Form Handling | [React Hook Form](https://react-hook-form.com/) — Used in [Varuna](https://github.com/nimblehq/varun-web/) | | | |
+| Store | [Redux](https://redux.js.org/) with the [Redux Toolkit](https://redux-toolkit.js.org/) — Used in [Varuna](https://github.com/nimblehq/varun-web/) | | | |
+| UI Notifications | [React Hot Toast](https://react-hot-toast.com/) — Used in [Varuna](https://github.com/nimblehq/varun-web/) | | | |
+| Calendar Component | [React Calendar](https://github.com/wojtekmaj/react-calendar)  — Used in [Varuna](https://github.com/nimblehq/varun-web/) | | | |
+| Google Maps | [Google Map React](https://github.com/google-map-react/google-map-react)  — Used in [Varuna](https://github.com/nimblehq/varun-web/) | | | |
