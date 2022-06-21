@@ -1,29 +1,7 @@
 {
-  "name": "@nimblehq/cra-template",
-  "version": "2.2.2",
-  "description": "The base template for Nimble React App.",
-  "author": "Nimble <dev@nimblehq.co>",
-  "keywords": [
-    "react",
-    "create-react-app",
-    "template",
-    "typescript",
-    "nimble"
-  ],
-  "homepage": "https://github.com/nimblehq/react-templates",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nimblehq/react-templates.git"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": "^14.18.2 || ^16 || ^17"
-  },
-  "bugs": {
-    "url": "https://github.com/nimblehq/react-templates/issues"
-  },
-  "files": [
-    "template",
-    "template.json"
-  ]
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
 }
