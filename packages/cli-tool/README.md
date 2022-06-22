@@ -37,16 +37,16 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`nimble-react generate -n APP_NAME`](#nimble-react--hello-person)
+* [`nimble-react generate APP_NAME`](#nimble-react--generate-app_name)
 * [`nimble-react help [COMMAND]`](#nimble-react--help-command)
 
-## `nimble-react generate -n APP_NAME`
+## `nimble-react generate APP_NAME`
 
 Say hello
 
-```
+```bash
 USAGE
-  $ nimble-react generate -n=[APP_NAME]
+  $ nimble-react generate [APP_NAME]
 
 FLAGS
   -n, --app-name=<value>  (required) Application name to generate
@@ -55,7 +55,7 @@ DESCRIPTION
   Generate CRA application
 
 EXAMPLES
-  $ nimble-react friend -n MyApp
+  $ nimble-react friend my-app
 ```
 
 ## `nimble-react help [COMMAND]`
