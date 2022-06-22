@@ -7,11 +7,7 @@
     "nimble-react ": "./bin/run"
   },
   "keywords": [
-    "react",
-    "create-react-app",
-    "template",
-    "typescript",
-    "nimble"
+    "oclif"
   ],
   "homepage": "https://github.com/nimblehq/react-templates/packages/cli-tool",
   "license": "MIT",
@@ -46,19 +42,21 @@
     "typescript": "^4.4.3"
   },
   "oclif": {
-    "bin": "nimble-react ",
-    "dirname": "nimble-react ",
+    "bin": "nimble-react",
+    "dirname": "nimble-react",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-plugins"
     ],
     "topicSeparator": " ",
-    "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
-      }
-    }
+    "topics": {},
+    "hooks": {
+      "initialize": "./src/hooks/initialize/generate-base-app"
+    },
+    "additionalHelpFlags": [
+      "-h"
+    ]
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
@@ -73,8 +71,5 @@
     "node": ">=12.0.0"
   },
   "bugs": "https://github.com/nimblehq/react-templates/issues",
-  "keywords": [
-    "oclif"
-  ],
   "types": "dist/index.d.ts"
 }
