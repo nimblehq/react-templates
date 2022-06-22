@@ -4,14 +4,14 @@ describe('generate', () => {
   test
   .stdout()
   .command(['generate'])
-  .it('runs hello', ctx => {
-    expect(ctx.stdout).to.contain('hello world')
+  .it('Throw an error', ctx => {
+    expect(ctx.stdout).to.throw(Error, 'Error: command generator not found')
   })
 
   test
   .stdout()
-  .command(['generate', '--name', 'jeff'])
-  .it('runs hello --name jeff', ctx => {
+  .command(['generate', 'app-name'])
+  .it('generates an app with the given name', ctx => {
     expect(ctx.stdout).to.contain('hello jeff')
   })
 })
