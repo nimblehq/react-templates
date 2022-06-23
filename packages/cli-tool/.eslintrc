@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "oclif",
+    "oclif-typescript"
+  ],
+  "rules": {
+    "unicorn/prefer-module": 0
+  }
+}
