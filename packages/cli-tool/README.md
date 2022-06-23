@@ -55,14 +55,14 @@ DESCRIPTION
   Generate CRA application
 
 EXAMPLES
-  $ nimble-react friend my-app
+  $ nimble-react generate my-app
 ```
 
 ## `nimble-react help [COMMAND]`
 
 Display help for nimble-react .
 
-```
+```bash
 USAGE
   $ nimble-react help [COMMAND] [-n]
 
@@ -95,4 +95,3 @@ See [our other projects][community] or [hire our team][hire] to help build your 
 
 [community]: https://github.com/nimblehq
 [hire]: https://nimblehq.co/
-`
