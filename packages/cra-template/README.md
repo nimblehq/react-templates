@@ -3,15 +3,15 @@
 </p>
 
 <p align="center">
-  <strong>React Templates</strong>
+  <strong>CRA Template</strong>
 </p>
 
 
 ---
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/cra-template-nimble"><img src="https://badgen.net/npm/v/cra-template-nimble" /></a>
-  <a href="https://www.npmjs.com/package/cra-template-nimble"><img src="https://badgen.net/npm/dy/cra-template-nimble" /></a>
+  <a href="https://www.npmjs.com/package/@nimblehq/cra-template"><img src="https://badgen.net/npm/v/@nimblehq/cra-template" /></a>
+  <a href="https://www.npmjs.com/package/@nimblehq/cra-template"><img src="https://badgen.net/npm/dy/@nimblehq/cra-template" /></a>
 </p>
 
 Our template offers a rich boilerplate to jump-start React-based application development with [Create React App](https://github.com/facebook/create-react-app).
@@ -25,33 +25,28 @@ The complete list of features included in this template is available on [the Wik
 
 ### Usage
 
-* With CLI tool
+To use this template, add `--template @nimblehq` when creating a new app from the `create-react-app` command.
 
-Start the CLI to generate the React application
-
-```bash
-npm install -g @nimblehq/react-template
-
-nimble-react generate {application-name}
+```sh
+npx create-react-app my-app --template @nimblehq
 ```
 
-* With npx
+For more information about `create-react-app`, please refer to:
 
-```bash
-npx @nimblehq/react-template generate {application-name}
-```
+- [Getting Started](https://create-react-app.dev/docs/getting-started) — How to create a new app.
+- [User Guide](https://create-react-app.dev) – How to develop apps bootstrapped with Create React App.
 
 ## Template structure
 
-This project uses [Lerna](https://lerna.js.org/) to manage packages. The packages are consist of
-
-* The CLI tool facilitates the process of application generating
-* CRA template
-
-```bash
-├─ packages
-│ ├─ cli-tool
-│ └─ cra-template
+```
+.
+├── template
+│   ├── public
+│   │   ├── ...
+│   ├── src
+│   |   └── ...
+│   ├── gitignore
+│   └── README.md
 ├── .gitignore
 ├── LICENSE
 ├── package.json
@@ -60,12 +55,15 @@ This project uses [Lerna](https://lerna.js.org/) to manage packages. The package
 ```
 
 `Typescript` is used by default for our React applications.
+With the standard files from a non-ejected `create-react-app` project, this template adds a folder structure in `/src` that follows our [React Convention](https://nimblehq.co/compass/development/code-conventions/javascript/react/#project-structure).
 
 ## How to contribute
 
-* Install Lerna for accessing to the lerna CLI.
+To test the template locally, simply run the template install command with the path of your local `react-template/packages/cra-template` repository, prefixed by `file:`:
 
-* To contribute to the existing packages, simply navigate to the `/packages` folder and create a pull request to change them.
+```sh
+npx create-react-app my-app --template file:{../path/to/your/local/template/repo}
+```
 
 ## License
 
