@@ -3,6 +3,8 @@ import {ChildProcess} from 'node:child_process'
 import Inquirer from 'inquirer'
 import * as fs from 'node:fs'
 
+const VERSION_CONTROL_OPTIONS: { [key: string]: string; } = {github: 'GitHub', gitlab: 'GitLab', none: 'None'}
+
 export default class Generate extends Command {
   static description = 'Generate Nimble React application'
 
@@ -17,39 +19,29 @@ export default class Generate extends Command {
   }]
 
   static flags = {
-    'version-control': Flags.string({
+    versionControl: Flags.string({
       char: 'c',
       description: 'version control to use in the project',
-      options: ['github', 'gitlab', 'none'],
+      options: Object.keys(VERSION_CONTROL_OPTIONS),
     }),
   }
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Generate)
     const appName = args.appName
+    const versionControlChoices = Object.keys(VERSION_CONTROL_OPTIONS).map((key: string) => {
+      return {value: key, name: VERSION_CONTROL_OPTIONS[key]}
+    })
     const questions = [
       {
         type: 'list',
         name: 'versionControl',
         message: 'Select a version control service:',
-        choices: [
-          {
-            value: 'github',
-            name: 'GitHub',
-          },
-          {
-            value: 'gitlab',
-            name: 'GitLab',
-          },
-          {
-            value: 'none',
-            name: 'None',
-          },
-        ],
+        choices: versionControlChoices,
       },
     ]
 
-    let versionControl = flags['version-control']
+    let versionControl = flags.versionControl
 
     if (!versionControl) {
       const answers = await Inquirer.prompt(questions)
