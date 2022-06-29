@@ -1,7 +1,6 @@
 import {Command, Flags, Hook} from '@oclif/core'
 import {ChildProcess} from 'node:child_process'
 import Inquirer from 'inquirer'
-import cli from 'cli-ux'
 import * as fs from 'node:fs'
 
 export default class Generate extends Command {
