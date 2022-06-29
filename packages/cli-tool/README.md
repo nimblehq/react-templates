@@ -49,13 +49,13 @@ USAGE
   $ nimble-react generate [APP_NAME]
 
 FLAGS
-  -n, --app-name=<value>  (required) Application name to generate
+  -c, --versionControl=<value> (optional) version control to use in the project (options: github,gitlab,none)
 
 DESCRIPTION
   Generate CRA application
 
 EXAMPLES
-  $ nimble-react generate my-app
+  $ nimble-react generate my-app --versionControl github
 ```
 
 ## `nimble-react help [COMMAND]`
@@ -80,10 +80,11 @@ DESCRIPTION
 ## How to contribute
 
 To run the CLI on your local machine:
-```sh
-$ cd ./packages/cli-tool/
-$ npm i
-$ ./bin/dev generate app-name
+
+```bash
+  $ cd ./packages/cli-tool/
+  $ npm i
+  $ ./bin/dev generate app-name
 ```
 
 > 💡 Running just `./bin/dev` without argument will display all the possible commands as well as additional information.
