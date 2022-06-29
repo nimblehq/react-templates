@@ -41,7 +41,7 @@ export default class Generate extends Command {
       },
       {
         type: 'list',
-        name: 'ui-framework',
+        name: 'uiFramework',
         message: 'Select a UI Framework:',
         choices: [
           {
@@ -61,9 +61,9 @@ export default class Generate extends Command {
     ]
 
     let versionControl = flags.versionControl
+    const answers = await Inquirer.prompt(questions)
 
     if (!versionControl) {
-      const answers = await Inquirer.prompt(questions)
       versionControl = answers.versionControl
     }
 
