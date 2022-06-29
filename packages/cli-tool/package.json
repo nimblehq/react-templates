@@ -22,7 +22,10 @@
   "dependencies": {
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^2.0.1"
+    "@oclif/plugin-plugins": "^2.0.1",
+    "cli-ux": "^6.0.5",
+    "inquirer": "^9.0.0",
+    "inquirer-test": "^2.0.1"
   },
   "devDependencies": {
     "@oclif/test": "^2",
