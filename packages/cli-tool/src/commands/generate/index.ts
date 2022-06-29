@@ -39,6 +39,25 @@ export default class Generate extends Command {
         message: 'Select a version control service:',
         choices: versionControlChoices,
       },
+      {
+        type: 'list',
+        name: 'ui-framework',
+        message: 'Select a UI Framework:',
+        choices: [
+          {
+            value: 'bootstrap',
+            name: 'Bootstrap',
+          },
+          {
+            value: 'tailwind',
+            name: 'Tailwind CSS',
+          },
+          {
+            value: 'none',
+            name: 'None',
+          },
+        ],
+      },
     ]
 
     let versionControl = flags.versionControl
