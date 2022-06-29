@@ -29,6 +29,7 @@ export default class Generate extends Command {
   public async run(): Promise<void> {
     const { args } = await this.parse(Generate);
     const appName = args.appName;
+    const uiFrameworkChoices = getChoices(UI_FRAMEWORK_OPTIONS);
     const versionControlChoices = getChoices(VERSION_CONTROL_OPTIONS);
     const questions = [
       {
@@ -36,6 +37,12 @@ export default class Generate extends Command {
         name: 'versionControl',
         message: 'Select a version control service:',
         choices: versionControlChoices,
+      },
+      {
+        type: 'list',
+        name: 'uiFramework',
+        message: 'Select a UI Framework:',
+        choices: uiFrameworkChoices,
       },
     ];
     const answers = await Inquirer.prompt(questions);
@@ -58,8 +65,51 @@ export default class Generate extends Command {
       }
 
       setVersionControl(appName, answers.versionControl);
+      await this.setUIFramework(appName, answers.uiFramework);
+
+      // Clean files after all steps
+      this.cleanFiles(appName);
     } catch (error) {
       this.error(error as string | Error);
     }
   }
+
+  setUIFramework = async(
+    appName: string,
+    uiFramework: string,
+  ): Promise<void> => {
+    if (uiFramework === 'bootstrap') {
+      cli.info('Configure Bootstrap...');
+      const result = await this.config.runHook('install-bootstrap', {
+        appName: appName,
+      });
+
+      if (hookFailed(result)) {
+        const errorMsg = formatHookErrorMsg(result);
+        cli.info(
+          'Something went wrong while setting up bootstrap...',
+          errorMsg,
+        );
+      }
+    }
+  };
+
+  setVersionControl = (appName: string, versionControl: string): void => {
+    if (versionControl === 'github') {
+      cli.info('Configure GitHub...');
+
+      fs.rmSync(`${appName}/.gitlab`, { recursive: true, force: true });
+    } else if (versionControl === 'gitlab') {
+      cli.info('Configure GitLab...');
+
+      fs.rmSync(`${appName}/.github`, { recursive: true, force: true });
+    } else {
+      fs.rmSync(`${appName}/.gitlab`, { recursive: true, force: true });
+      fs.rmSync(`${appName}/.github`, { recursive: true, force: true });
+    }
+  };
+
+  cleanFiles = (appName: string): void => {
+    fs.rmdirSync(`${appName}/.add-ons`);
+  };
 }
