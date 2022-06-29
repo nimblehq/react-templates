@@ -1,4 +1,4 @@
-import {Command, Hook} from '@oclif/core'
+import {Command, Flags, Hook} from '@oclif/core'
 import {ChildProcess} from 'node:child_process'
 import cli from 'cli-ux'
 import * as fs from 'node:fs'
@@ -16,15 +16,28 @@ export default class Generate extends Command {
     description: 'application name',
   }]
 
+  static flags = {
+    'version-control': Flags.string({
+      char: 'c',
+      description: 'version control to use in the project',
+      options: ['Github', 'Gitlab'],
+    }),
+  }
+
   public async run(): Promise<void> {
-    const {args} = await this.parse(Generate)
+    const {args, flags} = await this.parse(Generate)
+    const appName = args.appName
 
-    await this.config.runHook('initialize', {appName: args.appName}).then((value : Hook.Result<ChildProcess>) => {
+    await this.config.runHook('initialize', {appName: appName}).then((value : Hook.Result<ChildProcess>) => {
       value.successes[0].result.on('exit', () => {
-        this.log(`Generating Nimble React app with the project name = ${args.appName}!`)
+        this.log(`Generating Nimble React app with the project name = ${appName}!`)
 
-        // Continue on prompt for add on
-        this.promptVersionControl(args.appName)
+        const versionControl = flags['version-control']
+        if (versionControl) {
+          this.setVersionControl(appName, versionControl)
+        } else {
+          this.promptVersionControl(appName)
+        }
       })
     }).catch((error: string) => {
       this.error(error)
@@ -32,11 +45,14 @@ export default class Generate extends Command {
   }
 
   promptVersionControl = async (appName: string): Promise<void> => {
-    const addGitlab = await cli.prompt('Which version control do you use? (Github/Gitlab)')
+    const versionControl = await cli.prompt('Which version control do you use? (Github/Gitlab)')
+    this.setVersionControl(appName, versionControl)
+  }
 
-    if (addGitlab === 'Github') {
+  setVersionControl = (appName: string, versionControl: string): void => {
+    if (versionControl === 'Github') {
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
-    } else if (addGitlab === 'Gitlab') {
+    } else if (versionControl === 'Gitlab') {
       fs.rmSync(`${appName}/.github`, {recursive: true, force: true})
     }
   }
