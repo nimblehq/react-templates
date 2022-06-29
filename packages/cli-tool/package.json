@@ -24,12 +24,13 @@
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
     "cli-ux": "^6.0.5",
-    "inquirer": "^9.0.0",
+    "inquirer": "^8.2.4",
     "inquirer-test": "^2.0.1"
   },
   "devDependencies": {
     "@oclif/test": "^2",
     "@types/chai": "^4",
+    "@types/inquirer": "^8.2.1",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.9.4",
     "chai": "^4",
