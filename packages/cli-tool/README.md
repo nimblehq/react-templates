@@ -15,7 +15,7 @@
 
 Command Line Interface for React application at Nimble.
 
-This CLI build with [Open CLI framework](https://oclif.io/)[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+This CLI is built with the [Open CLI framework](https://oclif.io/) [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -60,7 +60,7 @@ EXAMPLES
 
 ## `nimble-react help [COMMAND]`
 
-Display help for nimble-react .
+Display help for nimble-react.
 
 ```bash
 USAGE
@@ -76,6 +76,19 @@ DESCRIPTION
   Display help for nimble-react .
 ```
 <!-- commandsstop -->
+
+## How to contribute
+
+To run the CLI on your local machine:
+```sh
+$ cd ./packages/cli-tool/
+$ npm i
+$ ./bin/dev generate app-name
+```
+
+> 💡 Running just `./bin/dev` without argument will display all the possible commands as well as additional information.
+
+Find more the [OCLIF Documentation](https://oclif.io/docs/introduction.html)!
 
 ## License
 

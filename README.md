@@ -43,7 +43,7 @@ npx @nimblehq/react-template generate {application-name}
 
 ## Template structure
 
-This project uses [Lerna](https://lerna.js.org/) to manage packages. The packages are consist of
+This project uses [Lerna](https://lerna.js.org/) to manage packages. The packages consist of:
 
 * The CLI tool facilitates the process of application generating
 * CRA template
