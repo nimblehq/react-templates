@@ -1,7 +1,11 @@
-import {Command, Flags, Hook} from '@oclif/core'
-import {ChildProcess} from 'node:child_process'
-import Inquirer from 'inquirer'
 import * as fs from 'node:fs'
+
+import {Command} from '@oclif/core'
+import {cli} from 'cli-ux'
+import Inquirer from 'inquirer'
+
+import getChoices from '../../helpers/choices'
+import {formatHookErrorMsg, hookFailed} from '../../helpers/hook-error'
 
 const VERSION_CONTROL_OPTIONS: { [key: string]: string; } = {github: 'GitHub', gitlab: 'GitLab', none: 'None'}
 
@@ -16,22 +20,18 @@ export default class Generate extends Command {
     name: 'appName',
     required: true,
     description: 'application name',
+  },
+  {
+    name: 'template',
+    required: false,
+    description: 'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
+    default: '@nimblehq',
   }]
 
-  static flags = {
-    versionControl: Flags.string({
-      char: 'c',
-      description: 'version control to use in the project',
-      options: Object.keys(VERSION_CONTROL_OPTIONS),
-    }),
-  }
-
   public async run(): Promise<void> {
-    const {args, flags} = await this.parse(Generate)
+    const {args} = await this.parse(Generate)
     const appName = args.appName
-    const versionControlChoices = Object.keys(VERSION_CONTROL_OPTIONS).map((key: string) => {
-      return {value: key, name: VERSION_CONTROL_OPTIONS[key]}
-    })
+    const versionControlChoices = getChoices(VERSION_CONTROL_OPTIONS)
     const questions = [
       {
         type: 'list',
@@ -40,31 +40,31 @@ export default class Generate extends Command {
         choices: versionControlChoices,
       },
     ]
+    const answers = await Inquirer.prompt(questions)
 
-    let versionControl = flags.versionControl
+    try {
+      this.log(`Generating Nimble React app with the project name: ${appName}!`)
+      const result = await this.config.runHook('initialize', {appName, template: args.template})
 
-    if (!versionControl) {
-      const answers = await Inquirer.prompt(questions)
-      versionControl = answers.versionControl
+      if (hookFailed(result)) {
+        cli.info('Something went wrong while generating the cra-template...', formatHookErrorMsg(result))
+        return
+      }
+
+      this.setVersionControl(appName, answers.versionControl)
+    } catch (error) {
+      this.error(error as string | Error)
     }
-
-    await this.config.runHook('initialize', {appName: appName}).then((value : Hook.Result<ChildProcess>) => {
-      value.successes[0].result.on('exit', () => {
-        this.log(`Generating Nimble React app with the project name: ${appName}!`)
-
-        if (versionControl) {
-          this.setVersionControl(appName, versionControl)
-        }
-      })
-    }).catch((error: string) => {
-      this.error(error)
-    })
   }
 
   setVersionControl = (appName: string, versionControl: string): void => {
     if (versionControl === 'github') {
+      cli.info('Configure GitHub...')
+
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
     } else if (versionControl === 'gitlab') {
+      cli.info('Configure GitLab...')
+
       fs.rmSync(`${appName}/.github`, {recursive: true, force: true})
     } else {
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
