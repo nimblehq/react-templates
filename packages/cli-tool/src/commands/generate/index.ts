@@ -2,7 +2,10 @@ import {Command, Flags, Hook} from '@oclif/core'
 import {ChildProcess} from 'node:child_process'
 import Inquirer from 'inquirer'
 import * as fs from 'node:fs'
+import getChoices from '../../helpers/choices'
+import { cli } from 'cli-ux'
 
+const UI_FRAMEWORK_OPTIONS: { [key: string]: string; } = {bootstrap: 'Bootstrap', tailwind: 'Tailwind CSS', none: 'None'}
 const VERSION_CONTROL_OPTIONS: { [key: string]: string; } = {github: 'GitHub', gitlab: 'GitLab', none: 'None'}
 
 export default class Generate extends Command {
@@ -18,20 +21,11 @@ export default class Generate extends Command {
     description: 'application name',
   }]
 
-  static flags = {
-    versionControl: Flags.string({
-      char: 'c',
-      description: 'version control to use in the project',
-      options: Object.keys(VERSION_CONTROL_OPTIONS),
-    }),
-  }
-
   public async run(): Promise<void> {
-    const {args, flags} = await this.parse(Generate)
+    const {args} = await this.parse(Generate)
     const appName = args.appName
-    const versionControlChoices = Object.keys(VERSION_CONTROL_OPTIONS).map((key: string) => {
-      return {value: key, name: VERSION_CONTROL_OPTIONS[key]}
-    })
+    const versionControlChoices = getChoices(VERSION_CONTROL_OPTIONS)
+    const uiFrameworkChoices = getChoices(UI_FRAMEWORK_OPTIONS)
     const questions = [
       {
         type: 'list',
@@ -43,47 +37,37 @@ export default class Generate extends Command {
         type: 'list',
         name: 'uiFramework',
         message: 'Select a UI Framework:',
-        choices: [
-          {
-            value: 'bootstrap',
-            name: 'Bootstrap',
-          },
-          {
-            value: 'tailwind',
-            name: 'Tailwind CSS',
-          },
-          {
-            value: 'none',
-            name: 'None',
-          },
-        ],
+        choices: uiFrameworkChoices,
       },
     ]
-
-    let versionControl = flags.versionControl
     const answers = await Inquirer.prompt(questions)
-
-    if (!versionControl) {
-      versionControl = answers.versionControl
-    }
 
     await this.config.runHook('initialize', {appName: appName}).then((value : Hook.Result<ChildProcess>) => {
       value.successes[0].result.on('exit', () => {
         this.log(`Generating Nimble React app with the project name: ${appName}!`)
 
-        if (versionControl) {
-          this.setVersionControl(appName, versionControl)
+        if (answers.versionControl) {
+          this.setVersionControl(appName, answers.versionControl)
         }
       })
     }).catch((error: string) => {
       this.error(error)
     })
+
+    if (answers.uiFramework === 'bootstrap') {
+      cli.info('Configure Bootstrap...')
+      await this.config.runHook('install-bootstrap', {appName: appName})
+    }
   }
 
   setVersionControl = (appName: string, versionControl: string): void => {
     if (versionControl === 'github') {
+      cli.info('Configure GitHub...')
+
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
     } else if (versionControl === 'gitlab') {
+      cli.info('Configure GitLab...')
+
       fs.rmSync(`${appName}/.github`, {recursive: true, force: true})
     } else {
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
