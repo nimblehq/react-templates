@@ -1,9 +1,11 @@
-import {Command, Flags, Hook} from '@oclif/core'
 import {ChildProcess} from 'node:child_process'
-import Inquirer from 'inquirer'
 import * as fs from 'node:fs'
+
+import {Command, Hook} from '@oclif/core'
+import {cli} from 'cli-ux'
+import Inquirer from 'inquirer'
+
 import getChoices from '../../helpers/choices'
-import { cli } from 'cli-ux'
 
 const UI_FRAMEWORK_OPTIONS: { [key: string]: string; } = {bootstrap: 'Bootstrap', tailwind: 'Tailwind CSS', none: 'None'}
 const VERSION_CONTROL_OPTIONS: { [key: string]: string; } = {github: 'GitHub', gitlab: 'GitLab', none: 'None'}
@@ -42,17 +44,19 @@ export default class Generate extends Command {
     ]
     const answers = await Inquirer.prompt(questions)
 
-    await this.config.runHook('initialize', {appName: appName}).then((value : Hook.Result<ChildProcess>) => {
-      value.successes[0].result.on('exit', () => {
-        this.log(`Generating Nimble React app with the project name: ${appName}!`)
-
+    try {
+      this.log(`Generating Nimble React app with the project name: ${appName}!`)
+      const initializeProcess : Hook.Result<ChildProcess> = await this.config.runHook('initialize', {appName: appName})
+      console.log('After init, before exit')
+      initializeProcess.successes[0].result.on('exit', () => {
+        console.log('After init, AFTER exit')
         if (answers.versionControl) {
           this.setVersionControl(appName, answers.versionControl)
         }
       })
-    }).catch((error: string) => {
+    } catch (error: any) {
       this.error(error)
-    })
+    }
 
     if (answers.uiFramework === 'bootstrap') {
       cli.info('Configure Bootstrap...')

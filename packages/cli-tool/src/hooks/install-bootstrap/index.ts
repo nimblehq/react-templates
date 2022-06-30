@@ -1,6 +1,6 @@
 import {ChildProcess, spawn} from 'node:child_process'
 
-const hook = async function (options: {appName: string}): Promise<ChildProcess> {
+const hook = async function(options: {appName: string}): Promise<ChildProcess> {
   await spawn('cd', [options.appName], {shell: true, stdio: 'inherit'})
 
   const childProcess = await spawn('npm', [
