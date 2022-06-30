@@ -1,13 +1,11 @@
-import {ChildProcess, spawn} from 'node:child_process'
+import runCommand from '../../helpers/child-process'
 
-const hook = async function(options: {appName: string}): Promise<ChildProcess> {
-  const childProcess = await spawn('npx', [
+const hook = async function(options: {appName: string}): Promise<boolean> {
+  return runCommand('npx', [
     'create-react-app',
     `${options.appName}`,
     '--template @nimblehq',
-  ], {shell: true, stdio: 'inherit'})
-
-  return childProcess
+  ])
 }
 
 export default hook

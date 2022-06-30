@@ -1,7 +1,6 @@
-import {ChildProcess} from 'node:child_process'
 import * as fs from 'node:fs'
 
-import {Command, Hook} from '@oclif/core'
+import {Command} from '@oclif/core'
 import {cli} from 'cli-ux'
 import Inquirer from 'inquirer'
 
@@ -46,14 +45,13 @@ export default class Generate extends Command {
 
     try {
       this.log(`Generating Nimble React app with the project name: ${appName}!`)
-      const initializeProcess : Hook.Result<ChildProcess> = await this.config.runHook('initialize', {appName: appName})
-      console.log('After init, before exit')
-      initializeProcess.successes[0].result.on('exit', () => {
-        console.log('After init, AFTER exit')
+      const initializeResult = await this.config.runHook('initialize', {appName: appName})
+
+      if (initializeResult.successes[0]) {
         if (answers.versionControl) {
           this.setVersionControl(appName, answers.versionControl)
         }
-      })
+      }
     } catch (error: any) {
       this.error(error)
     }
