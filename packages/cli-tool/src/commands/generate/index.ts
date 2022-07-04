@@ -20,11 +20,18 @@ export default class Generate extends Command {
     name: 'appName',
     required: true,
     description: 'application name',
+  },
+  {
+    name: 'template',
+    required: false,
+    description: 'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
+    default: '@nimblehq'
   }]
 
   public async run(): Promise<void> {
     const {args} = await this.parse(Generate)
     const appName = args.appName
+    const template = args.template
     const versionControlChoices = getChoices(VERSION_CONTROL_OPTIONS)
     const uiFrameworkChoices = getChoices(UI_FRAMEWORK_OPTIONS)
     const questions = [
@@ -45,12 +52,10 @@ export default class Generate extends Command {
 
     try {
       this.log(`Generating Nimble React app with the project name: ${appName}!`)
-      const initializeResult = await this.config.runHook('initialize', {appName: appName})
+      const initializeResult = await this.config.runHook('initialize', {appName, template})
 
-      if (initializeResult.successes[0]) {
-        if (answers.versionControl) {
-          this.setVersionControl(appName, answers.versionControl)
-        }
+      if (initializeResult.successes[0] && answers.versionControl) {
+        this.setVersionControl(appName, answers.versionControl)
       }
     } catch (error: any) {
       this.error(error)
