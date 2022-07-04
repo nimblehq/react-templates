@@ -89,6 +89,12 @@ To run the CLI on your local machine:
 
 > 💡 Running just `./bin/dev` without argument will display all the possible commands as well as additional information.
 
+If your changes also impacted the `cra-template` package, you can still test them locally using:
+
+``````BASH
+  ./bin/dev generate test-cli file:../cra-template
+```
+
 Find more the [OCLIF Documentation](https://oclif.io/docs/introduction.html)!
 
 ## License
