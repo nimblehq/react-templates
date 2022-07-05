@@ -104,6 +104,10 @@ export default class Generate extends Command {
         )
       }
     }
+
+    if (uiFramework === 'tailwind') {
+      cli.info('Tailwind is not available yet. Please configure it manually.')
+    }
   };
 
   setVersionControl = (appName: string, versionControl: string): void => {
