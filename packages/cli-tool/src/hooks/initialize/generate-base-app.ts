@@ -1,5 +1,3 @@
-import { template } from '@oclif/core/lib/help/util'
-import { cli } from 'cli-ux'
 import runCommand from '../../helpers/child-process'
 
 const hook = async function(options: {appName: string, template: string}): Promise<boolean> {

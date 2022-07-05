@@ -5,6 +5,7 @@ import {cli} from 'cli-ux'
 import Inquirer from 'inquirer'
 
 import getChoices from '../../helpers/choices'
+import {formatHookErrorMsg, hookFailed} from '../../helpers/hook-error'
 
 const UI_FRAMEWORK_OPTIONS: { [key: string]: string; } = {bootstrap: 'Bootstrap', tailwind: 'Tailwind CSS', none: 'None'}
 const VERSION_CONTROL_OPTIONS: { [key: string]: string; } = {github: 'GitHub', gitlab: 'GitLab', none: 'None'}
@@ -25,13 +26,12 @@ export default class Generate extends Command {
     name: 'template',
     required: false,
     description: 'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
-    default: '@nimblehq'
+    default: '@nimblehq',
   }]
 
   public async run(): Promise<void> {
     const {args} = await this.parse(Generate)
     const appName = args.appName
-    const template = args.template
     const versionControlChoices = getChoices(VERSION_CONTROL_OPTIONS)
     const uiFrameworkChoices = getChoices(UI_FRAMEWORK_OPTIONS)
     const questions = [
@@ -52,18 +52,29 @@ export default class Generate extends Command {
 
     try {
       this.log(`Generating Nimble React app with the project name: ${appName}!`)
-      const initializeResult = await this.config.runHook('initialize', {appName, template})
+      const result = await this.config.runHook('initialize', {appName, template: args.template})
 
-      if (initializeResult.successes[0] && answers.versionControl) {
-        this.setVersionControl(appName, answers.versionControl)
+      if (hookFailed(result)) {
+        cli.info('Something went wrong while generating the cra-template...', formatHookErrorMsg(result))
+        return
       }
+
+      this.setVersionControl(appName, answers.versionControl)
+      const _result = await this.setUIFramework(appName, answers.uiFramework)
     } catch (error: any) {
       this.error(error)
     }
+  }
 
-    if (answers.uiFramework === 'bootstrap') {
+  setUIFramework = async(appName: string, uiFramework: string): Promise<void> => {
+    if (uiFramework === 'bootstrap') {
       cli.info('Configure Bootstrap...')
-      await this.config.runHook('install-bootstrap', {appName: appName})
+      const result = await this.config.runHook('install-bootstrap', {appName: appName})
+
+      if (hookFailed(result)) {
+        const errorMsg = formatHookErrorMsg(result)
+        cli.info('Something went wrong while setting up bootstrap...', errorMsg)
+      }
     }
   }
 
