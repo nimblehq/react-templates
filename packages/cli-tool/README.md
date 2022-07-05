@@ -91,7 +91,7 @@ To run the CLI on your local machine:
 
 If your changes also impacted the `cra-template` package, you can still test them locally using:
 
-``````BASH
+```BASH
   ./bin/dev generate test-cli file:../cra-template
 ```
 
