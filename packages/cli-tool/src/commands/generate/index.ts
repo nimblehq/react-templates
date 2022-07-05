@@ -7,26 +7,31 @@ import Inquirer from 'inquirer'
 import getChoices from '../../helpers/choices'
 import {formatHookErrorMsg, hookFailed} from '../../helpers/hook-error'
 
-const VERSION_CONTROL_OPTIONS: { [key: string]: string; } = {github: 'GitHub', gitlab: 'GitLab', none: 'None'}
+const VERSION_CONTROL_OPTIONS: { [key: string]: string } = {
+  github: 'GitHub',
+  gitlab: 'GitLab',
+  none: 'None',
+}
 
 export default class Generate extends Command {
-  static description = 'Generate Nimble React application'
+  static description = 'Generate Nimble React application';
 
-  static examples = [
-    '$ nimble-react generate app-name',
-  ]
+  static examples = ['$ nimble-react generate app-name'];
 
-  static args = [{
-    name: 'appName',
-    required: true,
-    description: 'application name',
-  },
-  {
-    name: 'template',
-    required: false,
-    description: 'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
-    default: '@nimblehq',
-  }]
+  static args = [
+    {
+      name: 'appName',
+      required: true,
+      description: 'application name',
+    },
+    {
+      name: 'template',
+      required: false,
+      description:
+        'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
+      default: '@nimblehq',
+    },
+  ];
 
   public async run(): Promise<void> {
     const {args} = await this.parse(Generate)
@@ -43,11 +48,19 @@ export default class Generate extends Command {
     const answers = await Inquirer.prompt(questions)
 
     try {
-      this.log(`Generating Nimble React app with the project name: ${appName}!`)
-      const result = await this.config.runHook('initialize', {appName, template: args.template})
+      this.log(
+        `Generating Nimble React app with the project name: ${appName}!`,
+      )
+      const result = await this.config.runHook('initialize', {
+        appName,
+        template: args.template,
+      })
 
       if (hookFailed(result)) {
-        cli.info('Something went wrong while generating the cra-template...', formatHookErrorMsg(result))
+        cli.info(
+          'Something went wrong while generating the cra-template...',
+          formatHookErrorMsg(result),
+        )
         return
       }
 
@@ -70,5 +83,5 @@ export default class Generate extends Command {
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
       fs.rmSync(`${appName}/.github`, {recursive: true, force: true})
     }
-  }
+  };
 }
