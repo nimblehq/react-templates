@@ -60,7 +60,10 @@ export default class Generate extends Command {
       }
 
       this.setVersionControl(appName, answers.versionControl)
-      const _result = await this.setUIFramework(appName, answers.uiFramework)
+      await this.setUIFramework(appName, answers.uiFramework)
+
+      // Clean files after all steps
+      this.cleanFiles(appName)
     } catch (error: any) {
       this.error(error)
     }
@@ -91,5 +94,9 @@ export default class Generate extends Command {
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
       fs.rmSync(`${appName}/.github`, {recursive: true, force: true})
     }
+  }
+
+  cleanFiles = (appName: string): void => {
+    fs.rmdirSync(`${appName}/.add-ons`)
   }
 }
