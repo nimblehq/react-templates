@@ -1,11 +1,16 @@
 import {spawn} from 'node:child_process'
 
-const runCommand = (name: string, options: string[]): Promise<boolean> => {
+const runCommand = (
+  command: string,
+  args: string[],
+  cwd = './',
+): Promise<boolean> => {
   const initializePromise = new Promise(
     (resolve: (value: boolean) => void, reject) => {
-      const childProcess = spawn(name, options, {
+      const childProcess = spawn(command, args, {
         shell: true,
         stdio: 'inherit',
+        cwd,
       })
 
       childProcess.on('exit', () => {
