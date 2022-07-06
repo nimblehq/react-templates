@@ -46,12 +46,24 @@ export default class Generate extends Command {
 
       // Clean files after all steps
       this.cleanFiles(appName);
+
+      // Display a final message
+      this.displayEndMessage(appName);
     } catch (error) {
       this.error(error as string | Error);
     }
   }
 
   cleanFiles = (appName: string): void => {
+    this.log('Removing the .add-ons folder.');
     fs.rmSync(`${appName}/.add-ons`, { recursive: true });
+  };
+
+  displayEndMessage = (appName: string): void => {
+    this.log(``);
+    this.log(`\n\n🚀 Your app "${appName}" has been created successfully!`);
+    this.log('\n\nTo get started, run the following:');
+    this.log(`> cd ./${appName}`);
+    this.log(`> npm start`);
   };
 }
