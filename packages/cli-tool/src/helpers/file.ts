@@ -12,10 +12,7 @@ const getTargetPath = (file: string): string => {
   return path.join(targetPath, file)
 }
 
-const copyFile = (
-  source: string,
-  target: string,
-): void => {
+const copyFile = (source: string, target: string): void => {
   const sourcePath = path.join(TEMPLATE_PATH, source)
   const targetPath = getTargetPath(target)
   const targetDir = path.dirname(targetPath)
@@ -27,10 +24,7 @@ const copyFile = (
   fs.copyFileSync(sourcePath, targetPath)
 }
 
-const copyDir = (
-  source: string,
-  target: string,
-): void => {
+const copyDir = (source: string, target: string): void => {
   const sourcePath = path.join(TEMPLATE_PATH, source)
   const targetPath = getTargetPath(target)
   const targetExists = fs.existsSync(targetPath)
@@ -50,7 +44,4 @@ const copyDir = (
   }
 }
 
-export {
-  copyDir,
-  copyFile,
-}
+export {copyDir, copyFile}

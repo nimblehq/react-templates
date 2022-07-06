@@ -1,37 +1,42 @@
-import {Command, Flags, Hook} from '@oclif/core'
-import {ChildProcess} from 'node:child_process'
-import Inquirer from 'inquirer'
 import * as fs from 'node:fs'
 
-const VERSION_CONTROL_OPTIONS: { [key: string]: string; } = {github: 'GitHub', gitlab: 'GitLab', none: 'None'}
+import {Command} from '@oclif/core'
+import {cli} from 'cli-ux'
+import Inquirer from 'inquirer'
+
+import getChoices from '../../helpers/choices'
+import {formatHookErrorMsg, hookFailed} from '../../helpers/hook-error'
+
+const VERSION_CONTROL_OPTIONS: { [key: string]: string } = {
+  github: 'GitHub',
+  gitlab: 'GitLab',
+  none: 'None',
+}
 
 export default class Generate extends Command {
-  static description = 'Generate Nimble React application'
+  static description = 'Generate Nimble React application';
 
-  static examples = [
-    '$ nimble-react generate app-name',
-  ]
+  static examples = ['$ nimble-react generate app-name'];
 
-  static args = [{
-    name: 'appName',
-    required: true,
-    description: 'application name',
-  }]
-
-  static flags = {
-    versionControl: Flags.string({
-      char: 'c',
-      description: 'version control to use in the project',
-      options: Object.keys(VERSION_CONTROL_OPTIONS),
-    }),
-  }
+  static args = [
+    {
+      name: 'appName',
+      required: true,
+      description: 'application name',
+    },
+    {
+      name: 'template',
+      required: false,
+      description:
+        'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
+      default: '@nimblehq',
+    },
+  ];
 
   public async run(): Promise<void> {
-    const {args, flags} = await this.parse(Generate)
+    const {args} = await this.parse(Generate)
     const appName = args.appName
-    const versionControlChoices = Object.keys(VERSION_CONTROL_OPTIONS).map((key: string) => {
-      return {value: key, name: VERSION_CONTROL_OPTIONS[key]}
-    })
+    const versionControlChoices = getChoices(VERSION_CONTROL_OPTIONS)
     const questions = [
       {
         type: 'list',
@@ -40,35 +45,43 @@ export default class Generate extends Command {
         choices: versionControlChoices,
       },
     ]
+    const answers = await Inquirer.prompt(questions)
 
-    let versionControl = flags.versionControl
-
-    if (!versionControl) {
-      const answers = await Inquirer.prompt(questions)
-      versionControl = answers.versionControl
-    }
-
-    await this.config.runHook('initialize', {appName: appName}).then((value : Hook.Result<ChildProcess>) => {
-      value.successes[0].result.on('exit', () => {
-        this.log(`Generating Nimble React app with the project name: ${appName}!`)
-
-        if (versionControl) {
-          this.setVersionControl(appName, versionControl)
-        }
+    try {
+      this.log(
+        `Generating Nimble React app with the project name: ${appName}!`,
+      )
+      const result = await this.config.runHook('initialize', {
+        appName,
+        template: args.template,
       })
-    }).catch((error: string) => {
-      this.error(error)
-    })
+
+      if (hookFailed(result)) {
+        cli.info(
+          'Something went wrong while generating the cra-template...',
+          formatHookErrorMsg(result),
+        )
+        return
+      }
+
+      this.setVersionControl(appName, answers.versionControl)
+    } catch (error) {
+      this.error(error as string | Error)
+    }
   }
 
   setVersionControl = (appName: string, versionControl: string): void => {
     if (versionControl === 'github') {
+      cli.info('Configure GitHub...')
+
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
     } else if (versionControl === 'gitlab') {
+      cli.info('Configure GitLab...')
+
       fs.rmSync(`${appName}/.github`, {recursive: true, force: true})
     } else {
       fs.rmSync(`${appName}/.gitlab`, {recursive: true, force: true})
       fs.rmSync(`${appName}/.github`, {recursive: true, force: true})
     }
-  }
+  };
 }
