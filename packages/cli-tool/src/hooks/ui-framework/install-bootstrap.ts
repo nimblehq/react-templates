@@ -58,14 +58,18 @@ const addBootstrapScssUseLine = (appName: string): Promise<boolean> => {
   })
 }
 
-const hook = async function(options: { appName: string }): Promise<boolean> {
-  return runCommand(
-    'npm',
-    ['install', 'bootstrap@^5.1.3'],
-    `./${options.appName}/`,
-  )
-    .then(_value => addBootstrapFileStructure(options.appName))
-    .then(_value => addBootstrapScssUseLine(options.appName))
+const installNpmPackage = (appName: string): Promise<boolean> => {
+  return runCommand('npm', ['install', 'bootstrap@^5.1.3'], `./${appName}/`)
+}
+
+const hook = async function({
+  appName,
+}: {
+  appName: string;
+}): Promise<boolean> {
+  return installNpmPackage(appName)
+    .then(_value => addBootstrapFileStructure(appName))
+    .then(_value => addBootstrapScssUseLine(appName))
 }
 
 export default hook
