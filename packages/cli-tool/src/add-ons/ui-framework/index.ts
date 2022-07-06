@@ -1,6 +1,7 @@
 import { cli } from 'cli-ux';
 
 import setupBootstrap from './bootstrap';
+import setupTailwind from './tailwind';
 
 export const UI_FRAMEWORK_OPTIONS: { [key: string]: string } = {
   bootstrap: 'Bootstrap',
@@ -16,8 +17,9 @@ export const setUIFramework = async(
     cli.info('Configure Bootstrap...');
 
     await setupBootstrap(appName);
-  }
-  if (uiFramework === 'tailwind') {
-    cli.info('Tailwind is not available yet. Please configure it manually.');
+  } else if (uiFramework === 'tailwind') {
+    cli.info('Configure TailwindCSS...');
+
+    await setupTailwind(appName);
   }
 };
