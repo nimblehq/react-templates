@@ -57,8 +57,7 @@
     "topicSeparator": " ",
     "topics": {},
     "hooks": {
-      "initialize": "./src/hooks/initialize/generate-base-app",
-      "install-bootstrap": "./src/hooks/ui-framework/install-bootstrap"
+      "initialize": "./src/hooks/initialize/generate-base-app"
     },
     "additionalHelpFlags": [
       "-h"

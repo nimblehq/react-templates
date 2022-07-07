@@ -2,11 +2,11 @@ import * as fs from 'node:fs'
 
 import {cli} from 'cli-ux'
 
-import runCommand from '../../helpers/child-process'
+import runCommand from '../../../helpers/child-process'
 import {
   addLinesToFileAfterMatchedLine,
   lineFinderFuncType,
-} from '../../helpers/file-editor'
+} from '../../../helpers/file-editor'
 
 // Copy from template / add-ons / bootstrap
 const addBootstrapFileStructure = (appName: string): Promise<boolean> => {
@@ -62,14 +62,10 @@ const installNpmPackage = (appName: string): Promise<boolean> => {
   return runCommand('npm', ['install', 'bootstrap@^5.1.3'], `./${appName}/`)
 }
 
-const hook = async function({
-  appName,
-}: {
-  appName: string;
-}): Promise<boolean> {
+const addBootstrapAddOn = async(appName: string): Promise<boolean> => {
   return installNpmPackage(appName)
     .then(_value => addBootstrapFileStructure(appName))
     .then(_value => addBootstrapScssUseLine(appName))
 }
 
-export default hook
+export default addBootstrapAddOn

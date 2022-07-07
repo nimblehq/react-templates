@@ -4,19 +4,9 @@ import {Command} from '@oclif/core'
 import {cli} from 'cli-ux'
 import Inquirer from 'inquirer'
 
-import getChoices from '../../helpers/choices'
 import {formatHookErrorMsg, hookFailed} from '../../helpers/hook-error'
-
-const UI_FRAMEWORK_OPTIONS: { [key: string]: string } = {
-  bootstrap: 'Bootstrap',
-  tailwind: 'Tailwind CSS',
-  none: 'None',
-}
-const VERSION_CONTROL_OPTIONS: { [key: string]: string } = {
-  github: 'GitHub',
-  gitlab: 'GitLab',
-  none: 'None',
-}
+import {questions} from './questions'
+import addBootstrapAddOn from './ui-framework/bootstrap'
 
 export default class Generate extends Command {
   static description = 'Generate Nimble React application';
@@ -41,22 +31,7 @@ export default class Generate extends Command {
   public async run(): Promise<void> {
     const {args} = await this.parse(Generate)
     const appName = args.appName
-    const uiFrameworkChoices = getChoices(UI_FRAMEWORK_OPTIONS)
-    const versionControlChoices = getChoices(VERSION_CONTROL_OPTIONS)
-    const questions = [
-      {
-        type: 'list',
-        name: 'versionControl',
-        message: 'Select a version control service:',
-        choices: versionControlChoices,
-      },
-      {
-        type: 'list',
-        name: 'uiFramework',
-        message: 'Select a UI Framework:',
-        choices: uiFrameworkChoices,
-      },
-    ]
+
     const answers = await Inquirer.prompt(questions)
 
     try {
@@ -90,23 +65,22 @@ export default class Generate extends Command {
     appName: string,
     uiFramework: string,
   ): Promise<void> => {
-    if (uiFramework === 'bootstrap') {
-      cli.info('Configure Bootstrap...')
-      const result = await this.config.runHook('install-bootstrap', {
-        appName: appName,
-      })
+    try {
+      if (uiFramework === 'bootstrap') {
+        cli.info('Configure Bootstrap...')
+        const _result = await addBootstrapAddOn(appName)
+      }
 
-      if (hookFailed(result)) {
-        const errorMsg = formatHookErrorMsg(result)
+      if (uiFramework === 'tailwind') {
         cli.info(
-          'Something went wrong while setting up bootstrap...',
-          errorMsg,
+          'Tailwind is not available yet. Please configure it manually.',
         )
       }
-    }
-
-    if (uiFramework === 'tailwind') {
-      cli.info('Tailwind is not available yet. Please configure it manually.')
+    } catch (error) {
+      cli.info(
+        'Something went wrong while setting up bootstrap...',
+        error as string,
+      )
     }
   };
 
