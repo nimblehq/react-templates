@@ -1,8 +1,4 @@
 {
-  "extends": ["oclif", "oclif-typescript", "@nimblehq/eslint-config-nimble"],
-  "rules": {
-    "unicorn/prefer-module": 0,
-    "object-curly-spacing": ["error", "always"],
-    "semi": ["error", "always"]
-  }
+  "extends": ["@nimblehq/eslint-config-nimble"],
+  "rules": {}
 }

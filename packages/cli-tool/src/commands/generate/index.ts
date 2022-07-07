@@ -1,5 +1,3 @@
-import * as fs from 'node:fs';
-
 import { Command } from '@oclif/core';
 import { cli } from 'cli-ux';
 import Inquirer from 'inquirer';
