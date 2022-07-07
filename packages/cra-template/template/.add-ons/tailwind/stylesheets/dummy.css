@@ -36,14 +36,14 @@ code {
   justify-content: center;
   min-height: 100vh;
 
-  background-color: application.$bg-color;
+  background-color: #282c34;
 
   color: #fff;
-  font-size: calc(#{application.rem(10px)} + 2vmin);
+  font-size: 1.5rem;
 }
 
 .app-link {
-  color: application.$link-color;
+  color: #61dafb;
 }
 
 @keyframes app-logo-spin {
