@@ -1,11 +1,11 @@
-import {expect, test} from '@oclif/test'
+import { expect, test } from '@oclif/test';
 
 describe('hooks', () => {
   test
     .stdout()
-    .hook('init', {appName: 'my-app'})
+    .hook('init', { appName: 'my-app' })
     .do(output => {
-      expect(output.stdout).to.contain('Creating a new React app in')
+      expect(output.stdout).to.contain('Creating a new React app in');
     })
-    .it('shows a message')
-})
+    .it('shows a message');
+});
