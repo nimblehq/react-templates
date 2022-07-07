@@ -1,9 +1,9 @@
 import runCommand from '../../helpers/child-process';
 
-const hook = async function(options: {
+const hook = async(options: {
   appName: string;
   template: string;
-}): Promise<boolean> {
+}): Promise<boolean> => {
   return runCommand('npx', [
     'create-react-app',
     `${options.appName}`,
