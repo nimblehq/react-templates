@@ -3,10 +3,10 @@ import * as fs from 'node:fs';
 import { Command } from '@oclif/core';
 import Inquirer from 'inquirer';
 
-import initializeCraApp from './initialize-cra-app';
-import { questions } from './questions';
-import { setUIFramework } from './ui-framework/index';
-import { setVersionControl } from './version-control';
+import { setUIFramework } from '../../add-ons/ui-framework/index';
+import { setVersionControl } from '../../add-ons/version-control/index';
+import { questions } from '../../helpers/questions';
+import initializeCraApp from '../../template/initialize-cra-app';
 
 export default class Generate extends Command {
   static description = 'Generate Nimble React application';
@@ -52,6 +52,6 @@ export default class Generate extends Command {
   }
 
   cleanFiles = (appName: string): void => {
-    fs.rmdirSync(`${appName}/.add-ons`);
+    fs.rmSync(`${appName}/.add-ons`, { recursive: true });
   };
 }
