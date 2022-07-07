@@ -1,4 +1,4 @@
-import {spawn} from 'node:child_process'
+import { spawn } from 'node:child_process';
 
 const runCommand = (name: string, options: string[]): Promise<boolean> => {
   const initializePromise = new Promise(
@@ -6,18 +6,18 @@ const runCommand = (name: string, options: string[]): Promise<boolean> => {
       const childProcess = spawn(name, options, {
         shell: true,
         stdio: 'inherit',
-      })
+      });
 
       childProcess.on('exit', () => {
-        resolve(true)
-      })
-      childProcess.on('error', () => {
-        reject()
-      })
+        resolve(true);
+      });
+      childProcess.on('error', error => {
+        reject(error);
+      });
     },
-  )
+  );
 
-  return initializePromise
-}
+  return initializePromise;
+};
 
-export default runCommand
+export default runCommand;

@@ -1,4 +1,4 @@
-import runCommand from '../../helpers/child-process'
+import runCommand from '../../helpers/child-process';
 
 const hook = async function(options: {
   appName: string;
@@ -8,7 +8,7 @@ const hook = async function(options: {
     'create-react-app',
     `${options.appName}`,
     `--template ${options.template}`,
-  ])
-}
+  ]);
+};
 
-export default hook
+export default hook;
