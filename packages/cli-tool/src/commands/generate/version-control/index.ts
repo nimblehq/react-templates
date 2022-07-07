@@ -8,7 +8,7 @@ export const VERSION_CONTROL_OPTIONS: { [key: string]: string } = {
   none: 'None',
 };
 
-export const SetVersionControl = (appName: string, versionControl: string): void => {
+export const setVersionControl = (appName: string, versionControl: string): void => {
   if (versionControl === 'github') {
     cli.info('Configure GitHub...');
 

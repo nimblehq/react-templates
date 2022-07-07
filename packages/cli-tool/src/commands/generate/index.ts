@@ -4,7 +4,7 @@ import Inquirer from 'inquirer';
 
 import getChoices from '../../helpers/choices';
 import { formatHookErrorMsg, hookFailed } from '../../helpers/hook-error';
-import { VERSION_CONTROL_OPTIONS, SetVersionControl } from './version-control';
+import { VERSION_CONTROL_OPTIONS, setVersionControl } from './version-control';
 
 export default class Generate extends Command {
   static description = 'Generate Nimble React application';
@@ -57,7 +57,7 @@ export default class Generate extends Command {
         return;
       }
 
-      SetVersionControl(appName, answers.versionControl);
+      setVersionControl(appName, answers.versionControl);
     } catch (error) {
       this.error(error as string | Error);
     }
