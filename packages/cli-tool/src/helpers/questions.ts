@@ -1,6 +1,6 @@
-import getChoices from '../../helpers/choices';
-import { UI_FRAMEWORK_OPTIONS } from './ui-framework/index';
-import { VERSION_CONTROL_OPTIONS } from './version-control';
+import { UI_FRAMEWORK_OPTIONS } from '../add-ons/ui-framework/index';
+import { VERSION_CONTROL_OPTIONS } from '../add-ons/version-control/index';
+import getChoices from './choices';
 
 const uiFrameworkChoices = getChoices(UI_FRAMEWORK_OPTIONS);
 const versionControlChoices = getChoices(VERSION_CONTROL_OPTIONS);

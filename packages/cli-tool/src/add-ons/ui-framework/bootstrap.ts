@@ -2,11 +2,11 @@ import * as fs from 'node:fs';
 
 import { cli } from 'cli-ux';
 
-import runCommand from '../../../helpers/child-process';
+import runCommand from '../../helpers/child-process';
 import {
   addLinesToFileAfterMatchedLine,
   lineFinderFuncType,
-} from '../../../helpers/file-editor';
+} from '../../helpers/file-editor';
 
 export const addBootstrapFileStructure = (
   appName: string,

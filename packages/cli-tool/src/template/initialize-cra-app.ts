@@ -1,4 +1,4 @@
-import runCommand from '../../helpers/child-process';
+import runCommand from '../helpers/child-process';
 
 const initializeCraApp = async(
   appName: string,
