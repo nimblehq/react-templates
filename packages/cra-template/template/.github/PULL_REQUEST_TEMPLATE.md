@@ -1,13 +1,13 @@
-https://github.com/nimblehq/{YOUR_REPOSITORY}/issues/?
+https://github.com/nimblehq/{YOUR_REPOSITORY}/issues/??
 
 ## What happened 👀
 
-Describe the big picture of your changes here to communicate to the team why we should accept this pull request.
+Provide a description of the **changes** this pull request brings to the codebase. Additionally, when the pull request is still being worked on, a checklist of the planned changes is welcome to track progress.
 
 ## Insight 📝
 
-Describe in detail how to test the changes. Referenced documentation is welcome as well.
+Describe in detail why this solution is the most appropriate, which solution you tried but did not go with, and how to test the changes. References to relevant documentation are welcome as well.
 
 ## Proof Of Work 📹
 
-Show us the implementation: screenshots, GIF, etc. P.S. Maximum details possible
+Show us the implementation: screenshots, GIFs, etc.
