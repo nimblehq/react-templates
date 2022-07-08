@@ -1,4 +1,3 @@
 {
-  "extends": ["@nimblehq/eslint-config-nimble"],
-  "rules": {}
+  "extends": ["@nimblehq/eslint-config-nimble"]
 }
