@@ -3,7 +3,7 @@ import runCommand from '../helpers/child-process';
 const initializeCraApp = async(
   appName: string,
   template: string,
-): Promise<boolean> => {
+): Promise<void> => {
   return runCommand('npx', [
     'create-react-app',
     `${appName}`,

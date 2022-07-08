@@ -1,4 +1,4 @@
-import * as fs from 'node:fs';
+import * as fs from 'fs';
 
 import { cli } from 'cli-ux';
 
@@ -11,11 +11,11 @@ const NPM_PACKAGES = [
   'postcss-import@^14.1.0',
 ];
 
-const installNpmPackages = (appName: string): Promise<boolean> => {
+const installNpmPackages = (appName: string): Promise<void> => {
   return runCommand('npm', ['install', '-D', ...NPM_PACKAGES], `./${appName}/`);
 };
 
-const removeScssFileStructure = (appName: string): Promise<boolean> => {
+const removeScssFileStructure = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     cli.info('Remove SCSS files...');
 
@@ -23,7 +23,7 @@ const removeScssFileStructure = (appName: string): Promise<boolean> => {
       fs.rmSync(`./${appName}/src/assets/stylesheets`, { recursive: true });
       fs.rmSync(`./${appName}/src/dummy.scss`);
 
-      resolve(true);
+      resolve();
     } catch (error) {
       cli.info(
         'Error while removing the SCSS file structure:',
@@ -36,7 +36,7 @@ const removeScssFileStructure = (appName: string): Promise<boolean> => {
 };
 
 // Copy from template / add-ons / tailwind
-const addTailwindFileStructure = (appName: string): Promise<boolean> => {
+const addTailwindFileStructure = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     cli.info('Add TailwindCSS files...');
 
@@ -55,7 +55,7 @@ const addTailwindFileStructure = (appName: string): Promise<boolean> => {
       fs.renameSync(tailwindConfig, `./${appName}/tailwind.config.js`);
       fs.renameSync(postcssConfig, `./${appName}/postcss.config.js`);
 
-      resolve(true);
+      resolve();
     } catch (error) {
       cli.info('Error while copying files for Tailwind:', error as string);
 
@@ -64,7 +64,7 @@ const addTailwindFileStructure = (appName: string): Promise<boolean> => {
   });
 };
 
-const addTailwindCssImport = (appName: string): Promise<boolean> => {
+const addTailwindCssImport = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     cli.info('Update css imports in App.tsx');
 
@@ -78,7 +78,7 @@ const addTailwindCssImport = (appName: string): Promise<boolean> => {
       );
       replaceLine(indexScssPath, `import 'dummy.scss';`, `import 'dummy.css';`);
 
-      resolve(true);
+      resolve();
     } catch (error) {
       cli.info(
         'Error while adding the tailwind css import in App.tsx:',
@@ -90,7 +90,7 @@ const addTailwindCssImport = (appName: string): Promise<boolean> => {
   });
 };
 
-const setupTailwindCss = async function(appName: string): Promise<boolean> {
+const setupTailwindCss = async function(appName: string): Promise<void> {
   return installNpmPackages(appName)
     .then((_value) => removeScssFileStructure(appName))
     .then((_value) => addTailwindFileStructure(appName))
