@@ -10,9 +10,7 @@ import {
 
 const DEV_DEPENDENCIES = ['bootstrap@^5.1.3'];
 
-export const addBootstrapFileStructure = (
-  appName: string,
-): Promise<void> => {
+export const addBootstrapFileStructure = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     cli.info('Starting: ', `./${appName}/.add-ons/bootstrap`);
 
