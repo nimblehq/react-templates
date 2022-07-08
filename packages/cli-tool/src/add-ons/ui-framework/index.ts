@@ -16,11 +16,11 @@ export const setUIFramework = async(
   switch (uiFramework) {
     case 'bootstrap':
       cli.info('Configure Bootstrap...');
-      await setupBootstrap(appName);
+      return setupBootstrap(appName);
       break;
     case 'tailwindCss':
       cli.info('Configure TailwindCSS...');
-      await setupTailwindCss(appName);
+      return setupTailwindCss(appName);
       break;
   }
 };

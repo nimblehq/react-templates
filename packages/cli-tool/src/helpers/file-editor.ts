@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import fs from 'fs';
 
 export type lineFinderFuncType = (lines: string[]) => number;
 type matcherFuncType = (lines: string) => boolean;

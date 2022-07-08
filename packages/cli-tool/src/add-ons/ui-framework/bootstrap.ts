@@ -1,4 +1,4 @@
-import * as fs from 'node:fs';
+import * as fs from 'fs';
 
 import { cli } from 'cli-ux';
 
@@ -12,7 +12,7 @@ const DEV_DEPENDENCIES = ['bootstrap@^5.1.3'];
 
 export const addBootstrapFileStructure = (
   appName: string,
-): Promise<boolean> => {
+): Promise<void> => {
   return new Promise((resolve, reject) => {
     cli.info('Starting: ', `./${appName}/.add-ons/bootstrap`);
 
@@ -20,7 +20,7 @@ export const addBootstrapFileStructure = (
       const destPath = `./${appName}/src/assets/stylesheets/vendor/bootstrap/`;
       fs.renameSync(`./${appName}/.add-ons/bootstrap/`, destPath);
 
-      resolve(true);
+      resolve();
     } catch (error) {
       cli.info(
         'Error while copying vendor files for Bootstrap:',
@@ -39,7 +39,7 @@ const bootstrapImportLocationFinder: lineFinderFuncType = (
 };
 
 // In index.scss, Replace "// Dependencies" by `// Dependencies \n@import 'vendor/bootstrap';` in application.scss
-const addBootstrapScssUseLine = (appName: string): Promise<boolean> => {
+const addBootstrapScssUseLine = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     cli.info('Insert bootstrap scss import.');
 
@@ -53,7 +53,7 @@ const addBootstrapScssUseLine = (appName: string): Promise<boolean> => {
         [lineToAdd],
       );
 
-      resolve(true);
+      resolve();
     } catch (error) {
       cli.info(
         'Error while adding the bootstrap lib import in index.scss:',
@@ -65,11 +65,11 @@ const addBootstrapScssUseLine = (appName: string): Promise<boolean> => {
   });
 };
 
-const installNpmPackage = (appName: string): Promise<boolean> => {
+const installNpmPackage = (appName: string): Promise<void> => {
   return runCommand('npm', ['install', ...DEV_DEPENDENCIES], `./${appName}/`);
 };
 
-const setupBootstrap = async(appName: string): Promise<boolean> => {
+const setupBootstrap = async(appName: string): Promise<void> => {
   return installNpmPackage(appName)
     .then((_value) => addBootstrapFileStructure(appName))
     .then((_value) => addBootstrapScssUseLine(appName));
