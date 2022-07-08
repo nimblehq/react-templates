@@ -38,7 +38,7 @@ const removeScssFileStructure = (appName: string): Promise<boolean> => {
 // Copy from template / add-ons / tailwind
 const addTailwindFileStructure = (appName: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    cli.info('Add Tailwind files...');
+    cli.info('Add TailwindCSS files...');
 
     try {
       const applicationCss = `./${appName}/.add-ons/tailwind/stylesheets/application.css`;
@@ -90,11 +90,11 @@ const addTailwindCssImport = (appName: string): Promise<boolean> => {
   });
 };
 
-const setupTailwind = async function(appName: string): Promise<boolean> {
+const setupTailwindCss = async function(appName: string): Promise<boolean> {
   return installNpmPackages(appName)
     .then((_value) => removeScssFileStructure(appName))
     .then((_value) => addTailwindFileStructure(appName))
     .then((_value) => addTailwindCssImport(appName));
 };
 
-export default setupTailwind;
+export default setupTailwindCss;

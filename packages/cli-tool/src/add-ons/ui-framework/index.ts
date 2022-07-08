@@ -1,11 +1,11 @@
 import { cli } from 'cli-ux';
 
 import setupBootstrap from './bootstrap';
-import setupTailwind from './tailwind';
+import setupTailwindCss from './tailwind-css';
 
 export const UI_FRAMEWORK_OPTIONS: { [key: string]: string } = {
   bootstrap: 'Bootstrap',
-  tailwind: 'Tailwind CSS',
+  tailwindCss: 'Tailwind CSS',
   none: 'None',
 };
 
@@ -13,13 +13,14 @@ export const setUIFramework = async(
   appName: string,
   uiFramework: string,
 ): Promise<void> => {
-  if (uiFramework === 'bootstrap') {
-    cli.info('Configure Bootstrap...');
-
-    await setupBootstrap(appName);
-  } else if (uiFramework === 'tailwind') {
-    cli.info('Configure TailwindCSS...');
-
-    await setupTailwind(appName);
+  switch (uiFramework) {
+    case 'bootstrap':
+      cli.info('Configure Bootstrap...');
+      await setupBootstrap(appName);
+      break;
+    case 'tailwindCss':
+      cli.info('Configure TailwindCSS...');
+      await setupTailwindCss(appName);
+      break;
   }
 };
