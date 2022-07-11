@@ -8,6 +8,8 @@ import {
   lineFinderFuncType,
 } from '../../helpers/file-editor';
 
+const DEV_DEPENDENCIES = ['bootstrap@^5.1.3'];
+
 export const addBootstrapFileStructure = (
   appName: string,
 ): Promise<boolean> => {
@@ -64,7 +66,7 @@ const addBootstrapScssUseLine = (appName: string): Promise<boolean> => {
 };
 
 const installNpmPackage = (appName: string): Promise<boolean> => {
-  return runCommand('npm', ['install', 'bootstrap@^5.1.3'], `./${appName}/`);
+  return runCommand('npm', ['install', ...DEV_DEPENDENCIES], `./${appName}/`);
 };
 
 const setupBootstrap = async(appName: string): Promise<boolean> => {
