@@ -19,10 +19,8 @@ export const setUIFramework = async(
     case 'bootstrap':
       cli.info('Configure Bootstrap...');
       return setupBootstrap(appName);
-      break;
     case 'tailwindCss':
       cli.info('Configure TailwindCSS...');
       return setupTailwindCss(appName);
-      break;
   }
 };
