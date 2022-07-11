@@ -63,12 +63,12 @@ const addBootstrapScssUseLine = (appName: string): Promise<void> => {
   });
 };
 
-const installNpmPackage = (appName: string): Promise<void> => {
+const installDevDependencies = (appName: string): Promise<void> => {
   return runCommand('npm', ['install', ...DEV_DEPENDENCIES], `./${appName}/`);
 };
 
 const setupBootstrap = async(appName: string): Promise<void> => {
-  return installNpmPackage(appName)
+  return installDevDependencies(appName)
     .then((_value) => addBootstrapFileStructure(appName))
     .then((_value) => addBootstrapScssUseLine(appName));
 };

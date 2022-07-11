@@ -5,14 +5,18 @@ import { cli } from 'cli-ux';
 import runCommand from '../../helpers/child-process';
 import { replaceLine } from '../../helpers/file-editor';
 
-const NPM_PACKAGES = [
+const DEV_DEPENDENCIES = [
   'tailwindcss@^3.1.4',
   'postcss@^8.4.14',
   'postcss-import@^14.1.0',
 ];
 
-const installNpmPackages = (appName: string): Promise<void> => {
-  return runCommand('npm', ['install', '-D', ...NPM_PACKAGES], `./${appName}/`);
+const installDevDependencies = (appName: string): Promise<void> => {
+  return runCommand(
+    'npm',
+    ['install', '-D', ...DEV_DEPENDENCIES],
+    `./${appName}/`,
+  );
 };
 
 const removeScssFileStructure = (appName: string): Promise<void> => {
@@ -91,7 +95,7 @@ const addTailwindCssImport = (appName: string): Promise<void> => {
 };
 
 const setupTailwindCss = async function(appName: string): Promise<void> {
-  return installNpmPackages(appName)
+  return installDevDependencies(appName)
     .then((_value) => removeScssFileStructure(appName))
     .then((_value) => addTailwindFileStructure(appName))
     .then((_value) => addTailwindCssImport(appName));
