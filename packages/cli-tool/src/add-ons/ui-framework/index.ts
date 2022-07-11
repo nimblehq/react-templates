@@ -3,15 +3,17 @@ import { cli } from 'cli-ux';
 import setupBootstrap from './bootstrap';
 import setupTailwindCss from './tailwind-css';
 
-export const UI_FRAMEWORK_OPTIONS: { [key: string]: string } = {
-  bootstrap: 'Bootstrap',
-  tailwindCss: 'Tailwind CSS',
-  none: 'None',
-};
+export type uiFrameworkKey = 'bootstrap' | 'tailwindCss' | 'none';
+
+export const UI_FRAMEWORK_OPTIONS = new Map<uiFrameworkKey, string>([
+  ['bootstrap', 'Bootstrap'],
+  ['tailwindCss', 'Tailwind CSS'],
+  ['none', 'None'],
+]);
 
 export const setUIFramework = async(
   appName: string,
-  uiFramework: string,
+  uiFramework: uiFrameworkKey,
 ): Promise<void> => {
   switch (uiFramework) {
     case 'bootstrap':

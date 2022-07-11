@@ -2,15 +2,16 @@ import * as fs from 'fs';
 
 import { cli } from 'cli-ux';
 
-export const VERSION_CONTROL_OPTIONS: { [key: string]: string } = {
-  github: 'GitHub',
-  gitlab: 'GitLab',
-  none: 'None',
-};
+export type versionControlOptions = 'github' | 'gitlab' | 'none';
+export const VERSION_CONTROL_OPTIONS = new Map<versionControlOptions, string>([
+  ['github', 'GitHub'],
+  ['gitlab', 'GitLab'],
+  ['none', 'None'],
+]);
 
 export const setVersionControl = (
   appName: string,
-  versionControl: string,
+  versionControl: versionControlOptions,
 ): void => {
   if (versionControl === 'github') {
     cli.info('Configure GitHub...');
