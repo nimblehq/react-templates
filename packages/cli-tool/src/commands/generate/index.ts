@@ -56,10 +56,10 @@ export default class Generate extends Command {
 
   cleanFiles = async(appName: string): Promise<void> => {
     this.log('Removing the .add-ons folder.');
-    return this.deleteAddOnsFOlder(appName);
+    return this.deleteAddOnsFolder(appName);
   };
 
-  deleteAddOnsFOlder = async(appName: string): Promise<void> => {
+  deleteAddOnsFolder = async(appName: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       fs.rm(`${appName}/.add-ons`, { recursive: true }, (err) => {
         if (err) {
