@@ -1,10 +1,10 @@
 {
   "name": "@nimblehq/react-templates",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "Nimble React Application Generator",
   "author": "Nimble <dev@nimblehq.co>",
   "bin": {
-    "nimble-react ": "./bin/run"
+    "nimble-react ": "bin/run"
   },
   "keywords": [
     "oclif"
@@ -12,7 +12,10 @@
   "homepage": "https://github.com/nimblehq/react-templates/packages/cli-tool",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "nimblehq/react-templates",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nimblehq/react-templates.git"
+  },
   "files": [
     "/bin",
     "/dist",
