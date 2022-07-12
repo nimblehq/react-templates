@@ -25,5 +25,8 @@
   "files": [
     "template",
     "template.json"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

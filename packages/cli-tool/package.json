@@ -73,5 +73,8 @@
     "node": ">=12.0.0"
   },
   "bugs": "https://github.com/nimblehq/react-templates/issues",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  }
 }
