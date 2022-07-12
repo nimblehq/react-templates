@@ -4,8 +4,11 @@ on: push
 
 jobs:
   test:
-    name: Bootstrap app, run linters and tests with Node ${{ matrix.node }}
+    name: Run CLI test with Node ${{ matrix.node }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "packages/cli-tool"
     strategy:
       matrix:
         node: [14, 16]
@@ -23,18 +26,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: "npm"
-
-      - name: Bootstrap React App
-        run: npx create-react-app test-app --template file:./packages/cra-template
-
-      - name: Run linters
-        working-directory: ./test-app
-        run: npm run codebase:lint
-
-      - name: Run unit tests
-        working-directory: ./test-app
-        run: npm run test
-
-      - name: Run integration tests
-        working-directory: ./test-app
-        run: npm run cypress
+          cache-dependency-path: "**/package-lock.json"
+        run: |
+          npm ci
+          npm test
