@@ -29,6 +29,5 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
 
       - name: NPM install and run tests
-        run: |
-          npm ci
-          npm test
+        working-directory: ./packages/cli-tool
+        run: npm test
