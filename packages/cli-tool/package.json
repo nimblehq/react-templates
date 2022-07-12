@@ -60,7 +60,7 @@
     ]
   },
   "scripts": {
-    "build": "shx rm -rf dist && tsc -b && shx cp -r src/extensions dist",
+    "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "lint-fix": "eslint . --fix --ext .ts --config .eslintrc",
     "postpack": "shx rm -f oclif.manifest.json",
