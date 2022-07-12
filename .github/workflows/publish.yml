@@ -1,13 +1,13 @@
-name: Publish package to npmjs
+name: Publish packages to npmjs
 
-on: push
-  # release:
-  #   types:
-  #     - published
+on:
+  release:
+    types:
+      - published
 
 jobs:
   publish:
-    name: Publish package
+    name: Publish packages
 
     runs-on: ubuntu-latest
 
@@ -15,24 +15,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup node and restore cached dependencies
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "16.x"
           cache: "npm"
           registry-url: "https://registry.npmjs.org"
+          scope: "@nimblehq"
 
-<<<<<<< HEAD
       - name: Install dependencies
-        run: npm ci
+        run: npm ci && lerna bootstrap --ci
 
-      - name: Publish package to npmjs
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-=======
-      - name: Publish packages to npmjs
-        run: npx lerna publish from-package --yes
+      - name: Authenticate with Registry
+        run: |
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
->>>>>>> [#106] Add publish workflow
+
+      - name: Publish packages to npmjs
+        run: npx lerna publish from-package --yes --no-verify-access
