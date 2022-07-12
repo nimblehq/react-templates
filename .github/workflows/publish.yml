@@ -1,0 +1,31 @@
+name: Publish packages to npmjs
+
+on:
+  push:
+    branches:
+      - chore/106-add-publish-workflow-for-monorepo
+  # release:
+  #   types:
+  #     - published
+
+jobs:
+  publish:
+    name: Publish package
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Publish packages to npmjs
+        run: npx lerna publish from-package --yes
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
