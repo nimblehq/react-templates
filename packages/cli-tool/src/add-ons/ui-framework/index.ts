@@ -1,23 +1,26 @@
 import { cli } from 'cli-ux';
 
 import setupBootstrap from './bootstrap';
+import setupTailwindCss from './tailwind-css';
 
-export const UI_FRAMEWORK_OPTIONS: { [key: string]: string } = {
-  bootstrap: 'Bootstrap',
-  tailwind: 'Tailwind CSS',
-  none: 'None',
-};
+export type uiFrameworkKey = 'bootstrap' | 'tailwindCss' | 'none';
+
+export const UI_FRAMEWORK_OPTIONS = new Map<uiFrameworkKey, string>([
+  ['bootstrap', 'Bootstrap'],
+  ['tailwindCss', 'Tailwind CSS'],
+  ['none', 'None'],
+]);
 
 export const setUIFramework = async(
   appName: string,
-  uiFramework: string,
+  uiFramework: uiFrameworkKey,
 ): Promise<void> => {
-  if (uiFramework === 'bootstrap') {
-    cli.info('Configure Bootstrap...');
-
-    await setupBootstrap(appName);
-  }
-  if (uiFramework === 'tailwind') {
-    cli.info('Tailwind is not available yet. Please configure it manually.');
+  switch (uiFramework) {
+    case 'bootstrap':
+      cli.info('Configure Bootstrap...');
+      return setupBootstrap(appName);
+    case 'tailwindCss':
+      cli.info('Configure TailwindCSS...');
+      return setupTailwindCss(appName);
   }
 };

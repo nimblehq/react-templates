@@ -1,8 +1,8 @@
-const getChoices = (options: {
-  [key: string]: string;
-}): { value: string; name: string }[] => {
-  return Object.keys(options).map((key: string) => {
-    return { value: key, name: options[key] };
+const getChoices = <T>(
+  options: Map<T, string>,
+): { value: T; name: string }[] => {
+  return [...options].map((option: [T, string]) => {
+    return { value: option[0], name: option[1] };
   });
 };
 

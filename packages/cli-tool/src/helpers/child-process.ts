@@ -4,9 +4,9 @@ const runCommand = (
   command: string,
   args: string[],
   cwd = './',
-): Promise<boolean> => {
-  const initializePromise = new Promise(
-    (resolve: (value: boolean) => void, reject) => {
+): Promise<void> => {
+  return new Promise(
+    (resolve, reject) => {
       const childProcess = spawn(command, args, {
         shell: true,
         stdio: 'inherit',
@@ -14,15 +14,13 @@ const runCommand = (
       });
 
       childProcess.on('exit', () => {
-        resolve(true);
+        resolve();
       });
       childProcess.on('error', (error) => {
         reject(error);
       });
     },
   );
-
-  return initializePromise;
 };
 
 export default runCommand;

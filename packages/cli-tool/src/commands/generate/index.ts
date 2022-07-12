@@ -1,4 +1,4 @@
-import * as fs from 'node:fs';
+import * as fs from 'fs';
 
 import { Command } from '@oclif/core';
 import Inquirer from 'inquirer';
@@ -45,13 +45,37 @@ export default class Generate extends Command {
       await setUIFramework(appName, answers.uiFramework);
 
       // Clean files after all steps
-      this.cleanFiles(appName);
+      await this.cleanFiles(appName);
+
+      // Display a final message
+      this.displayEndMessage(appName);
     } catch (error) {
       this.error(error as string | Error);
     }
   }
 
-  cleanFiles = (appName: string): void => {
-    fs.rmSync(`${appName}/.add-ons`, { recursive: true });
+  cleanFiles = async(appName: string): Promise<void> => {
+    this.log('Removing the .add-ons folder.');
+    return this.deleteAddOnsFolder(appName);
+  };
+
+  deleteAddOnsFolder = async(appName: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      fs.rm(`${appName}/.add-ons`, { recursive: true }, (err) => {
+        if (err) {
+          reject(err);
+        }
+
+        resolve();
+      });
+    });
+  };
+
+  displayEndMessage = (appName: string): void => {
+    this.log(``);
+    this.log(`\n\n🚀 Your app "${appName}" has been created successfully!`);
+    this.log('\n\nTo get started, run the following:');
+    this.log(`> cd ./${appName}`);
+    this.log(`> npm start`);
   };
 }

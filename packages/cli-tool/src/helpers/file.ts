@@ -1,4 +1,4 @@
-import * as fs from 'node:fs';
+import * as fs from 'fs';
 import path = require('path');
 
 const ROOT_DIR = path.join(__dirname, '..', '..');
