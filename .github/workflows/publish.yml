@@ -36,4 +36,4 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish packages to npmjs
-        run: npx lerna publish from-package --yes
+        run: npx lerna publish from-package --yes --no-verify-access
