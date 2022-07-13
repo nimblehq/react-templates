@@ -4,7 +4,6 @@
 /dist
 /lib
 /package-lock.json
-/test-app
 /tmp
 /yarn.lock
 node_modules

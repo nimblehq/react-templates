@@ -55,8 +55,11 @@ const testScenarios = [
 ];
 
 describe('generate', () => {
-  beforeEach(() => {
-    fs.rmSync(`${testFolderPath}${projectName}`, { recursive: true, force: true });
+  afterEach(() => {
+    fs.rmSync(`${testFolderPath}${projectName}`, {
+      recursive: true,
+      force: true,
+    });
   });
 
   test
