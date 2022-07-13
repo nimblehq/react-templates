@@ -5,19 +5,14 @@ import Inquirer from 'inquirer';
 
 import { bootstrapTestData } from '../../add-ons/ui-framework/bootstrap';
 import { tailwindCssTestData } from '../../add-ons/ui-framework/tailwind-css';
-import { gitHubTestData } from '../../add-ons/version-control/github';
-import { gitLabTestData } from '../../add-ons/version-control/gitlab';
+import { gitHubTestData, gitLabTestData } from '../../add-ons/version-control';
 import { TestScenario } from '../../helpers/test-scenario';
 
 const templateRepoPath = 'file:./packages/cra-template';
 const projectName = 'test-app';
 const testFolderPath = '../../';
 
-const gitHubData = gitHubTestData(projectName);
-const gitLabData = gitLabTestData(projectName);
-
-const bootstrapData = bootstrapTestData(projectName);
-const tailwindCssData = tailwindCssTestData(projectName);
+const projectPath = `${testFolderPath}${projectName}`;
 
 const testScenarios: TestScenario[] = [
   {
@@ -27,16 +22,16 @@ const testScenarios: TestScenario[] = [
     },
     testData: {
       filesShouldExist: [
-        ...gitHubData.filesShouldExist,
-        ...bootstrapData.filesShouldExist,
+        ...gitHubTestData.filesShouldExist,
+        ...bootstrapTestData.filesShouldExist,
       ],
       filesShouldNotExist: [
-        ...gitHubData.filesShouldNotExist,
-        ...bootstrapData.filesShouldNotExist,
+        ...gitHubTestData.filesShouldNotExist,
+        ...bootstrapTestData.filesShouldNotExist,
       ],
       filesShouldContain: [
-        ...gitHubData.filesShouldContain,
-        ...bootstrapData.filesShouldContain,
+        ...gitHubTestData.filesShouldContain,
+        ...bootstrapTestData.filesShouldContain,
       ],
     },
   },
@@ -47,16 +42,16 @@ const testScenarios: TestScenario[] = [
     },
     testData: {
       filesShouldExist: [
-        ...gitLabData.filesShouldExist,
-        ...tailwindCssData.filesShouldExist,
+        ...gitLabTestData.filesShouldExist,
+        ...tailwindCssTestData.filesShouldExist,
       ],
       filesShouldNotExist: [
-        ...gitLabData.filesShouldNotExist,
-        ...tailwindCssData.filesShouldNotExist,
+        ...gitLabTestData.filesShouldNotExist,
+        ...tailwindCssTestData.filesShouldNotExist,
       ],
       filesShouldContain: [
-        ...gitLabData.filesShouldContain,
-        ...tailwindCssData.filesShouldContain,
+        ...gitLabTestData.filesShouldContain,
+        ...tailwindCssTestData.filesShouldContain,
       ],
     },
   },
@@ -93,16 +88,16 @@ describe('generate', () => {
           );
 
           scenario.testData.filesShouldExist.forEach((file) => {
-            expect(fs.existsSync(`${testFolderPath}${file}`)).to.equal(true);
+            expect(fs.existsSync(`${projectPath}${file}`)).to.equal(true);
           });
 
           scenario.testData.filesShouldNotExist.forEach((file) => {
-            expect(fs.existsSync(`${testFolderPath}${file}`)).to.equal(false);
+            expect(fs.existsSync(`${projectPath}${file}`)).to.equal(false);
           });
 
           scenario.testData.filesShouldContain.forEach((file) => {
             const contents = fs.readFileSync(
-              `${testFolderPath}${file.path}`,
+              `${projectPath}${file.path}`,
               'utf-8',
             );
 
