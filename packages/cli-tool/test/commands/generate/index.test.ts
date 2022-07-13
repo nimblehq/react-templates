@@ -3,11 +3,23 @@ import * as fs from 'fs';
 import { expect, test } from '@oclif/test';
 import Inquirer from 'inquirer';
 
+import { bootstrapTestData } from '../../add-ons/ui-framework/bootstrap';
+import { tailwindCssTestData } from '../../add-ons/ui-framework/tailwind-css';
+import { gitHubTestData } from '../../add-ons/version-control/github';
+import { gitLabTestData } from '../../add-ons/version-control/gitlab';
+import { TestScenario } from '../../helpers/test-scenario';
+
 const templateRepoPath = 'file:./packages/cra-template';
 const projectName = 'test-app';
 const testFolderPath = '../../';
 
-const testScenarios = [
+const gitHubData = gitHubTestData(projectName);
+const gitLabData = gitLabTestData(projectName);
+
+const bootstrapData = bootstrapTestData(projectName);
+const tailwindCssData = tailwindCssTestData(projectName);
+
+const testScenarios: TestScenario[] = [
   {
     options: {
       versionControl: 'github',
@@ -15,23 +27,16 @@ const testScenarios = [
     },
     testData: {
       filesShouldExist: [
-        `${projectName}/.github`,
-        `${projectName}/src/assets/stylesheets/vendor/bootstrap/index.scss`,
+        ...gitHubData.filesShouldExist,
+        ...bootstrapData.filesShouldExist,
       ],
       filesShouldNotExist: [
-        `${projectName}/.gitlab`,
-        `${projectName}/tailwind.config.js`,
-        `${projectName}/src/assets/stylesheets/application.css`,
+        ...gitHubData.filesShouldNotExist,
+        ...bootstrapData.filesShouldNotExist,
       ],
       filesShouldContain: [
-        {
-          path: `${projectName}/package.json`,
-          shouldContainString: 'bootstrap',
-        },
-        {
-          path: `${projectName}/src/assets/stylesheets/application.scss`,
-          shouldContainString: 'vendor/bootstrap',
-        },
+        ...gitHubData.filesShouldContain,
+        ...bootstrapData.filesShouldContain,
       ],
     },
   },
@@ -42,37 +47,16 @@ const testScenarios = [
     },
     testData: {
       filesShouldExist: [
-        `${projectName}/.gitlab`,
-        `${projectName}/tailwind.config.js`,
-        `${projectName}/postcss.config.js`,
-        `${projectName}/src/assets/stylesheets/application.css`,
+        ...gitLabData.filesShouldExist,
+        ...tailwindCssData.filesShouldExist,
       ],
       filesShouldNotExist: [
-        `${projectName}/.github`,
-        `${projectName}/src/assets/stylesheets/vendor/bootstrap`,
-        `${projectName}/src/assets/stylesheets/application.scss`,
+        ...gitLabData.filesShouldNotExist,
+        ...tailwindCssData.filesShouldNotExist,
       ],
       filesShouldContain: [
-        {
-          path: `${projectName}/package.json`,
-          shouldContainString: 'tailwindcss',
-        },
-        {
-          path: `${projectName}/package.json`,
-          shouldContainString: 'postcss-import',
-        },
-        {
-          path: `${projectName}/src/assets/stylesheets/application.css`,
-          shouldContainString: '@tailwind base;',
-        },
-        {
-          path: `${projectName}/src/assets/stylesheets/application.css`,
-          shouldContainString: '@tailwind components;',
-        },
-        {
-          path: `${projectName}/src/assets/stylesheets/application.css`,
-          shouldContainString: '@tailwind utilities;',
-        },
+        ...gitLabData.filesShouldContain,
+        ...tailwindCssData.filesShouldContain,
       ],
     },
   },
