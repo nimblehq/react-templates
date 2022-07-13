@@ -16,16 +16,21 @@ const testScenarios = [
     testData: {
       filesShouldExist: [
         `${projectName}/.github`,
-        `${projectName}/src/assets/stylesheets/vendor/bootstrap`,
+        `${projectName}/src/assets/stylesheets/vendor/bootstrap/index.scss`,
       ],
       filesShouldNotExist: [
         `${projectName}/.gitlab`,
         `${projectName}/tailwind.config.js`,
+        `${projectName}/src/assets/stylesheets/application.css`,
       ],
       filesShouldContain: [
         {
           path: `${projectName}/package.json`,
           shouldContainString: 'bootstrap',
+        },
+        {
+          path: `${projectName}/src/assets/stylesheets/application.scss`,
+          shouldContainString: 'vendor/bootstrap',
         },
       ],
     },
@@ -39,15 +44,34 @@ const testScenarios = [
       filesShouldExist: [
         `${projectName}/.gitlab`,
         `${projectName}/tailwind.config.js`,
+        `${projectName}/postcss.config.js`,
+        `${projectName}/src/assets/stylesheets/application.css`,
       ],
       filesShouldNotExist: [
         `${projectName}/.github`,
         `${projectName}/src/assets/stylesheets/vendor/bootstrap`,
+        `${projectName}/src/assets/stylesheets/application.scss`,
       ],
       filesShouldContain: [
         {
           path: `${projectName}/package.json`,
           shouldContainString: 'tailwindcss',
+        },
+        {
+          path: `${projectName}/package.json`,
+          shouldContainString: 'postcss-import',
+        },
+        {
+          path: `${projectName}/src/assets/stylesheets/application.css`,
+          shouldContainString: '@tailwind base;',
+        },
+        {
+          path: `${projectName}/src/assets/stylesheets/application.css`,
+          shouldContainString: '@tailwind components;',
+        },
+        {
+          path: `${projectName}/src/assets/stylesheets/application.css`,
+          shouldContainString: '@tailwind utilities;',
         },
       ],
     },
@@ -90,6 +114,17 @@ describe('generate', () => {
 
           scenario.testData.filesShouldNotExist.forEach((file) => {
             expect(fs.existsSync(`${testFolderPath}${file}`)).to.equal(false);
+          });
+
+          scenario.testData.filesShouldContain.forEach((file) => {
+            const contents = fs.readFileSync(
+              `${testFolderPath}${file.path}`,
+              'utf-8',
+            );
+
+            const result = contents.includes(file.shouldContainString);
+
+            expect(result).to.equal(true);
           });
         },
       );
