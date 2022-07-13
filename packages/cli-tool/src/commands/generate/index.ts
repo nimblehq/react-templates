@@ -26,12 +26,21 @@ export default class Generate extends Command {
         'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
       default: '@nimblehq',
     },
+    {
+      name: 'dest',
+      required: false,
+      description:
+        'destination, defines in which folder the project folder will be created',
+      default: './',
+    },
   ];
 
   public async run(): Promise<void> {
     const {
-      args: { appName, template },
+      args: { appName, template, dest },
     } = await this.parse(Generate);
+
+    const appPath = `${dest}${appName}`;
 
     const answers = await Inquirer.prompt(questions);
 
@@ -40,15 +49,15 @@ export default class Generate extends Command {
         `Generating Nimble React app with the project name: ${appName}!`,
       );
 
-      await initializeCraApp(appName, template);
-      setVersionControl(appName, answers.versionControl);
-      await setUIFramework(appName, answers.uiFramework);
+      await initializeCraApp(appName, template, dest);
+      setVersionControl(appPath, answers.versionControl);
+      await setUIFramework(appPath, answers.uiFramework);
 
       // Clean files after all steps
-      await this.cleanFiles(appName);
+      await this.cleanFiles(appPath);
 
       // Display a final message
-      this.displayEndMessage(appName);
+      this.displayEndMessage(appName, appPath);
     } catch (error) {
       this.error(error as string | Error);
     }
@@ -59,9 +68,9 @@ export default class Generate extends Command {
     return this.deleteAddOnsFolder(appName);
   };
 
-  deleteAddOnsFolder = async(appName: string): Promise<void> => {
+  deleteAddOnsFolder = async(appPath: string): Promise<void> => {
     return new Promise((resolve, reject) => {
-      fs.rm(`${appName}/.add-ons`, { recursive: true }, (err) => {
+      fs.rm(`${appPath}/.add-ons`, { recursive: true }, (err) => {
         if (err) {
           reject(err);
         }
@@ -71,11 +80,11 @@ export default class Generate extends Command {
     });
   };
 
-  displayEndMessage = (appName: string): void => {
+  displayEndMessage = (appName: string, appPath: string): void => {
     this.log(``);
     this.log(`\n\n🚀 Your app "${appName}" has been created successfully!`);
     this.log('\n\nTo get started, run the following:');
-    this.log(`> cd ./${appName}`);
+    this.log(`> cd ./${appPath}`);
     this.log(`> npm start`);
   };
 }

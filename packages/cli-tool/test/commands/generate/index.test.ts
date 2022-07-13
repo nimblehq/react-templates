@@ -3,8 +3,10 @@ import * as fs from 'fs';
 import { expect, test } from '@oclif/test';
 import Inquirer from 'inquirer';
 
-const templateRepoPath = 'file:../cra-template';
+const templateRepoPath = 'file:./packages/cra-template';
 const projectName = 'test-app';
+const testFolderPath = '../../';
+
 const testScenarios = [
   {
     options: {
@@ -54,7 +56,7 @@ const testScenarios = [
 
 describe('generate', () => {
   beforeEach(() => {
-    fs.rmSync(`${projectName}`, { recursive: true, force: true });
+    fs.rmSync(`${testFolderPath}${projectName}`, { recursive: true, force: true });
   });
 
   test
@@ -71,7 +73,7 @@ describe('generate', () => {
     test
       .stdout()
       .stub(Inquirer, 'prompt', () => scenario.options)
-      .command(['generate', `${projectName}`, templateRepoPath])
+      .command(['generate', `${projectName}`, templateRepoPath, testFolderPath])
       .it(
         `generates an app ${projectName} with ${scenario.options.versionControl} and ${scenario.options.uiFramework}`,
         (ctx) => {
@@ -80,11 +82,11 @@ describe('generate', () => {
           );
 
           scenario.testData.filesShouldExist.forEach((file) => {
-            expect(fs.existsSync(file)).to.equal(true);
+            expect(fs.existsSync(`${testFolderPath}${file}`)).to.equal(true);
           });
 
           scenario.testData.filesShouldNotExist.forEach((file) => {
-            expect(fs.existsSync(file)).to.equal(false);
+            expect(fs.existsSync(`${testFolderPath}${file}`)).to.equal(false);
           });
         },
       );
