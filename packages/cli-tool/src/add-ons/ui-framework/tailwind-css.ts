@@ -11,21 +11,21 @@ const DEV_DEPENDENCIES = [
   'postcss-import@^14.1.0',
 ];
 
-const installDevDependencies = (appName: string): Promise<void> => {
+const installDevDependencies = (appPath: string): Promise<void> => {
   return runCommand(
     'npm',
     ['install', '-D', ...DEV_DEPENDENCIES],
-    `./${appName}/`,
+    `./${appPath}/`,
   );
 };
 
-const removeScssFileStructure = (appName: string): Promise<void> => {
+const removeScssFileStructure = (appPath: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     CliUx.ux.info('Remove SCSS files...');
 
     try {
-      fs.rmSync(`./${appName}/src/assets/stylesheets`, { recursive: true });
-      fs.rmSync(`./${appName}/src/dummy.scss`);
+      fs.rmSync(`./${appPath}/src/assets/stylesheets`, { recursive: true });
+      fs.rmSync(`./${appPath}/src/dummy.scss`);
 
       resolve();
     } catch (error) {
@@ -40,24 +40,24 @@ const removeScssFileStructure = (appName: string): Promise<void> => {
 };
 
 // Copy from template / add-ons / tailwind
-const addTailwindFileStructure = (appName: string): Promise<void> => {
+const addTailwindFileStructure = (appPath: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     CliUx.ux.info('Add TailwindCSS files...');
 
     try {
-      const applicationCss = `./${appName}/.add-ons/tailwind/stylesheets/application.css`;
-      const dummyCss = `./${appName}/.add-ons/tailwind/stylesheets/dummy.css`;
-      const tailwindConfig = `./${appName}/.add-ons/tailwind/tailwind.config.js`;
-      const postcssConfig = `./${appName}/.add-ons/tailwind/postcss.config.js`;
+      const applicationCss = `./${appPath}/.add-ons/tailwind/stylesheets/application.css`;
+      const dummyCss = `./${appPath}/.add-ons/tailwind/stylesheets/dummy.css`;
+      const tailwindConfig = `./${appPath}/.add-ons/tailwind/tailwind.config.js`;
+      const postcssConfig = `./${appPath}/.add-ons/tailwind/postcss.config.js`;
 
-      fs.mkdirSync(`./${appName}/src/assets/stylesheets/`);
+      fs.mkdirSync(`./${appPath}/src/assets/stylesheets/`);
       fs.renameSync(
         applicationCss,
-        `./${appName}/src/assets/stylesheets/application.css`,
+        `./${appPath}/src/assets/stylesheets/application.css`,
       );
-      fs.renameSync(dummyCss, `./${appName}/src/dummy.css`);
-      fs.renameSync(tailwindConfig, `./${appName}/tailwind.config.js`);
-      fs.renameSync(postcssConfig, `./${appName}/postcss.config.js`);
+      fs.renameSync(dummyCss, `./${appPath}/src/dummy.css`);
+      fs.renameSync(tailwindConfig, `./${appPath}/tailwind.config.js`);
+      fs.renameSync(postcssConfig, `./${appPath}/postcss.config.js`);
 
       resolve();
     } catch (error) {
@@ -68,12 +68,12 @@ const addTailwindFileStructure = (appName: string): Promise<void> => {
   });
 };
 
-const addTailwindCssImport = (appName: string): Promise<void> => {
+const addTailwindCssImport = (appPath: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     CliUx.ux.info('Update css imports in App.tsx');
 
     try {
-      const indexScssPath = `./${appName}/src/App.tsx`;
+      const indexScssPath = `./${appPath}/src/App.tsx`;
 
       replaceLine(
         indexScssPath,
@@ -94,11 +94,11 @@ const addTailwindCssImport = (appName: string): Promise<void> => {
   });
 };
 
-const setupTailwindCss = async function(appName: string): Promise<void> {
-  return installDevDependencies(appName)
-    .then((_value) => removeScssFileStructure(appName))
-    .then((_value) => addTailwindFileStructure(appName))
-    .then((_value) => addTailwindCssImport(appName));
+const setupTailwindCss = async function(appPath: string): Promise<void> {
+  return installDevDependencies(appPath)
+    .then((_value) => removeScssFileStructure(appPath))
+    .then((_value) => addTailwindFileStructure(appPath))
+    .then((_value) => addTailwindCssImport(appPath));
 };
 
 export default setupTailwindCss;
