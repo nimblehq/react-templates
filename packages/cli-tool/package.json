@@ -12,10 +12,7 @@
   "homepage": "https://github.com/nimblehq/react-templates/packages/cli-tool",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nimblehq/react-templates.git"
-  },
+  "repository": "nimblehq/react-templates",
   "files": [
     "/bin",
     "/dist",
