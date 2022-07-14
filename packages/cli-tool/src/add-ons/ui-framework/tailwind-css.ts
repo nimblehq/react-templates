@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { cli } from 'cli-ux';
+import { CliUx } from '@oclif/core';
 
 import runCommand from '../../helpers/child-process';
 import { replaceLine } from '../../helpers/file-editor';
@@ -21,7 +21,7 @@ const installDevDependencies = (appName: string): Promise<void> => {
 
 const removeScssFileStructure = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    cli.info('Remove SCSS files...');
+    CliUx.ux.info('Remove SCSS files...');
 
     try {
       fs.rmSync(`./${appName}/src/assets/stylesheets`, { recursive: true });
@@ -29,7 +29,7 @@ const removeScssFileStructure = (appName: string): Promise<void> => {
 
       resolve();
     } catch (error) {
-      cli.info(
+      CliUx.ux.info(
         'Error while removing the SCSS file structure:',
         error as string,
       );
@@ -42,7 +42,7 @@ const removeScssFileStructure = (appName: string): Promise<void> => {
 // Copy from template / add-ons / tailwind
 const addTailwindFileStructure = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    cli.info('Add TailwindCSS files...');
+    CliUx.ux.info('Add TailwindCSS files...');
 
     try {
       const applicationCss = `./${appName}/.add-ons/tailwind/stylesheets/application.css`;
@@ -61,7 +61,7 @@ const addTailwindFileStructure = (appName: string): Promise<void> => {
 
       resolve();
     } catch (error) {
-      cli.info('Error while copying files for Tailwind:', error as string);
+      CliUx.ux.info('Error while copying files for Tailwind:', error as string);
 
       reject(error);
     }
@@ -70,7 +70,7 @@ const addTailwindFileStructure = (appName: string): Promise<void> => {
 
 const addTailwindCssImport = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    cli.info('Update css imports in App.tsx');
+    CliUx.ux.info('Update css imports in App.tsx');
 
     try {
       const indexScssPath = `./${appName}/src/App.tsx`;
@@ -84,7 +84,7 @@ const addTailwindCssImport = (appName: string): Promise<void> => {
 
       resolve();
     } catch (error) {
-      cli.info(
+      CliUx.ux.info(
         'Error while adding the tailwind css import in App.tsx:',
         error as string,
       );

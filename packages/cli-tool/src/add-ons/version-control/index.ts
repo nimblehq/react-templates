@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { cli } from 'cli-ux';
+import { CliUx } from '@oclif/core';
 
 export type versionControlOptions = 'github' | 'gitlab' | 'none';
 export const VERSION_CONTROL_OPTIONS = new Map<versionControlOptions, string>([
@@ -14,11 +14,11 @@ export const setVersionControl = (
   versionControl: versionControlOptions,
 ): void => {
   if (versionControl === 'github') {
-    cli.info('Configure GitHub...');
+    CliUx.ux.info('Configure GitHub...');
 
     fs.rmSync(`${appName}/.gitlab`, { recursive: true, force: true });
   } else if (versionControl === 'gitlab') {
-    cli.info('Configure GitLab...');
+    CliUx.ux.info('Configure GitLab...');
 
     fs.rmSync(`${appName}/.github`, { recursive: true, force: true });
   } else {
