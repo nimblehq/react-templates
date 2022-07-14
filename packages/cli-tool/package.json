@@ -26,7 +26,6 @@
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
-    "cli-ux": "^6.0.5",
     "inquirer": "^8.2.4",
     "inquirer-test": "^2.0.1"
   },
@@ -72,7 +71,8 @@
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "npm": ">=8",
+    "node": ">=16"
   },
   "bugs": "https://github.com/nimblehq/react-templates/issues",
   "types": "dist/index.d.ts",
