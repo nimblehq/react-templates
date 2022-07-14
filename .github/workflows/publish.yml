@@ -36,6 +36,3 @@ jobs:
 
       - name: Publish packages to npmjs
         run: npx lerna publish from-package --yes --no-verify-access
-        # run: npm publish --workspace @nimblehq/react-template
-        # env:
-        #   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
