@@ -1,12 +1,9 @@
 name: Publish packages to npmjs
 
 on:
-  push:
-    branches:
-      - chore/106-add-publish-workflow-for-monorepo
-  # release:
-  #   types:
-  #     - published
+  release:
+    types:
+      - published
 
 jobs:
   publish:
