@@ -1,6 +1,6 @@
 {
   "name": "@nimblehq/react-templates",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Nimble React Application Generator",
   "author": "Nimble <dev@nimblehq.co>",
   "bin": {
