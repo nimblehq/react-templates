@@ -1,10 +1,10 @@
 {
   "name": "@nimblehq/react-template",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "description": "Nimble React Application Generator",
   "author": "Nimble <dev@nimblehq.co>",
   "bin": {
-    "nimble-react ": "./bin/run"
+    "nimble-react": "./bin/run"
   },
   "keywords": [
     "oclif"
