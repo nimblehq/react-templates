@@ -1,10 +1,10 @@
-name: Test
+name: Test CRA Template
 
 on: push
 
 jobs:
   test:
-    name: Bootstrap app, run linters and tests with Node ${{ matrix.node }}
+    name: Bootstrap CRA app, run linters and tests with Node ${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
