@@ -1,10 +1,10 @@
-name: CLI Test
+name: Test CLI Tool
 
 on: push
 
 jobs:
-  test-cli:
-    name: Run CLI test with Node ${{ matrix.node }}
+  test-cli-tool:
+    name: Run CLI Tool tests with Node ${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
