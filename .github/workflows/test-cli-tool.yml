@@ -28,5 +28,4 @@ jobs:
         run: npm ci &&  lerna bootstrap --ci
 
       - name: Run tests
-        working-directory: ./packages/cli-tool
-        run: npm run test
+        run: npm run test --workspace=packages/cli-tool
