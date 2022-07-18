@@ -1,4 +1,4 @@
-import { cli } from 'cli-ux';
+import { CliUx } from '@oclif/core';
 
 import setupBootstrap from './bootstrap';
 import setupTailwindCss from './tailwind-css';
@@ -17,10 +17,10 @@ export const setUIFramework = async(
 ): Promise<void> => {
   switch (uiFramework) {
     case 'bootstrap':
-      cli.info('Configure Bootstrap...');
+      CliUx.ux.info('Configure Bootstrap...');
       return setupBootstrap(appName);
     case 'tailwindCss':
-      cli.info('Configure TailwindCSS...');
+      CliUx.ux.info('Configure TailwindCSS...');
       return setupTailwindCss(appName);
   }
 };

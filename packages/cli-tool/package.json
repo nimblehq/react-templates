@@ -1,10 +1,10 @@
 {
-  "name": "@nimblehq/react-templates",
-  "version": "0.1.0",
+  "name": "@nimblehq/react-template",
+  "version": "1.0.0",
   "description": "Nimble React Application Generator",
   "author": "Nimble <dev@nimblehq.co>",
   "bin": {
-    "nimble-react ": "./bin/run"
+    "nimble-react": "./bin/run"
   },
   "keywords": [
     "oclif"
@@ -23,7 +23,6 @@
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
-    "cli-ux": "^6.0.5",
     "inquirer": "^8.2.4",
     "inquirer-test": "^2.0.1"
   },
@@ -54,24 +53,27 @@
     ],
     "topicSeparator": " ",
     "topics": {},
-    "hooks": {},
     "additionalHelpFlags": [
       "-h"
     ]
   },
   "scripts": {
-    "build": "shx rm -rf dist && tsc -b && shx cp -r src/extensions dist",
+    "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "lint-fix": "eslint . --fix --ext .ts --config .eslintrc",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
-    "prepack": "yarn build && oclif manifest && oclif readme",
+    "posttest": "npm run lint",
+    "prepack": "npm run build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "npm": ">=8",
+    "node": ">=16"
   },
   "bugs": "https://github.com/nimblehq/react-templates/issues",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@nimblehq/cra-template",
-  "version": "2.2.2",
+  "version": "3.0.0",
   "description": "The base template for Nimble React App.",
   "author": "Nimble <dev@nimblehq.co>",
   "keywords": [
@@ -25,5 +25,8 @@
   "files": [
     "template",
     "template.json"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

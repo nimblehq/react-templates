@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { cli } from 'cli-ux';
+import { CliUx } from '@oclif/core';
 
 import runCommand from '../../helpers/child-process';
 import {
@@ -12,7 +12,7 @@ const DEV_DEPENDENCIES = ['bootstrap@^5.1.3'];
 
 export const addBootstrapFileStructure = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    cli.info('Starting: ', `./${appName}/.add-ons/bootstrap`);
+    CliUx.ux.info('Starting: ', `./${appName}/.add-ons/bootstrap`);
 
     try {
       const destPath = `./${appName}/src/assets/stylesheets/vendor/bootstrap/`;
@@ -20,7 +20,7 @@ export const addBootstrapFileStructure = (appName: string): Promise<void> => {
 
       resolve();
     } catch (error) {
-      cli.info(
+      CliUx.ux.info(
         'Error while copying vendor files for Bootstrap:',
         error as string,
       );
@@ -39,7 +39,7 @@ const bootstrapImportLocationFinder: lineFinderFuncType = (
 // In index.scss, Replace "// Dependencies" by `// Dependencies \n@import 'vendor/bootstrap';` in application.scss
 const addBootstrapScssUseLine = (appName: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    cli.info('Insert bootstrap scss import.');
+    CliUx.ux.info('Insert bootstrap scss import.');
 
     try {
       const indexScssPath = `./${appName}/src/assets/stylesheets/application.scss`;
@@ -53,7 +53,7 @@ const addBootstrapScssUseLine = (appName: string): Promise<void> => {
 
       resolve();
     } catch (error) {
-      cli.info(
+      CliUx.ux.info(
         'Error while adding the bootstrap lib import in index.scss:',
         error as string,
       );
