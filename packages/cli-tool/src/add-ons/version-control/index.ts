@@ -10,19 +10,19 @@ export const VERSION_CONTROL_OPTIONS = new Map<versionControlOptions, string>([
 ]);
 
 export const setVersionControl = (
-  appName: string,
+  appPath: string,
   versionControl: versionControlOptions,
 ): void => {
   if (versionControl === 'github') {
     CliUx.ux.info('Configure GitHub...');
 
-    fs.rmSync(`${appName}/.gitlab`, { recursive: true, force: true });
+    fs.rmSync(`${appPath}/.gitlab`, { recursive: true, force: true });
   } else if (versionControl === 'gitlab') {
     CliUx.ux.info('Configure GitLab...');
 
-    fs.rmSync(`${appName}/.github`, { recursive: true, force: true });
+    fs.rmSync(`${appPath}/.github`, { recursive: true, force: true });
   } else {
-    fs.rmSync(`${appName}/.gitlab`, { recursive: true, force: true });
-    fs.rmSync(`${appName}/.github`, { recursive: true, force: true });
+    fs.rmSync(`${appPath}/.gitlab`, { recursive: true, force: true });
+    fs.rmSync(`${appPath}/.github`, { recursive: true, force: true });
   }
 };

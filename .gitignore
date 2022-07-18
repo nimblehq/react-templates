@@ -8,5 +8,8 @@
 
 npm-debug.log*
 
+# tests
+/test-app
+
 # editors
 .vscode

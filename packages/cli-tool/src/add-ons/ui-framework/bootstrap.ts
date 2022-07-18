@@ -10,13 +10,13 @@ import {
 
 const DEV_DEPENDENCIES = ['bootstrap@^5.1.3'];
 
-export const addBootstrapFileStructure = (appName: string): Promise<void> => {
+export const addBootstrapFileStructure = (appPath: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    CliUx.ux.info('Starting: ', `./${appName}/.add-ons/bootstrap`);
+    CliUx.ux.info('Starting: ', `./${appPath}/.add-ons/bootstrap`);
 
     try {
-      const destPath = `./${appName}/src/assets/stylesheets/vendor/bootstrap/`;
-      fs.renameSync(`./${appName}/.add-ons/bootstrap/`, destPath);
+      const destPath = `./${appPath}/src/assets/stylesheets/vendor/bootstrap/`;
+      fs.renameSync(`./${appPath}/.add-ons/bootstrap/`, destPath);
 
       resolve();
     } catch (error) {
@@ -37,12 +37,12 @@ const bootstrapImportLocationFinder: lineFinderFuncType = (
 };
 
 // In index.scss, Replace "// Dependencies" by `// Dependencies \n@import 'vendor/bootstrap';` in application.scss
-const addBootstrapScssUseLine = (appName: string): Promise<void> => {
+const addBootstrapScssUseLine = (appPath: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     CliUx.ux.info('Insert bootstrap scss import.');
 
     try {
-      const indexScssPath = `./${appName}/src/assets/stylesheets/application.scss`;
+      const indexScssPath = `./${appPath}/src/assets/stylesheets/application.scss`;
       const lineToAdd = `@use 'src/assets/stylesheets/vendor/bootstrap';`;
 
       addLinesToFileAfterMatchedLine(
@@ -63,14 +63,14 @@ const addBootstrapScssUseLine = (appName: string): Promise<void> => {
   });
 };
 
-const installDevDependencies = (appName: string): Promise<void> => {
-  return runCommand('npm', ['install', ...DEV_DEPENDENCIES], `./${appName}/`);
+const installDevDependencies = (appPath: string): Promise<void> => {
+  return runCommand('npm', ['install', ...DEV_DEPENDENCIES], `./${appPath}/`);
 };
 
-const setupBootstrap = async(appName: string): Promise<void> => {
-  return installDevDependencies(appName)
-    .then((_value) => addBootstrapFileStructure(appName))
-    .then((_value) => addBootstrapScssUseLine(appName));
+const setupBootstrap = async(appPath: string): Promise<void> => {
+  return installDevDependencies(appPath)
+    .then((_value) => addBootstrapFileStructure(appPath))
+    .then((_value) => addBootstrapScssUseLine(appPath));
 };
 
 export default setupBootstrap;

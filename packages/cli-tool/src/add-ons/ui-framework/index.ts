@@ -12,15 +12,15 @@ export const UI_FRAMEWORK_OPTIONS = new Map<uiFrameworkKey, string>([
 ]);
 
 export const setUIFramework = async(
-  appName: string,
+  appPath: string,
   uiFramework: uiFrameworkKey,
 ): Promise<void> => {
   switch (uiFramework) {
     case 'bootstrap':
       CliUx.ux.info('Configure Bootstrap...');
-      return setupBootstrap(appName);
+      return setupBootstrap(appPath);
     case 'tailwindCss':
       CliUx.ux.info('Configure TailwindCSS...');
-      return setupTailwindCss(appName);
+      return setupTailwindCss(appPath);
   }
 };

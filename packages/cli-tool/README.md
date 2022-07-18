@@ -79,6 +79,8 @@ DESCRIPTION
 
 ## How to contribute
 
+### Run
+
 To run the CLI on your local machine:
 
 ```bash
@@ -96,6 +98,17 @@ If your changes also impacted the `cra-template` package, you can still test the
 ```
 
 Find more the [OCLIF Documentation](https://oclif.io/docs/introduction.html)!
+
+### Test
+
+Tests are generated from the combination of:
+- `TestData` objects
+- `Scenario` objects
+
+`TestData` objects gather all the rules that should be tested for a given add-on.
+When creating a new add-on, you need to create a new associated TestData object in the `./test/add-ons/**` folder.
+
+`Scenario` objects enable running the tests of multiple add-ons in a single `generate` command execution. As running the `generate` command is time-consuming, grouping several add-ons tests into a single scenario is a way to get tests results earlier.
 
 ## License
 
