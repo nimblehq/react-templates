@@ -1,43 +1,43 @@
-import * as fs from 'fs';
+import * as fs from "fs";
 
-import { Command } from '@oclif/core';
-import Inquirer from 'inquirer';
+import { Command } from "@oclif/core";
+import Inquirer from "inquirer";
 
-import { setUIFramework } from '../../add-ons/ui-framework/index';
-import { setVersionControl } from '../../add-ons/version-control/index';
-import { questions } from '../../helpers/questions';
-import initializeCraApp from '../../template/initialize-cra-app';
+import { setUIFramework } from "../../add-ons/ui-framework/index";
+import { setVersionControl } from "../../add-ons/version-control/index";
+import { questions } from "../../helpers/questions";
+import initializeViteApp from "../../template/initialize-vite-app";
 
 export default class Generate extends Command {
-  static description = 'Generate Nimble React application';
+  static description = "Generate Nimble React application";
 
-  static examples = ['$ nimble-react generate app-name'];
+  static examples = ["$ nimble-react generate app-name"];
 
   static args = [
     {
-      name: 'appName',
+      name: "appName",
       required: true,
-      description: 'application name',
+      description: "application name",
     },
     {
-      name: 'template',
+      name: "branch",
       required: false,
       description:
-        'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
-      default: '@nimblehq',
+        'Specify the branch to download the vite-template from...',
+      default: "main",
     },
     {
-      name: 'dest',
+      name: "dest",
       required: false,
       description:
-        'destination, defines in which folder the project folder will be created',
-      default: './',
+        "destination, defines in which folder the project folder will be created",
+      default: "./",
     },
   ];
 
   public async run(): Promise<void> {
     const {
-      args: { appName, template, dest },
+      args: { appName, branch, dest },
     } = await this.parse(Generate);
 
     const appPath = `${dest}${appName}`;
@@ -46,10 +46,14 @@ export default class Generate extends Command {
 
     try {
       this.log(
-        `Generating Nimble React app with the project name: ${appName}!`,
+        `Generating Nimble React app with the project name: ${appName}!`
       );
 
-      await initializeCraApp(appName, template, dest);
+      await initializeViteApp({
+        appName,
+        dest,
+        branch: branch,
+      });
       setVersionControl(appPath, answers.versionControl);
       await setUIFramework(appPath, answers.uiFramework);
 
@@ -63,12 +67,12 @@ export default class Generate extends Command {
     }
   }
 
-  cleanFiles = async(appName: string): Promise<void> => {
-    this.log('Removing the .add-ons folder.');
+  cleanFiles = async (appName: string): Promise<void> => {
+    this.log("Removing the .add-ons folder.");
     return this.deleteAddOnsFolder(appName);
   };
 
-  deleteAddOnsFolder = async(appPath: string): Promise<void> => {
+  deleteAddOnsFolder = async (appPath: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       fs.rm(`${appPath}/.add-ons`, { recursive: true }, (err) => {
         if (err) {
@@ -83,7 +87,7 @@ export default class Generate extends Command {
   displayEndMessage = (appName: string, appPath: string): void => {
     this.log(``);
     this.log(`\n\n🚀 Your app "${appName}" has been created successfully!`);
-    this.log('\n\nTo get started, run the following:');
+    this.log("\n\nTo get started, run the following:");
     this.log(`> cd ./${appPath}`);
     this.log(`> npm start`);
   };
