@@ -36,9 +36,13 @@ export default class Generate extends Command {
   ];
 
   public async run(): Promise<void> {
-    const {
+    let {
       args: { appName, branch, dest },
-    } = await this.parse(Generate);
+    }: {args:{appName:string, branch:string, dest:string}} = await this.parse(Generate);
+
+    if(!dest.endsWith('/')) {
+      dest = `${dest}/`;
+    }
 
     const appPath = `${dest}${appName}`;
 

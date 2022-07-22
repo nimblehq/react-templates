@@ -94,8 +94,10 @@ To run the CLI on your local machine:
 If your changes also impacted the `cra-template` package, you can still test them locally using:
 
 ```BASH
-  ./bin/dev generate test-cli file:../cra-template
+   ./bin/dev generate test-vite-app "feature/gh88-replace-webpack-with-vite" ~/Documents/Source
 ```
+
+> The `~/Documents/Source` last argument enables to deploy the app in another directory than the current repository. Errors might occurs if you try to generate a project within this repository.
 
 Find more the [OCLIF Documentation](https://oclif.io/docs/introduction.html)!
 
