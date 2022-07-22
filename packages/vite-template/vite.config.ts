@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
+import reactRefresh from '@vitejs/plugin-react'
 import svgrPlugin from 'vite-plugin-svgr'
 import path from 'path';
 import { readdirSync } from 'fs';

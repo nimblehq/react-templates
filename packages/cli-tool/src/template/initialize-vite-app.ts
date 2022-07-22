@@ -62,6 +62,11 @@ const replaceAppName = (options: InitViteOptions): void => {
   });
 };
 
+const npmInstall = (options: InitViteOptions): Promise<void> => {
+  CliUx.ux.info("Run npm install...");
+  return runCommand("npm", ["i"], `${options.dest}/${options.appName}`);
+};
+
 const cleanTemporaryFiles = (options: InitViteOptions): Promise<void> => {
   CliUx.ux.info("Remove zip and unwanted files...");
 
@@ -73,6 +78,7 @@ const initializeViteApp = async (options: InitViteOptions): Promise<void> => {
     .then(() => extractViteTemplateFolder(options))
     .then(() => renameFolder(options))
     .then(() => replaceAppName(options))
+    .then(() => npmInstall(options))
     .then(() => cleanTemporaryFiles(options));
 };
 
