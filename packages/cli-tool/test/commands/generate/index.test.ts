@@ -17,6 +17,7 @@ const projectPath = `${testFolderPath}${projectName}`;
 const testScenarios: TestScenario[] = [
   {
     options: {
+      template: 'vite',
       versionControl: 'github',
       uiFramework: 'bootstrap',
     },
@@ -37,6 +38,7 @@ const testScenarios: TestScenario[] = [
   },
   {
     options: {
+      template: 'vite',
       versionControl: 'gitlab',
       uiFramework: 'tailwindCss',
     },
