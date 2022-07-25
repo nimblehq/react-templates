@@ -6,7 +6,7 @@ import Inquirer from "inquirer";
 import { setUIFramework } from "../../add-ons/ui-framework/index";
 import { setVersionControl } from "../../add-ons/version-control/index";
 import { questions } from "../../helpers/questions";
-import initializeViteApp from "../../template/initialize-vite-app";
+import { initializeTemplate } from "../../template/index";
 
 export default class Generate extends Command {
   static description = "Generate Nimble React application";
@@ -22,8 +22,7 @@ export default class Generate extends Command {
     {
       name: "branch",
       required: false,
-      description:
-        'Specify the branch to download the vite-template from...',
+      description: "Specify the branch to download the vite-template from...",
       default: "main",
     },
     {
@@ -38,9 +37,10 @@ export default class Generate extends Command {
   public async run(): Promise<void> {
     let {
       args: { appName, branch, dest },
-    }: {args:{appName:string, branch:string, dest:string}} = await this.parse(Generate);
+    }: { args: { appName: string; branch: string; dest: string } } =
+      await this.parse(Generate);
 
-    if(!dest.endsWith('/')) {
+    if (!dest.endsWith("/")) {
       dest = `${dest}/`;
     }
 
@@ -53,11 +53,13 @@ export default class Generate extends Command {
         `Generating Nimble React app with the project name: ${appName}!`
       );
 
-      await initializeViteApp({
+      await initializeTemplate({
+        templateOption: answers.template,
         appName,
+        branch,
         dest,
-        branch: branch,
       });
+
       setVersionControl(appPath, answers.versionControl);
       await setUIFramework(appPath, answers.uiFramework);
 

@@ -9,13 +9,14 @@ const DEV_DEPENDENCIES = [
   'tailwindcss@^3.1.4',
   'postcss@^8.4.14',
   'postcss-import@^14.1.0',
+  'autoprefixer@^10.4.7',
 ];
 
 const installDevDependencies = (appPath: string): Promise<void> => {
   return runCommand(
     'npm',
     ['install', '-D', ...DEV_DEPENDENCIES],
-    `./${appPath}/`,
+    `${appPath}/`,
   );
 };
 
@@ -24,8 +25,8 @@ const removeScssFileStructure = (appPath: string): Promise<void> => {
     CliUx.ux.info('Remove SCSS files...');
 
     try {
-      fs.rmSync(`./${appPath}/src/assets/stylesheets`, { recursive: true });
-      fs.rmSync(`./${appPath}/src/dummy.scss`);
+      fs.rmSync(`${appPath}/src/assets/stylesheets`, { recursive: true });
+      fs.rmSync(`${appPath}/src/dummy.scss`);
 
       resolve();
     } catch (error) {
@@ -45,19 +46,19 @@ const addTailwindFileStructure = (appPath: string): Promise<void> => {
     CliUx.ux.info('Add TailwindCSS files...');
 
     try {
-      const applicationCss = `./${appPath}/.add-ons/tailwind/stylesheets/application.css`;
-      const dummyCss = `./${appPath}/.add-ons/tailwind/stylesheets/dummy.css`;
-      const tailwindConfig = `./${appPath}/.add-ons/tailwind/tailwind.config.js`;
-      const postcssConfig = `./${appPath}/.add-ons/tailwind/postcss.config.js`;
+      const applicationCss = `${appPath}/.add-ons/tailwind/stylesheets/application.css`;
+      const dummyCss = `${appPath}/.add-ons/tailwind/stylesheets/dummy.css`;
+      const tailwindConfig = `${appPath}/.add-ons/tailwind/tailwind.config.js`;
+      const postcssConfig = `${appPath}/.add-ons/tailwind/postcss.config.js`;
 
-      fs.mkdirSync(`./${appPath}/src/assets/stylesheets/`);
+      fs.mkdirSync(`${appPath}/src/assets/stylesheets/`);
       fs.renameSync(
         applicationCss,
-        `./${appPath}/src/assets/stylesheets/application.css`,
+        `${appPath}/src/assets/stylesheets/application.css`,
       );
-      fs.renameSync(dummyCss, `./${appPath}/src/dummy.css`);
-      fs.renameSync(tailwindConfig, `./${appPath}/tailwind.config.js`);
-      fs.renameSync(postcssConfig, `./${appPath}/postcss.config.js`);
+      fs.renameSync(dummyCss, `${appPath}/src/dummy.css`);
+      fs.renameSync(tailwindConfig, `${appPath}/tailwind.config.js`);
+      fs.renameSync(postcssConfig, `${appPath}/postcss.config.js`);
 
       resolve();
     } catch (error) {
@@ -73,12 +74,21 @@ const addTailwindCssImport = (appPath: string): Promise<void> => {
     CliUx.ux.info('Update css imports in App.tsx');
 
     try {
-      const indexScssPath = `./${appPath}/src/App.tsx`;
+      const indexScssPath = `${appPath}/src/App.tsx`;
 
+      // When using Webpack
       replaceLine(
         indexScssPath,
         `import 'assets/stylesheets/application.scss';`,
         `import 'assets/stylesheets/application.css';`,
+      );
+      replaceLine(indexScssPath, `import '@/dummy.scss';`, `import '@/dummy.css';`);
+
+      // When using Vite
+      replaceLine(
+        indexScssPath,
+        `import '@/assets/stylesheets/application.scss';`,
+        `import '@/assets/stylesheets/application.css';`,
       );
       replaceLine(indexScssPath, `import 'dummy.scss';`, `import 'dummy.css';`);
 
