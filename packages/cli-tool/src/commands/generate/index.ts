@@ -1,63 +1,66 @@
-import * as fs from "fs";
+import * as fs from 'fs';
 
-import { Command } from "@oclif/core";
-import Inquirer from "inquirer";
+import { Command } from '@oclif/core';
+import Inquirer from 'inquirer';
 
-import { setUIFramework } from "../../add-ons/ui-framework/index";
-import { setVersionControl } from "../../add-ons/version-control/index";
-import { questions } from "../../helpers/questions";
-import { initializeTemplate } from "../../template/index";
+import { setUIFramework } from '../../add-ons/ui-framework/index';
+import { setVersionControl } from '../../add-ons/version-control/index';
+import { questions } from '../../helpers/questions';
+import { initializeTemplate } from '../../template/index';
+
+type generateArguments = { appName: string; branch: string; dest: string };
 
 export default class Generate extends Command {
-  static description = "Generate Nimble React application";
+  static description = 'Generate Nimble React application';
 
-  static examples = ["$ nimble-react generate app-name"];
+  static examples = ['$ nimble-react generate app-name'];
 
   static args = [
     {
-      name: "appName",
+      name: 'appName',
       required: true,
-      description: "application name",
+      description: 'application name',
     },
     {
-      name: "branch",
+      name: 'branch',
       required: false,
-      description: "Specify the branch to download the vite-template from...",
-      default: "main",
+      description: 'Specify the branch to download the vite-template from...',
+      default: 'main',
     },
     {
-      name: "dest",
+      name: 'dest',
       required: false,
       description:
-        "destination, defines in which folder the project folder will be created",
-      default: "./",
+        'destination, defines in which folder the project folder will be created',
+      default: './',
     },
   ];
 
-  public async run(): Promise<void> {
-    let {
+  public async parseArgs(): Promise<generateArguments> {
+    let destination = '';
+    const {
       args: { appName, branch, dest },
-    }: { args: { appName: string; branch: string; dest: string } } =
-      await this.parse(Generate);
+    }: { args: generateArguments } = await this.parse(Generate);
 
-    if (!dest.endsWith("/")) {
-      dest = `${dest}/`;
-    }
+    destination = dest.endsWith('/') ? dest : `${dest}/`;
 
-    const appPath = `${dest}${appName}`;
+    return { appName, branch, dest: destination };
+  }
 
+  public async run(): Promise<void> {
+    const args = await this.parseArgs();
     const answers = await Inquirer.prompt(questions);
+
+    const appPath = `${args.dest}${args.appName}`;
 
     try {
       this.log(
-        `Generating Nimble React app with the project name: ${appName}!`
+        `Generating Nimble React app with the project name: ${args.appName}!`,
       );
 
       await initializeTemplate({
         templateOption: answers.template,
-        appName,
-        branch,
-        dest,
+        ...args,
       });
 
       setVersionControl(appPath, answers.versionControl);
@@ -67,18 +70,18 @@ export default class Generate extends Command {
       await this.cleanFiles(appPath);
 
       // Display a final message
-      this.displayEndMessage(appName, appPath);
+      this.displayEndMessage(args.appName, appPath);
     } catch (error) {
       this.error(error as string | Error);
     }
   }
 
-  cleanFiles = async (appName: string): Promise<void> => {
-    this.log("Removing the .add-ons folder.");
+  cleanFiles = async(appName: string): Promise<void> => {
+    this.log('Removing the .add-ons folder.');
     return this.deleteAddOnsFolder(appName);
   };
 
-  deleteAddOnsFolder = async (appPath: string): Promise<void> => {
+  deleteAddOnsFolder = async(appPath: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       fs.rm(`${appPath}/.add-ons`, { recursive: true }, (err) => {
         if (err) {
@@ -93,7 +96,7 @@ export default class Generate extends Command {
   displayEndMessage = (appName: string, appPath: string): void => {
     this.log(``);
     this.log(`\n\n🚀 Your app "${appName}" has been created successfully!`);
-    this.log("\n\nTo get started, run the following:");
+    this.log('\n\nTo get started, run the following:');
     this.log(`> cd ./${appPath}`);
     this.log(`> npm start`);
   };

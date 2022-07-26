@@ -1,10 +1,11 @@
-import { CliUx } from "@oclif/core";
-import runCommand from "../helpers/child-process";
-import { replaceLine } from "../helpers/file-editor";
+import { CliUx } from '@oclif/core';
 
-const TEMPLATE_OWNER = "nimblehq";
-const TEMPLATE_REPO = "react-templates";
-const replaceAppNameInFiles = ["package.json", "index.html"];
+import runCommand from '../helpers/child-process';
+import { replaceLine } from '../helpers/file-editor';
+
+const TEMPLATE_OWNER = 'nimblehq';
+const TEMPLATE_REPO = 'react-templates';
+const replaceAppNameInFiles = ['package.json', 'index.html'];
 
 type InitViteOptions = {
   dest: string;
@@ -13,66 +14,66 @@ type InitViteOptions = {
 };
 
 const downloadTemplateRepository = (
-  options: InitViteOptions
+  options: InitViteOptions,
 ): Promise<void> => {
-  CliUx.ux.info("Downloading template source files...");
+  CliUx.ux.info('Downloading template source files...');
 
   return runCommand(
-    "curl",
+    'curl',
     [
       `https://codeload.github.com/${TEMPLATE_OWNER}/${TEMPLATE_REPO}/tar.gz/${options.branch}`,
-      "--output",
+      '--output',
       `${options.appName}.gz`,
     ],
-    options.dest
+    options.dest,
   );
 };
 
 const extractViteTemplateFolder = (options: InitViteOptions): Promise<void> => {
-  CliUx.ux.info("Extracting template source files...");
+  CliUx.ux.info('Extracting template source files...');
 
   return runCommand(
-    "tar",
-    ["-xz", "-f", `${options.appName}.gz`],
-    options.dest
+    'tar',
+    ['-xz', '-f', `${options.appName}.gz`],
+    options.dest,
   );
 };
 
 const renameFolder = (options: InitViteOptions): Promise<void> => {
-  CliUx.ux.info("Rename your app folder...");
-  const branchPath = options.branch.replace("/", "-");
+  CliUx.ux.info('Rename your app folder...');
+  const branchPath = options.branch.replace('/', '-');
 
-  return runCommand("mv", [`${TEMPLATE_REPO}-${branchPath}/vite-template/`, options.appName], options.dest);
+  return runCommand('mv', [`${TEMPLATE_REPO}-${branchPath}/vite-template/`, options.appName], options.dest);
 };
 
 const replaceAppName = (options: InitViteOptions): void => {
-  CliUx.ux.info("Setup your application name...");
+  CliUx.ux.info('Setup your application name...');
   replaceAppNameInFiles.forEach((fileName) => {
     replaceLine(
       `${options.dest}${options.appName}/${fileName}`,
-      "%APP_NAME%",
-      options.appName
+      '%APP_NAME%',
+      options.appName,
     );
   });
 };
 
 const npmInstall = (options: InitViteOptions): Promise<void> => {
-  CliUx.ux.info("Run npm install...");
-  return runCommand("npm", ["i"], `${options.dest}/${options.appName}`);
+  CliUx.ux.info('Run npm install...');
+  return runCommand('npm', ['i'], `${options.dest}/${options.appName}`);
 };
 
 const cleanTemporaryFiles = (options: InitViteOptions): Promise<void> => {
-  CliUx.ux.info("Remove zip and unwanted files...");
-  const branchPath = options.branch.replace("/", "-");
+  CliUx.ux.info('Remove zip and unwanted files...');
+  const branchPath = options.branch.replace('/', '-');
 
   // Remove the archive
-  return runCommand("rm", [`${options.appName}.gz`], options.dest).then(() => {
+  return runCommand('rm', [`${options.appName}.gz`], options.dest).then(() => {
     // Remove the extracted folder
-    return runCommand("rm", ["-rf", `${TEMPLATE_REPO}-${branchPath}`], options.dest)
+    return runCommand('rm', ['-rf', `${TEMPLATE_REPO}-${branchPath}`], options.dest);
   });
 };
 
-const initializeViteApp = async (options: InitViteOptions): Promise<void> => {
+const initializeViteApp = async(options: InitViteOptions): Promise<void> => {
   return downloadTemplateRepository(options)
     .then(() => extractViteTemplateFolder(options))
     .then(() => renameFolder(options))
