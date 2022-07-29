@@ -1,4 +1,4 @@
-https://github.com/nimblehq/react-templates/issues/??
+{COPY THE TASK URL HERE}
 
 ## What happened 👀
 
@@ -11,3 +11,10 @@ Describe in detail why this solution is the most appropriate, which solution you
 ## Proof Of Work 📹
 
 Show us the implementation: screenshots, GIFs, etc.
+
+## Reviewers ✅
+
+Mention the reviewers here once the merge request is ready for review.
+
+<!-- Base labels. -->
+/label ~"status : wip"
