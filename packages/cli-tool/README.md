@@ -97,7 +97,8 @@ If your changes also impacted the `cra-template` package, you can still test the
    ./bin/dev generate test-vite-app "feature/gh88-replace-webpack-with-vite" ~/Documents/Source
 ```
 
-> The `~/Documents/Source` last argument enables to deploy the app in another directory than the current repository. Errors might occurs if you try to generate a project within this repository.
+> The `~/Documents/Source` last argument enables to deploy the app in another directory rather than the current repository.
+> Errors might occurs if you try to generate a project within this repository.
 
 Find more the [OCLIF Documentation](https://oclif.io/docs/introduction.html)!
 
@@ -125,8 +126,11 @@ It is free software and may be redistributed under the terms specified in the [L
 
 This project is maintained and funded by [Nimble](https://nimblehq.co).
 
-We love open source and do our part in sharing our work with the community!
+We ❤️ open source and do our part in sharing our work with the community!
 See [our other projects][community] or [hire our team][hire] to help build your product.
+
+Want to join? [Check out our jobs][jobs]!
 
 [community]: https://github.com/nimblehq
 [hire]: https://nimblehq.co/
+[jobs]: https://jobs.nimblehq.co/
