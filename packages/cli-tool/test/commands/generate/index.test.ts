@@ -8,7 +8,7 @@ import { tailwindCssTestData } from '../../add-ons/ui-framework/tailwind-css';
 import { gitHubTestData, gitLabTestData, noVersionControlTestData } from '../../add-ons/version-control';
 import { TestScenario } from '../../helpers/test-scenario';
 
-const craRepoPath = 'file:./packages/cra-template';
+const craRepoPath = `file:/home/runner/work/react-templates/react-templates/packages/cra-template`;
 const viteBranch = 'feature/gh88-replace-webpack-with-vite';
 const projectName = 'test-app';
 const testFolderPath = '/home/runner/work/';
