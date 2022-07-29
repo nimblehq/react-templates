@@ -5,17 +5,16 @@ import Inquirer from 'inquirer';
 
 import { bootstrapTestData } from '../../add-ons/ui-framework/bootstrap';
 import { tailwindCssTestData } from '../../add-ons/ui-framework/tailwind-css';
-import { gitHubTestData, gitLabTestData } from '../../add-ons/version-control';
+import { gitHubTestData, gitLabTestData, noVersionControlTestData } from '../../add-ons/version-control';
 import { TestScenario } from '../../helpers/test-scenario';
 
-// const templateRepoPath = 'file:./packages/cra-template';
+const craRepoPath = 'file:./packages/cra-template';
 const viteBranch = 'feature/gh88-replace-webpack-with-vite';
 const projectName = 'test-app';
 const testFolderPath = '/home/runner/work/';
 
 const projectPath = `${testFolderPath}${projectName}`;
-
-const testScenarios: TestScenario[] = [
+const viteTestScenarios: TestScenario[] = [
   {
     options: {
       template: 'vite',
@@ -59,6 +58,51 @@ const testScenarios: TestScenario[] = [
     },
   },
 ];
+const craTestScenarios: TestScenario[] = [
+  {
+    options: {
+      template: 'cra',
+      versionControl: 'github',
+      uiFramework: 'bootstrap',
+    },
+    testData: {
+      filesShouldExist: [
+        ...gitHubTestData.filesShouldExist,
+        ...bootstrapTestData.filesShouldExist,
+      ],
+      filesShouldNotExist: [
+        ...gitHubTestData.filesShouldNotExist,
+        ...bootstrapTestData.filesShouldNotExist,
+      ],
+      filesShouldContain: [
+        ...gitHubTestData.filesShouldContain,
+        ...bootstrapTestData.filesShouldContain,
+      ],
+    },
+  },
+  {
+    options: {
+      template: 'cra',
+      versionControl: 'none',
+      uiFramework: 'tailwindCss',
+    },
+    testData: {
+      filesShouldExist: [
+        ...noVersionControlTestData.filesShouldExist,
+        ...tailwindCssTestData.filesShouldExist,
+      ],
+      filesShouldNotExist: [
+        ...noVersionControlTestData.filesShouldNotExist,
+        ...tailwindCssTestData.filesShouldNotExist,
+      ],
+      filesShouldContain: [
+        ...noVersionControlTestData.filesShouldContain,
+        ...tailwindCssTestData.filesShouldContain,
+      ],
+    },
+  },
+];
+const testScenarios: TestScenario[] = [...craTestScenarios, ...viteTestScenarios];
 
 describe('generate', () => {
   afterEach(() => {
@@ -82,9 +126,9 @@ describe('generate', () => {
     test
       .stdout()
       .stub(Inquirer, 'prompt', () => scenario.options)
-      .command(['generate', `${projectName}`, viteBranch, testFolderPath])
+      .command(['generate', `${projectName}`, scenario.options.template === 'vite' ? viteBranch : craRepoPath, testFolderPath])
       .it(
-        `generates an app ${projectName} with ${scenario.options.versionControl} and ${scenario.options.uiFramework}`,
+        `generates a ${scenario.options.template} app ${projectName} with ${scenario.options.versionControl} and ${scenario.options.uiFramework}`,
         (ctx) => {
           expect(ctx.stdout).to.contain(
             `Generating Nimble React app with the project name: ${projectName}`,

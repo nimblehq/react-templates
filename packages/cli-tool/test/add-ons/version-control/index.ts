@@ -11,3 +11,9 @@ export const gitLabTestData: TestData = {
   filesShouldNotExist: ['/.github'],
   filesShouldContain: [],
 };
+
+export const noVersionControlTestData: TestData = {
+  filesShouldExist: [],
+  filesShouldNotExist: ['/.github', '/.gitlab'],
+  filesShouldContain: [],
+};
