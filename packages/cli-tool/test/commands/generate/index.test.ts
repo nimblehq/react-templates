@@ -98,28 +98,28 @@ describe('generate', () => {
           scenario.testData.filesShouldExist.forEach((file) => {
             const message = `Expect ${projectPath}${file} to exists.`;
             expect(fs.existsSync(`${projectPath}${file}`), message).to.equal(
-              true
+              true,
             );
           });
 
-          // scenario.testData.filesShouldNotExist.forEach((file) => {
-          //   const message = `Expect ${projectPath}${file} to NOT exists.`;
-          //   expect(fs.existsSync(`${projectPath}${file}`), message).to.equal(
-          //     false
-          //   );
-          // });
+          scenario.testData.filesShouldNotExist.forEach((file) => {
+            const message = `Expect ${projectPath}${file} to NOT exists.`;
+            expect(fs.existsSync(`${projectPath}${file}`), message).to.equal(
+              false,
+            );
+          });
 
-          // scenario.testData.filesShouldContain.forEach((file) => {
-          //   const contents = fs.readFileSync(
-          //     `${projectPath}${file.path}`,
-          //     "utf-8"
-          //   );
+          scenario.testData.filesShouldContain.forEach((file) => {
+            const contents = fs.readFileSync(
+              `${projectPath}${file.path}`,
+              'utf-8',
+            );
 
-          //   const result = contents.includes(file.shouldContainString);
+            const result = contents.includes(file.shouldContainString);
 
-          //   const message = `Expect ${projectPath}${file.path} to contain string: ${file.shouldContainString}.`;
-          //   expect(result, message).to.equal(true);
-          // });
+            const message = `Expect ${projectPath}${file.path} to contain string: ${file.shouldContainString}.`;
+            expect(result, message).to.equal(true);
+          });
         },
       );
   });
