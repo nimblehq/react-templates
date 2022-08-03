@@ -8,7 +8,7 @@ import { setVersionControl } from '../../add-ons/version-control/index';
 import { questions } from '../../helpers/questions';
 import { initializeTemplate } from '../../template/index';
 
-type generateArguments = { appName: string; branch: string; dest: string };
+type generateArguments = { appName: string; templateReference: string; dest: string };
 
 export default class Generate extends Command {
   static description = 'Generate Nimble React application';
@@ -22,29 +22,29 @@ export default class Generate extends Command {
       description: 'application name',
     },
     {
-      name: 'branch',
-      required: false,
-      description: 'Specify the branch to download the vite-template from...',
-      default: 'main',
-    },
-    {
       name: 'dest',
       required: false,
       description:
-        'destination, defines in which folder the project folder will be created',
+      'destination, defines in which folder the project folder will be created',
       default: './',
+    },
+    {
+      name: 'templateReference',
+      required: false,
+      description: 'Specify the branch to download the vite-template from or path to a local cra-template folder.',
+      default: '',
     },
   ];
 
   public async parseArgs(): Promise<generateArguments> {
     let destination = '';
     const {
-      args: { appName, branch, dest },
+      args: { appName, templateReference, dest },
     }: { args: generateArguments } = await this.parse(Generate);
 
     destination = dest.endsWith('/') ? dest : `${dest}/`;
 
-    return { appName, branch, dest: destination };
+    return { appName, templateReference, dest: destination };
   }
 
   public async run(): Promise<void> {

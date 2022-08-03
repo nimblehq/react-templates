@@ -91,13 +91,23 @@ To run the CLI on your local machine:
 
 > 💡 Running just `./bin/dev` without argument will display all the possible commands as well as additional information.
 
-If your changes also impacted the `cra-template` package, you can still test them locally using:
+To test with local changes in either the `./packages/cra-template` or the `./vite-temaplte/` folders, use the following commands:
+- For Vite:
+  ```BASH
+    # Assuming the repository `react-temapltes` is in `~/Documents/Source/`.
+    # The generated app will be in `~/Documents/Source/vite-app`
+    ./bin/dev generate vite-app ~/Documents/Source/ feature/gh88-replace-webpack-with-vite
+  ```
+- For Create React App (Webpack):
+  ```BASH
+    # Assuming the repository `react-temapltes` is in `~/Documents/Source/`.
+    # The generated app will be in `~/Documents/Source/webpack-app`
+    ./bin/dev generate webpack-app ~/Documents/Source/ file:react-templates/packages/cra-template
+  ```
 
-```BASH
-   ./bin/dev generate test-vite-app "feature/gh88-replace-webpack-with-vite" ~/Documents/Source
-```
+The last argument is named `templateReference` and is either the branch name (for Vite) or the local repository path (for CRA), relative to the previous argument.
+The second argument (`~/Documents/Source`) enables to deploy the app in another directory rather than the current repository.
 
-> The `~/Documents/Source` last argument enables to deploy the app in another directory rather than the current repository.
 > Errors might occurs if you try to generate a project within this repository.
 
 Find more the [OCLIF Documentation](https://oclif.io/docs/introduction.html)!

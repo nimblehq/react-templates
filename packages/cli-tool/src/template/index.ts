@@ -10,23 +10,23 @@ export const TEMPLATE_OPTIONS = new Map<templateOptions, string>([
 export const initializeTemplate = async({
   appName,
   templateOption,
-  branch,
+  templateReference,
   dest,
 }: {
   appName: string;
   templateOption: templateOptions;
-  branch: string;
+  templateReference: string;
   dest: string;
 }): Promise<void> => {
   if (templateOption === 'vite') {
     await initializeViteApp({
       appName,
       dest,
-      branch: branch,
+      branch: templateReference,
     });
 
     return;
   }
 
-  await initializeCraApp(appName, branch, dest);
+  await initializeCraApp(appName, templateReference, dest);
 };
