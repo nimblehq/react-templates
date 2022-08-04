@@ -8,8 +8,8 @@ import { tailwindCssTestData } from '../../add-ons/ui-framework/tailwind-css';
 import { gitHubTestData, gitLabTestData, noVersionControlTestData } from '../../add-ons/version-control';
 import { TestScenario } from '../../helpers/test-scenario';
 
-const craRepoPath = `file:./react-templates/packages/cra-template`;
-const viteBranch = 'feature/gh88-replace-webpack-with-vite';
+const craTemplateReference = `file:./react-templates/packages/cra-template`;
+const viteTemplateReference = 'feature/gh88-replace-webpack-with-vite';
 const projectName = 'test-app';
 const testFolderPath = '../../../';
 
@@ -126,7 +126,7 @@ describe('generate', () => {
     test
       .stdout()
       .stub(Inquirer, 'prompt', () => scenario.options)
-      .command(['generate', `${projectName}`, scenario.options.template === 'vite' ? viteBranch : craRepoPath, testFolderPath])
+      .command(['generate', `${projectName}`, testFolderPath, scenario.options.template === 'vite' ? viteTemplateReference : craTemplateReference])
       .it(
         `generates a ${scenario.options.template} app ${projectName} with ${scenario.options.versionControl} and ${scenario.options.uiFramework}`,
         (ctx) => {
