@@ -108,7 +108,7 @@ To test with local changes in either the `./packages/cra-template` or the `./vit
 The last argument is named `templateReference` and is either the branch name (for Vite) or the local repository path (for CRA), relative to the previous argument.
 The second argument (`~/Documents/Source`) enables to deploy the app in another directory rather than the current repository.
 
-> Errors might occurs if you try to generate a project within this repository.
+> Errors might occur if you try to generate a project within this repository.
 
 Find more the [OCLIF Documentation](https://oclif.io/docs/introduction.html)!
 
