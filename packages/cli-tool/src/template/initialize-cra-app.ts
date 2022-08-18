@@ -1,6 +1,6 @@
 import runCommand from '../helpers/child-process';
 
-const NIMBLE_CRA_TEMPLATE = '@nimblehq';
+const DEFAULT_CRA_TEMPLATE = '@nimblehq';
 
 const initializeCraApp = async(
   appName: string,
@@ -8,7 +8,7 @@ const initializeCraApp = async(
   dest: string,
 ): Promise<void> => {
   if (template === '') {
-    template = NIMBLE_CRA_TEMPLATE;
+    template = DEFAULT_CRA_TEMPLATE;
   }
 
   return runCommand('npx', [
