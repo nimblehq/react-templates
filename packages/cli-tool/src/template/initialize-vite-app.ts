@@ -2,6 +2,7 @@ import { CliUx } from '@oclif/core';
 
 import runCommand from '../helpers/child-process';
 import { replaceLine } from '../helpers/file-editor';
+import { downloadRepository } from '../helpers/github';
 
 const TEMPLATE_OWNER = 'nimblehq';
 const TEMPLATE_REPO = 'react-templates';
@@ -18,13 +19,13 @@ const downloadTemplateRepository = (
 ): Promise<void> => {
   CliUx.ux.info('Downloading template source files...');
 
-  return runCommand(
-    'curl',
-    [
-      `https://codeload.github.com/${TEMPLATE_OWNER}/${TEMPLATE_REPO}/tar.gz/${options.branch}`,
-      '--output',
-      `${options.appName}.gz`,
-    ],
+  return downloadRepository(
+    {
+      gitHubAccount: TEMPLATE_OWNER,
+      repositoryName: TEMPLATE_REPO,
+      branch: options.branch,
+    },
+    options.appName,
     options.dest,
   );
 };
@@ -43,7 +44,11 @@ const renameFolder = (options: InitViteOptions): Promise<void> => {
   CliUx.ux.info('Rename your app folder...');
   const branchPath = options.branch.replace('/', '-');
 
-  return runCommand('mv', [`${TEMPLATE_REPO}-${branchPath}/vite-template/`, options.appName], options.dest);
+  return runCommand(
+    'mv',
+    [`${TEMPLATE_REPO}-${branchPath}/vite-template/`, options.appName],
+    options.dest,
+  );
 };
 
 const replaceAppName = (options: InitViteOptions): void => {
@@ -69,7 +74,11 @@ const cleanTemporaryFiles = (options: InitViteOptions): Promise<void> => {
   // Remove the archive
   return runCommand('rm', [`${options.appName}.gz`], options.dest).then(() => {
     // Remove the extracted folder
-    return runCommand('rm', ['-rf', `${TEMPLATE_REPO}-${branchPath}`], options.dest);
+    return runCommand(
+      'rm',
+      ['-rf', `${TEMPLATE_REPO}-${branchPath}`],
+      options.dest,
+    );
   });
 };
 
