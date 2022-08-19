@@ -64,7 +64,7 @@ export default class Generate extends Command {
       });
 
       setVersionControl(appPath, answers.versionControl);
-      await setUIFramework(appPath, answers.uiFramework);
+      await setUIFramework(appPath, answers.uiFramework, answers.template);
 
       // Clean files after all steps
       await this.cleanFiles(appPath);
