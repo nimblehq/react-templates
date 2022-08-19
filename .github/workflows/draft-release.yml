@@ -1,0 +1,28 @@
+name: Draft the release
+
+on:
+  push:
+    branches:
+      - main
+      - chore/99-add-release-drafter
+
+jobs:
+  draft_new_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get version from the latest commit message
+        working-directory: scripts
+        run: |
+          COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
+          echo "$COMMIT_MESSAGE"
+
+      # - name: Draft release
+      #   uses: release-drafter/release-drafter@v5
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     config-name: release-drafter-config.yml
+      #     version: ${{ env.VERSION }}
