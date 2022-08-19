@@ -4,6 +4,7 @@ import { CliUx } from '@oclif/core';
 
 import runCommand from '../../helpers/child-process';
 import { replaceLine } from '../../helpers/file-editor';
+import { templateOptions } from '../../template/index';
 
 const DEV_DEPENDENCIES = [
   'tailwindcss@^3.1.4',
@@ -69,29 +70,29 @@ const addTailwindFileStructure = (appPath: string): Promise<void> => {
   });
 };
 
-const addTailwindCssImport = (appPath: string): Promise<void> => {
+const addTailwindCssImport = (appPath: string, selectedTemplate: templateOptions): Promise<void> => {
   return new Promise((resolve, reject) => {
     CliUx.ux.info('Update css imports in App.tsx');
 
     try {
       const indexScssPath = `${appPath}/src/App.tsx`;
 
-      // When using Webpack
-      replaceLine(
-        indexScssPath,
-        `import 'assets/stylesheets/application.scss';`,
-        `import 'assets/stylesheets/application.css';`,
-      );
-      replaceLine(indexScssPath, `import '@/dummy.scss';`, `import '@/dummy.css';`);
-
-      // When using Vite
-      replaceLine(
-        indexScssPath,
-        `import '@/assets/stylesheets/application.scss';`,
-        `import '@/assets/stylesheets/application.css';`,
-      );
-      replaceLine(indexScssPath, `import 'dummy.scss';`, `import 'dummy.css';`);
-
+      if (selectedTemplate === 'webpack') {
+        replaceLine(
+          indexScssPath,
+          `import 'assets/stylesheets/application.scss';`,
+          `import 'assets/stylesheets/application.css';`,
+        );
+        replaceLine(indexScssPath, `import '@/dummy.scss';`, `import '@/dummy.css';`);
+      }
+      if (selectedTemplate === 'vite') {
+        replaceLine(
+          indexScssPath,
+          `import '@/assets/stylesheets/application.scss';`,
+          `import '@/assets/stylesheets/application.css';`,
+        );
+        replaceLine(indexScssPath, `import 'dummy.scss';`, `import 'dummy.css';`);
+      }
       resolve();
     } catch (error) {
       CliUx.ux.info(
@@ -104,11 +105,11 @@ const addTailwindCssImport = (appPath: string): Promise<void> => {
   });
 };
 
-const setupTailwindCss = async function(appPath: string): Promise<void> {
+const setupTailwindCss = async function(appPath: string, selectedTemplate: templateOptions): Promise<void> {
   return installDevDependencies(appPath)
     .then((_value) => removeScssFileStructure(appPath))
     .then((_value) => addTailwindFileStructure(appPath))
-    .then((_value) => addTailwindCssImport(appPath));
+    .then((_value) => addTailwindCssImport(appPath, selectedTemplate));
 };
 
 export default setupTailwindCss;

@@ -1,5 +1,6 @@
 import { CliUx } from '@oclif/core';
 
+import { templateOptions } from '../../template/index';
 import setupBootstrap from './bootstrap';
 import setupTailwindCss from './tailwind-css';
 
@@ -14,6 +15,7 @@ export const UI_FRAMEWORK_OPTIONS = new Map<uiFrameworkKey, string>([
 export const setUIFramework = async(
   appPath: string,
   uiFramework: uiFrameworkKey,
+  selectedTemplate: templateOptions,
 ): Promise<void> => {
   switch (uiFramework) {
     case 'bootstrap':
@@ -21,6 +23,6 @@ export const setUIFramework = async(
       return setupBootstrap(appPath);
     case 'tailwindCss':
       CliUx.ux.info('Configure TailwindCSS...');
-      return setupTailwindCss(appPath);
+      return setupTailwindCss(appPath, selectedTemplate);
   }
 };
