@@ -2,7 +2,7 @@ name: Deploy to Netlify
 
 on:
   push:
-    branches: ['main', 'master']
+    branches: ['main']
   workflow_dispatch:
     inputs:
       deploy-msg:
@@ -12,14 +12,15 @@ on:
 jobs:
   deploy:
     name: Build and Deploy to Netlify
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.10.0
         with:
           access_token: ${{ github.token }}
 
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Install modules
         run: npm ci
