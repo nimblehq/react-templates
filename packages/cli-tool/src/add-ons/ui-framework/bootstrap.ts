@@ -8,7 +8,7 @@ import {
   lineFinderFuncType,
 } from '../../helpers/file-editor';
 
-const DEV_DEPENDENCIES = ['bootstrap@^5.1.3'];
+const DEV_DEPENDENCIES = ['bootstrap@5.2.1'];
 
 export const addBootstrapFileStructure = (appPath: string): Promise<void> => {
   return new Promise((resolve, reject) => {
