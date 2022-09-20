@@ -35,7 +35,7 @@
     },
     "scripts": {
       "start": "react-scripts -r @cypress/instrument-cra start",
-      "test:coverage": "react-scripts test --coverage --watchAll=false && npm run cypress:run && node ./scripts/coverage-merge.js && nyc report",
+      "test:coverage": "rimraf coverage && react-scripts test --coverage --watchAll=false && npm run cypress:run && node ./scripts/coverage-merge.js && nyc report",
       "test:merge-coverage": "node ./scripts/coverage-merge.js",
       "lint": "eslint ./src ./cypress --ext .ts,.tsx",
       "lint:fix": "eslint ./src ./cypress --ext .ts,.tsx --fix",

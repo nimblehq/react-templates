@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import HomeScreen from './Home';
+import HomeScreen from '.';
 
 describe('HomeScreen', () => {
   it('renders learn react link', () => {
