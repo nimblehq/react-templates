@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["node", "cypress", "@testing-library/cypress"],
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  },
+  "include": ["**/*.ts"],
+  "files": ["./support/index.d.ts"]
+}

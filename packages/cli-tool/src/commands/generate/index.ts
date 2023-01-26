@@ -6,7 +6,9 @@ import Inquirer from 'inquirer';
 import { setUIFramework } from '../../add-ons/ui-framework/index';
 import { setVersionControl } from '../../add-ons/version-control/index';
 import { questions } from '../../helpers/questions';
-import initializeCraApp from '../../template/initialize-cra-app';
+import { initializeTemplate } from '../../template/index';
+
+type generateArguments = { appName: string; templateReference: string; dest: string };
 
 export default class Generate extends Command {
   static description = 'Generate Nimble React application';
@@ -20,44 +22,55 @@ export default class Generate extends Command {
       description: 'application name',
     },
     {
-      name: 'template',
-      required: false,
-      description:
-        'template location, use "file:{../path/to/your/local/template/repo}" for using a local cra template',
-      default: '@nimblehq',
-    },
-    {
       name: 'dest',
       required: false,
       description:
-        'destination, defines in which folder the project folder will be created',
+      'destination, defines in which folder the project folder will be created',
       default: './',
+    },
+    {
+      name: 'templateReference',
+      required: false,
+      description: 'Specify the branch to download the vite-template from or path to a local cra-template folder.',
+      default: '',
     },
   ];
 
-  public async run(): Promise<void> {
+  public async parseArgs(): Promise<generateArguments> {
+    let destination = '';
     const {
-      args: { appName, template, dest },
-    } = await this.parse(Generate);
+      args: { appName, templateReference, dest },
+    }: { args: generateArguments } = await this.parse(Generate);
 
-    const appPath = `${dest}${appName}`;
+    destination = dest.endsWith('/') ? dest : `${dest}/`;
 
+    return { appName, templateReference, dest: destination };
+  }
+
+  public async run(): Promise<void> {
+    const args = await this.parseArgs();
     const answers = await Inquirer.prompt(questions);
+
+    const appPath = `${args.dest}${args.appName}`;
 
     try {
       this.log(
-        `Generating Nimble React app with the project name: ${appName}!`,
+        `Generating Nimble React app with the project name: ${args.appName}!`,
       );
 
-      await initializeCraApp(appName, template, dest);
+      await initializeTemplate({
+        templateOption: answers.template,
+        ...args,
+      });
+
       setVersionControl(appPath, answers.versionControl);
-      await setUIFramework(appPath, answers.uiFramework);
+      await setUIFramework(appPath, answers.uiFramework, answers.template);
 
       // Clean files after all steps
       await this.cleanFiles(appPath);
 
       // Display a final message
-      this.displayEndMessage(appName, appPath);
+      this.displayEndMessage(args.appName, appPath);
     } catch (error) {
       this.error(error as string | Error);
     }

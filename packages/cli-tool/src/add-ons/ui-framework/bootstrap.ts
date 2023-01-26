@@ -12,11 +12,11 @@ const DEV_DEPENDENCIES = ['bootstrap@5.2.1'];
 
 export const addBootstrapFileStructure = (appPath: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    CliUx.ux.info('Starting: ', `./${appPath}/.add-ons/bootstrap`);
+    CliUx.ux.info('Starting: ', `${appPath}/.add-ons/bootstrap`);
 
     try {
-      const destPath = `./${appPath}/src/assets/stylesheets/vendor/bootstrap/`;
-      fs.renameSync(`./${appPath}/.add-ons/bootstrap/`, destPath);
+      const destPath = `${appPath}/src/assets/stylesheets/vendor/bootstrap/`;
+      fs.renameSync(`${appPath}/.add-ons/bootstrap/`, destPath);
 
       resolve();
     } catch (error) {
@@ -42,7 +42,7 @@ const addBootstrapScssUseLine = (appPath: string): Promise<void> => {
     CliUx.ux.info('Insert bootstrap scss import.');
 
     try {
-      const indexScssPath = `./${appPath}/src/assets/stylesheets/application.scss`;
+      const indexScssPath = `${appPath}/src/assets/stylesheets/application.scss`;
       const lineToAdd = `@use 'src/assets/stylesheets/vendor/bootstrap';`;
 
       addLinesToFileAfterMatchedLine(
@@ -64,7 +64,7 @@ const addBootstrapScssUseLine = (appPath: string): Promise<void> => {
 };
 
 const installDevDependencies = (appPath: string): Promise<void> => {
-  return runCommand('npm', ['install', ...DEV_DEPENDENCIES], `./${appPath}/`);
+  return runCommand('npm', ['install', ...DEV_DEPENDENCIES], `${appPath}/`);
 };
 
 const setupBootstrap = async(appPath: string): Promise<void> => {

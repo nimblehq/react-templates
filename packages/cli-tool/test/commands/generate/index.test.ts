@@ -5,18 +5,19 @@ import Inquirer from 'inquirer';
 
 import { bootstrapTestData } from '../../add-ons/ui-framework/bootstrap';
 import { tailwindCssTestData } from '../../add-ons/ui-framework/tailwind-css';
-import { gitHubTestData, gitLabTestData } from '../../add-ons/version-control';
+import { gitHubTestData, gitLabTestData, noVersionControlTestData } from '../../add-ons/version-control';
 import { TestScenario } from '../../helpers/test-scenario';
 
-const templateRepoPath = 'file:./packages/cra-template';
+const craTemplateReference = `file:./react-templates/packages/cra-template`;
+const viteTemplateReference = 'feature/gh88-replace-webpack-with-vite';
 const projectName = 'test-app';
-const testFolderPath = '../../';
+const testFolderPath = '../../../';
 
 const projectPath = `${testFolderPath}${projectName}`;
-
-const testScenarios: TestScenario[] = [
+const viteTestScenarios: TestScenario[] = [
   {
     options: {
+      template: 'vite',
       versionControl: 'github',
       uiFramework: 'bootstrap',
     },
@@ -37,6 +38,7 @@ const testScenarios: TestScenario[] = [
   },
   {
     options: {
+      template: 'vite',
       versionControl: 'gitlab',
       uiFramework: 'tailwindCss',
     },
@@ -56,10 +58,55 @@ const testScenarios: TestScenario[] = [
     },
   },
 ];
+const craTestScenarios: TestScenario[] = [
+  {
+    options: {
+      template: 'cra',
+      versionControl: 'github',
+      uiFramework: 'bootstrap',
+    },
+    testData: {
+      filesShouldExist: [
+        ...gitHubTestData.filesShouldExist,
+        ...bootstrapTestData.filesShouldExist,
+      ],
+      filesShouldNotExist: [
+        ...gitHubTestData.filesShouldNotExist,
+        ...bootstrapTestData.filesShouldNotExist,
+      ],
+      filesShouldContain: [
+        ...gitHubTestData.filesShouldContain,
+        ...bootstrapTestData.filesShouldContain,
+      ],
+    },
+  },
+  {
+    options: {
+      template: 'cra',
+      versionControl: 'none',
+      uiFramework: 'tailwindCss',
+    },
+    testData: {
+      filesShouldExist: [
+        ...noVersionControlTestData.filesShouldExist,
+        ...tailwindCssTestData.filesShouldExist,
+      ],
+      filesShouldNotExist: [
+        ...noVersionControlTestData.filesShouldNotExist,
+        ...tailwindCssTestData.filesShouldNotExist,
+      ],
+      filesShouldContain: [
+        ...noVersionControlTestData.filesShouldContain,
+        ...tailwindCssTestData.filesShouldContain,
+      ],
+    },
+  },
+];
+const testScenarios: TestScenario[] = [...craTestScenarios, ...viteTestScenarios];
 
 describe('generate', () => {
   afterEach(() => {
-    fs.rmSync(`${testFolderPath}${projectName}`, {
+    fs.rmSync(projectPath, {
       recursive: true,
       force: true,
     });
@@ -79,20 +126,31 @@ describe('generate', () => {
     test
       .stdout()
       .stub(Inquirer, 'prompt', () => scenario.options)
-      .command(['generate', `${projectName}`, templateRepoPath, testFolderPath])
+      .command(['generate', `${projectName}`, testFolderPath, scenario.options.template === 'vite' ? viteTemplateReference : craTemplateReference])
       .it(
-        `generates an app ${projectName} with ${scenario.options.versionControl} and ${scenario.options.uiFramework}`,
+        `generates a ${scenario.options.template} app ${projectName} with ${scenario.options.versionControl} and ${scenario.options.uiFramework}`,
         (ctx) => {
           expect(ctx.stdout).to.contain(
             `Generating Nimble React app with the project name: ${projectName}`,
           );
 
+          expect(
+            fs.existsSync(projectPath),
+            'Expect the project path to exists',
+          ).to.equal(true);
+
           scenario.testData.filesShouldExist.forEach((file) => {
-            expect(fs.existsSync(`${projectPath}${file}`)).to.equal(true);
+            const message = `Expect ${projectPath}${file} to exists.`;
+            expect(fs.existsSync(`${projectPath}${file}`), message).to.equal(
+              true,
+            );
           });
 
           scenario.testData.filesShouldNotExist.forEach((file) => {
-            expect(fs.existsSync(`${projectPath}${file}`)).to.equal(false);
+            const message = `Expect ${projectPath}${file} to NOT exists.`;
+            expect(fs.existsSync(`${projectPath}${file}`), message).to.equal(
+              false,
+            );
           });
 
           scenario.testData.filesShouldContain.forEach((file) => {
@@ -103,7 +161,8 @@ describe('generate', () => {
 
             const result = contents.includes(file.shouldContainString);
 
-            expect(result).to.equal(true);
+            const message = `Expect ${projectPath}${file.path} to contain string: ${file.shouldContainString}.`;
+            expect(result, message).to.equal(true);
           });
         },
       );

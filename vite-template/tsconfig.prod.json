@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig",
+  "exclude": [
+    "./cypress/**",
+    "./src/__tests__/**",
+    "./src/__mocks__/**",
+    "./src/tests/**",
+    "./src/*/**.test.ts",
+    "./src/*/**.test.tsx"
+  ]
+}
