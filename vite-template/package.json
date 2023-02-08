@@ -42,8 +42,8 @@
     "lint:fix": "eslint ./src ./cypress --ext .ts,.tsx --fix",
     "stylelint": "stylelint '**/*.scss'",
     "stylelint:fix": "stylelint '**/*.scss' --fix",
-    "codebase:lint": "npm run lint && npm run stylelint",
-    "codebase:fix": "npm run lint:fix && npm run stylelint:fix",
+    "codebase:lint": "concurrently npm:lint npm:stylelint",
+    "codebase:fix": "concurrently npm:lint:fix npm:stylelint:fix",
     "cypress": "start-server-and-test start 3000 cypress:run",
     "cypress:run": "cypress run",
     "cypress:open": "cypress open"
@@ -105,6 +105,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.3.0",
     "@vitejs/plugin-react": "^2.0.0",
+    "concurrently": "^7.6.0",
     "danger": "^10.9.0",
     "danger-plugin-code-coverage": "^1.1.9",
     "danger-plugin-istanbul-coverage": "^1.6.2",

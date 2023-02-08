@@ -24,6 +24,7 @@
       "@types/react": "17.0.40",
       "@types/react-dom": "17.0.13",
       "@cypress/instrument-cra": "1.4.0",
+      "concurrently": "^7.6.0",
       "cypress": "9.5.2",
       "cypress-react-selector": "2.3.16",
       "danger": "10.9.0",
@@ -42,8 +43,8 @@
       "lint:fix": "eslint ./ --ext .js,.ts,.tsx --fix",
       "stylelint": "stylelint '**/*.scss'",
       "stylelint:fix": "stylelint '**/*.scss' --fix",
-      "codebase:lint": "npm run lint && npm run stylelint",
-      "codebase:fix": "npm run lint:fix && npm run stylelint:fix",
+      "codebase:lint": "concurrently npm:lint npm:stylelint",
+      "codebase:fix": "concurrently npm:lint:fix npm:stylelint:fix",
       "cypress": "start-server-and-test start 3000 cypress:run",
       "cypress:run": "cypress run",
       "cypress:open": "cypress open"
