@@ -6,7 +6,6 @@
   <strong>React Templates</strong>
 </p>
 
-
 ---
 
 <p align="center">
