@@ -1,4 +1,4 @@
-Closes https://github.com/nimblehq/react-templates/issues/??
+- Close #
 
 ## What happened 👀
 
