@@ -15,6 +15,7 @@
       "@nimblehq/eslint-config-nimble-react": "^1.0.0",
       "@nimblehq/stylelint-config-nimble": "^1.0.0",
       "@testing-library/cypress": "8.0.2",
+      "@testing-library/dom": "8.20.0",
       "@testing-library/jest-dom": "5.16.4",
       "@testing-library/react": "13.1.1",
       "@testing-library/user-event": "14.1.1",

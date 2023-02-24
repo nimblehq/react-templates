@@ -9,7 +9,9 @@ import { gitHubTestData, gitLabTestData, noVersionControlTestData } from '../../
 import { TestScenario } from '../../helpers/test-scenario';
 
 const craTemplateReference = `file:./react-templates/packages/cra-template`;
-const viteTemplateReference = 'feature/gh88-replace-webpack-with-vite';
+// TODO: Adjust viteTemplateReference to use commit hash of development branch for vite template
+// https://github.com/nimblehq/react-templates/commit/52288d1e5e560bcc717f760f1fd19f7cb1b0085e
+const viteTemplateReference = '52288d1e5e560bcc717f760f1fd19f7cb1b0085e';
 const projectName = 'test-app';
 const testFolderPath = '../../../';
 
