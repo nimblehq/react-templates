@@ -10,8 +10,8 @@ const replaceAppNameInFiles = ['package.json', 'index.html'];
 
 type InitViteOptions = {
   dest: string;
+  templateReference: string; // Git branch name or path to a local template folder
   appName: string;
-  branch: string;
 };
 
 const downloadTemplateRepository = (
@@ -23,7 +23,7 @@ const downloadTemplateRepository = (
     {
       gitHubAccount: TEMPLATE_OWNER,
       repositoryName: TEMPLATE_REPO,
-      branch: options.branch,
+      branch: options.templateReference,
     },
     options.appName,
     options.dest,
@@ -40,9 +40,20 @@ const extractViteTemplateFolder = (options: InitViteOptions): Promise<void> => {
   );
 };
 
+const copyTemplateFiles = (options: InitViteOptions): Promise<void> => {
+  CliUx.ux.info('Copying template source files...');
+  const branchPath = options.templateReference.replace('/', '-');
+
+  return runCommand(
+    'cp',
+    ['-r', `${TEMPLATE_REPO}-${branchPath}/vite-template/`, options.appName],
+    options.dest,
+  );
+};
+
 const renameFolder = (options: InitViteOptions): Promise<void> => {
   CliUx.ux.info('Rename your app folder...');
-  const branchPath = options.branch.replace('/', '-');
+  const branchPath = options.templateReference.replace('/', '-');
 
   return runCommand(
     'mv',
@@ -69,7 +80,7 @@ const npmInstall = (options: InitViteOptions): Promise<void> => {
 
 const cleanTemporaryFiles = (options: InitViteOptions): Promise<void> => {
   CliUx.ux.info('Remove zip and unwanted files...');
-  const branchPath = options.branch.replace('/', '-');
+  const branchPath = options.templateReference.replace('/', '-');
 
   // Remove the archive
   return runCommand('rm', [`${options.appName}.gz`], options.dest).then(() => {
@@ -83,8 +94,10 @@ const cleanTemporaryFiles = (options: InitViteOptions): Promise<void> => {
 };
 
 const initializeViteApp = async(options: InitViteOptions): Promise<void> => {
-  return downloadTemplateRepository(options)
-    .then(() => extractViteTemplateFolder(options))
+  // If given a branch name, use
+  // return downloadTemplateRepository(options)
+  // .then(()=> extractViteTemplateFolder(options))
+  return copyTemplateFiles(options)
     .then(() => renameFolder(options))
     .then(() => replaceAppName(options))
     .then(() => npmInstall(options))

@@ -22,7 +22,7 @@ export const initializeTemplate = async({
     await initializeViteApp({
       appName,
       dest,
-      branch: templateReference,
+      templateReference,
     });
 
     return;
