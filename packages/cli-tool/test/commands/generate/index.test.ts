@@ -9,7 +9,7 @@ import { gitHubTestData, gitLabTestData, noVersionControlTestData } from '../../
 import { TestScenario } from '../../helpers/test-scenario';
 
 const craTemplateReference = 'file:./react-templates/packages/cra-template';
-const viteTemplateReference = 'file:./react-templates/packages/vite-template';
+const viteTemplateReference = '../vite-template';
 const projectName = 'test-app';
 const testFolderPath = '../../../';
 
