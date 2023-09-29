@@ -5,12 +5,14 @@ import runCommand from '../helpers/child-process';
 import { replaceLine } from '../helpers/file-editor';
 import { CopyStrategy, DownloadStrategy } from './fetchingStrategy';
 
-const replaceAppNameInFiles = ['package.json', 'index.html'];
+const replaceAppNameInFiles = ['index.html'];
+const replcaeNimbleNameInFiles = ['package.json'];
 
 const fetchTemplateFiles = (options: InitTemplateOptions): Promise<void> => {
   let fetchStrategy: CopyStrategy | DownloadStrategy;
 
   // If passed templateReference in CLI, use the DownloadStrategy
+  // TODO: Decide if we want to keep DownloadStrategy long-term
   if (options.templateReference && options.templateReference.trim() === '') {
     fetchStrategy = new DownloadStrategy();
   } else {
@@ -27,6 +29,14 @@ const replaceAppName = (options: InitTemplateOptions): void => {
     replaceLine(
       `${options.dest}${options.appName}/${fileName}`,
       '%APP_NAME%',
+      options.appName,
+    );
+  });
+
+  replcaeNimbleNameInFiles.forEach((fileName) => {
+    replaceLine(
+      `${options.dest}${options.appName}/${fileName}`,
+      'nimble-vite-template',
       options.appName,
     );
   });
