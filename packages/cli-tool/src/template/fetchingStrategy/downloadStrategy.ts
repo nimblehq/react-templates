@@ -1,17 +1,21 @@
 import { CliUx } from '@oclif/core';
 
+import { FetchStrategy } from '.';
 import { InitTemplateOptions } from '../.';
 import runCommand from '../../helpers/child-process';
 import { downloadRepository } from '../../helpers/github';
-import { FetchStrategy } from './';
 
 const TEMPLATE_OWNER = 'nimblehq';
 const TEMPLATE_REPO = 'react-templates';
 
 class DownloadStrategy implements FetchStrategy {
+  constructor(public selectedTemplate: string) {
+    this.selectedTemplate = selectedTemplate;
+  }
+
   async fetchTemplateFiles(options: InitTemplateOptions): Promise<void> {
     return this.downloadTemplateRepository(options)
-      .then(() => this.extractViteTemplateFolder(options))
+      .then(() => this.extractDownloadedTemplateFolder(options))
       .then(() => this.renameFolder(options))
       .then(() => this.cleanTemporaryFiles(options));
   }
@@ -32,7 +36,7 @@ class DownloadStrategy implements FetchStrategy {
     );
   }
 
-  private extractViteTemplateFolder(options: InitTemplateOptions): Promise<void> {
+  private extractDownloadedTemplateFolder(options: InitTemplateOptions): Promise<void> {
     CliUx.ux.info('Extracting template source files...');
 
     return runCommand(
@@ -48,7 +52,7 @@ class DownloadStrategy implements FetchStrategy {
 
     return runCommand(
       'mv',
-      [`${TEMPLATE_REPO}-${path}`, options.appName],
+      [`${TEMPLATE_REPO}-${path}/${this.selectedTemplate}/`, options.appName],
       options.dest,
     );
   }

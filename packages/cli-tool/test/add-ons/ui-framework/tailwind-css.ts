@@ -1,14 +1,10 @@
 import { TestData } from '../../helpers/test-data';
 
 export const tailwindCssTestData: TestData = {
-  filesShouldExist: [
+  filePaths: [
     '/tailwind.config.js',
     '/postcss.config.js',
     '/src/assets/stylesheets/application.css',
-  ],
-  filesShouldNotExist: [
-    '/src/assets/stylesheets/vendor/bootstrap',
-    '/src/assets/stylesheets/application.scss',
   ],
   filesShouldContain: [
     {

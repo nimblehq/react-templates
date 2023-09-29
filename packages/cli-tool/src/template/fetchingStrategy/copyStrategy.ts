@@ -1,12 +1,14 @@
 import { CliUx } from '@oclif/core';
 
+import { FetchStrategy } from '.';
 import { InitTemplateOptions } from '../.';
 import runCommand from '../../helpers/child-process';
-import { FetchStrategy } from './';
-
-const TEMPLATE_SOURCE_FILES = '../vite-template';
 
 class CopyStrategy implements FetchStrategy {
+  constructor(public selectedTemplate: string) {
+    this.selectedTemplate = selectedTemplate;
+  }
+
   async fetchTemplateFiles(options: InitTemplateOptions): Promise<void> {
     return this.copyTemplateFiles(options)
       .then(() => this.renameFolder(options));
@@ -17,7 +19,7 @@ class CopyStrategy implements FetchStrategy {
 
     return runCommand(
       'cp',
-      ['-r', TEMPLATE_SOURCE_FILES, options.dest],
+      ['-r', `../${this.selectedTemplate}`, options.dest],
     );
   }
 
@@ -26,7 +28,7 @@ class CopyStrategy implements FetchStrategy {
 
     return runCommand(
       'mv',
-      [`${options.dest}/vite-template`, `${options.dest}/${options.appName}`],
+      [`${options.dest}/${this.selectedTemplate}/`, `${options.dest}/${options.appName}/`],
     );
   }
 }

@@ -16,9 +16,9 @@ export const TEMPLATE_OPTIONS = new Map<templateOptions, string>([
 
 export const initializeTemplate = async({
   appName,
+  dest,
   templateOption,
   templateReference,
-  dest,
 }: {
   templateOption: templateOptions;
 } & InitTemplateOptions): Promise<void> => {

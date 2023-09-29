@@ -11,12 +11,11 @@ const replcaeNimbleNameInFiles = ['package.json'];
 const fetchTemplateFiles = (options: InitTemplateOptions): Promise<void> => {
   let fetchStrategy: CopyStrategy | DownloadStrategy;
 
-  // If passed templateReference in CLI, use the DownloadStrategy
-  // TODO: Decide if we want to keep DownloadStrategy long-term
-  if (options.templateReference && options.templateReference.trim() === '') {
-    fetchStrategy = new DownloadStrategy();
+  // TODO: Decide if we want to use DownloadStrategy long-term
+  if (!options.templateReference || options.templateReference.trim() === '') {
+    fetchStrategy = new CopyStrategy('vite-template');
   } else {
-    fetchStrategy = new CopyStrategy();
+    fetchStrategy = new DownloadStrategy('vite-template');
   }
 
   return fetchStrategy.fetchTemplateFiles(options);

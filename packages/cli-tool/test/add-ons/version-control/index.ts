@@ -1,19 +1,16 @@
 import { TestData } from '../../helpers/test-data';
 
 export const gitHubTestData: TestData = {
-  filesShouldExist: ['/.github'],
-  filesShouldNotExist: ['/.gitlab'],
+  filePaths: ['/.github'],
   filesShouldContain: [],
 };
 
 export const gitLabTestData: TestData = {
-  filesShouldExist: ['/.gitlab'],
-  filesShouldNotExist: ['/.github'],
+  filePaths: ['/.gitlab'],
   filesShouldContain: [],
 };
 
 export const noVersionControlTestData: TestData = {
-  filesShouldExist: [],
-  filesShouldNotExist: ['/.github', '/.gitlab'],
+  filePaths: ['/.github', '/.gitlab'],
   filesShouldContain: [],
 };

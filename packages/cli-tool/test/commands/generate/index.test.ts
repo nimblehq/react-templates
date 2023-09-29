@@ -26,12 +26,12 @@ const viteTestScenarios: TestScenario[] = [
     templateReference: viteTemplateReference,
     testData: {
       filesShouldExist: [
-        ...gitHubTestData.filesShouldExist,
-        ...bootstrapTestData.filesShouldExist,
+        ...gitHubTestData.filePaths,
+        ...bootstrapTestData.filePaths,
       ],
       filesShouldNotExist: [
-        ...gitHubTestData.filesShouldNotExist,
-        ...bootstrapTestData.filesShouldNotExist,
+        ...gitLabTestData.filePaths,
+        ...tailwindCssTestData.filePaths,
       ],
       filesShouldContain: [
         ...gitHubTestData.filesShouldContain,
@@ -48,12 +48,12 @@ const viteTestScenarios: TestScenario[] = [
     templateReference: viteTemplateReference,
     testData: {
       filesShouldExist: [
-        ...gitLabTestData.filesShouldExist,
-        ...tailwindCssTestData.filesShouldExist,
+        ...gitLabTestData.filePaths,
+        ...tailwindCssTestData.filePaths,
       ],
       filesShouldNotExist: [
-        ...gitLabTestData.filesShouldNotExist,
-        ...tailwindCssTestData.filesShouldNotExist,
+        ...gitHubTestData.filePaths,
+        ...bootstrapTestData.filePaths,
       ],
       filesShouldContain: [
         ...gitLabTestData.filesShouldContain,
@@ -64,23 +64,18 @@ const viteTestScenarios: TestScenario[] = [
   {
     options: {
       template: 'vite',
-      versionControl: 'github',
-      uiFramework: 'bootstrap',
+      versionControl: 'none',
+      uiFramework: 'none',
     },
     templateReference: '',
     testData: {
-      filesShouldExist: [
-        ...gitHubTestData.filesShouldExist,
-        ...bootstrapTestData.filesShouldExist,
-      ],
+      filesShouldExist: [],
       filesShouldNotExist: [
-        ...gitHubTestData.filesShouldNotExist,
-        ...bootstrapTestData.filesShouldNotExist,
+        ...noVersionControlTestData.filePaths,
+        ...bootstrapTestData.filePaths,
+        ...tailwindCssTestData.filePaths,
       ],
-      filesShouldContain: [
-        ...gitHubTestData.filesShouldContain,
-        ...bootstrapTestData.filesShouldContain,
-      ],
+      filesShouldContain: [],
     },
   },
 ];
@@ -94,12 +89,12 @@ const craTestScenarios: TestScenario[] = [
     templateReference: craTemplateReference,
     testData: {
       filesShouldExist: [
-        ...gitHubTestData.filesShouldExist,
-        ...bootstrapTestData.filesShouldExist,
+        ...gitHubTestData.filePaths,
+        ...bootstrapTestData.filePaths,
       ],
       filesShouldNotExist: [
-        ...gitHubTestData.filesShouldNotExist,
-        ...bootstrapTestData.filesShouldNotExist,
+        ...gitLabTestData.filePaths,
+        ...tailwindCssTestData.filePaths,
       ],
       filesShouldContain: [
         ...gitHubTestData.filesShouldContain,
@@ -116,15 +111,13 @@ const craTestScenarios: TestScenario[] = [
     templateReference: craTemplateReference,
     testData: {
       filesShouldExist: [
-        ...noVersionControlTestData.filesShouldExist,
-        ...tailwindCssTestData.filesShouldExist,
+        ...tailwindCssTestData.filePaths,
       ],
       filesShouldNotExist: [
-        ...noVersionControlTestData.filesShouldNotExist,
-        ...tailwindCssTestData.filesShouldNotExist,
+        ...noVersionControlTestData.filePaths,
+        ...bootstrapTestData.filePaths,
       ],
       filesShouldContain: [
-        ...noVersionControlTestData.filesShouldContain,
         ...tailwindCssTestData.filesShouldContain,
       ],
     },
