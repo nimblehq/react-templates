@@ -3,14 +3,19 @@ import { CliUx } from '@oclif/core';
 import { InitTemplateOptions } from '.';
 import runCommand from '../helpers/child-process';
 import { replaceLine } from '../helpers/file-editor';
-import { CopyStrategy } from './fetchingStrategy';
+import { CopyStrategy, DownloadStrategy } from './fetchingStrategy';
 
 const replaceAppNameInFiles = ['package.json', 'index.html'];
 
 const fetchTemplateFiles = (options: InitTemplateOptions): Promise<void> => {
-  // If given a branch name, use
-  // const fetchStrategy = new DownloadStrategy();
-  const fetchStrategy = new CopyStrategy();
+  let fetchStrategy: CopyStrategy | DownloadStrategy;
+
+  // If passed templateReference in CLI, use the DownloadStrategy
+  if (options.templateReference && options.templateReference.trim() === '') {
+    fetchStrategy = new DownloadStrategy();
+  } else {
+    fetchStrategy = new CopyStrategy();
+  }
 
   return fetchStrategy.fetchTemplateFiles(options);
 };

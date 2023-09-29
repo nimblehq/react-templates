@@ -4,7 +4,7 @@ import { InitTemplateOptions } from '../.';
 import runCommand from '../../helpers/child-process';
 import { FetchStrategy } from './';
 
-const DEFAULT_TEMPLATE_REFERENCE = '../vite-template';
+const TEMPLATE_SOURCE_FILES = '../vite-template';
 
 class CopyStrategy implements FetchStrategy {
   async fetchTemplateFiles(options: InitTemplateOptions): Promise<void> {
@@ -17,7 +17,7 @@ class CopyStrategy implements FetchStrategy {
 
     return runCommand(
       'cp',
-      ['-r', DEFAULT_TEMPLATE_REFERENCE, options.dest],
+      ['-r', TEMPLATE_SOURCE_FILES, options.dest],
     );
   }
 
