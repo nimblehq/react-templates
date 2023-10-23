@@ -10,12 +10,12 @@ class CopyStrategy implements FetchStrategy {
   }
 
   async fetchTemplateFiles(options: InitTemplateOptions): Promise<void> {
-    return this.copyTemplateFiles(options)
-      .then(() => this.renameFolder(options));
+    await this.copyTemplateFiles(options);
+    return this.renameFolder(options);
   }
 
-  private async copyTemplateFiles(options: InitTemplateOptions): Promise<void> {
-    CliUx.ux.info('Copying template source files...');
+  private copyTemplateFiles(options: InitTemplateOptions): Promise<void> {
+    CliUx.ux.info(`Copying ${this.selectedTemplate} source files...`);
 
     return runCommand(
       'cp',
@@ -23,7 +23,7 @@ class CopyStrategy implements FetchStrategy {
     );
   }
 
-  private async renameFolder(options: InitTemplateOptions): Promise<void> {
+  private renameFolder(options: InitTemplateOptions): Promise<void> {
     CliUx.ux.info('Rename your app folder...');
 
     return runCommand(

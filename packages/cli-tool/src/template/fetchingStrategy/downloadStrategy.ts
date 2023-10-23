@@ -14,10 +14,10 @@ class DownloadStrategy implements FetchStrategy {
   }
 
   async fetchTemplateFiles(options: InitTemplateOptions): Promise<void> {
-    return this.downloadTemplateRepository(options)
-      .then(() => this.extractDownloadedTemplateFolder(options))
-      .then(() => this.renameFolder(options))
-      .then(() => this.cleanTemporaryFiles(options));
+    await this.downloadTemplateRepository(options);
+    await this.extractDownloadedTemplateFolder(options);
+    await this.renameFolder(options);
+    return this.cleanTemporaryFiles(options);
   }
 
   private downloadTemplateRepository(
@@ -57,19 +57,19 @@ class DownloadStrategy implements FetchStrategy {
     );
   }
 
-  private cleanTemporaryFiles(options: InitTemplateOptions): Promise<void> {
+  private async cleanTemporaryFiles(options: InitTemplateOptions): Promise<void> {
     CliUx.ux.info('Remove zip and unwanted files...');
     const branchPath = options.templateReference.replace('/', '-');
 
     // Remove the archive
-    return runCommand('rm', [`${options.appName}.gz`], options.dest).then(() => {
-      // Remove the extracted folder
-      return runCommand(
-        'rm',
-        ['-rf', `${TEMPLATE_REPO}-${branchPath}`],
-        options.dest,
-      );
-    });
+    await runCommand('rm', [`${options.appName}.gz`], options.dest);
+
+    // Remove the extracted folder
+    return runCommand(
+      'rm',
+      ['-rf', `${TEMPLATE_REPO}-${branchPath}`],
+      options.dest,
+    );
   }
 }
 

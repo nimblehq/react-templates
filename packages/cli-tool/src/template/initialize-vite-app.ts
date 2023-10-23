@@ -47,9 +47,9 @@ const npmInstall = (options: InitTemplateOptions): Promise<void> => {
 };
 
 const initializeViteApp = async(options: InitTemplateOptions): Promise<void> => {
-  return fetchTemplateFiles(options)
-    .then(() => replaceAppName(options))
-    .then(() => npmInstall(options));
+  await fetchTemplateFiles(options);
+  await replaceAppName(options);
+  return npmInstall(options);
 };
 
 export default initializeViteApp;
