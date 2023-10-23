@@ -1,12 +1,8 @@
 import { TestData } from '../../helpers/test-data';
 
 export const bootstrapTestData: TestData = {
-  filesShouldExist: [
+  filePaths: [
     '/src/assets/stylesheets/vendor/bootstrap/index.scss',
-  ],
-  filesShouldNotExist: [
-    '/tailwind.config.js',
-    '/src/assets/stylesheets/application.css',
   ],
   filesShouldContain: [
     {

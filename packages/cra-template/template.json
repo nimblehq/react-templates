@@ -12,7 +12,7 @@
     },
     "devDependencies": {
       "@cypress/code-coverage": "3.9.12",
-      "@nimblehq/eslint-config-nimble-react": "^1.0.0",
+      "@nimblehq/eslint-config-nimble-react": "1.2.0",
       "@nimblehq/stylelint-config-nimble": "^1.0.0",
       "@testing-library/cypress": "8.0.2",
       "@testing-library/dom": "8.20.0",

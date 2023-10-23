@@ -5,13 +5,7 @@ export type TestData = {
    *  the generated project.
    *  E.g. '/src/assets/stylesheets/application.scss`
    */
-  filesShouldExist: string[];
-  /** Path relative to the generated project root folder.
-   *  List files or folders that are expected to NOT be included within
-   *  the generated project.
-   *  E.g. '/src/assets/stylesheets/vendor/bootstrap`
-   */
-  filesShouldNotExist: string[];
+  filePaths: string[];
   /** Path relative to the generated project root folder.
    *  List what file is expected to contain what string.
    *  E.g.

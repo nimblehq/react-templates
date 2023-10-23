@@ -25,7 +25,7 @@ jobs:
           cache: "npm"
 
       - name: NPM install
-        run: npm ci &&  lerna bootstrap --ci
+        run: npm ci
 
       - name: Run tests
         run: npm run test --workspace=packages/cli-tool

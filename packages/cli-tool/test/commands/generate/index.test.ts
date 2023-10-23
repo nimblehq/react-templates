@@ -8,7 +8,7 @@ import { tailwindCssTestData } from '../../add-ons/ui-framework/tailwind-css';
 import { gitHubTestData, gitLabTestData, noVersionControlTestData } from '../../add-ons/version-control';
 import { TestScenario } from '../../helpers/test-scenario';
 
-const craTemplateReference = `file:./react-templates/packages/cra-template`;
+const craTemplateReference = 'file:./react-templates/packages/cra-template';
 // TODO: Adjust viteTemplateReference to use commit hash of development branch for vite template
 // https://github.com/nimblehq/react-templates/commit/52288d1e5e560bcc717f760f1fd19f7cb1b0085e
 const viteTemplateReference = '52288d1e5e560bcc717f760f1fd19f7cb1b0085e';
@@ -23,14 +23,15 @@ const viteTestScenarios: TestScenario[] = [
       versionControl: 'github',
       uiFramework: 'bootstrap',
     },
+    templateReference: viteTemplateReference,
     testData: {
       filesShouldExist: [
-        ...gitHubTestData.filesShouldExist,
-        ...bootstrapTestData.filesShouldExist,
+        ...gitHubTestData.filePaths,
+        ...bootstrapTestData.filePaths,
       ],
       filesShouldNotExist: [
-        ...gitHubTestData.filesShouldNotExist,
-        ...bootstrapTestData.filesShouldNotExist,
+        ...gitLabTestData.filePaths,
+        ...tailwindCssTestData.filePaths,
       ],
       filesShouldContain: [
         ...gitHubTestData.filesShouldContain,
@@ -44,19 +45,37 @@ const viteTestScenarios: TestScenario[] = [
       versionControl: 'gitlab',
       uiFramework: 'tailwindCss',
     },
+    templateReference: viteTemplateReference,
     testData: {
       filesShouldExist: [
-        ...gitLabTestData.filesShouldExist,
-        ...tailwindCssTestData.filesShouldExist,
+        ...gitLabTestData.filePaths,
+        ...tailwindCssTestData.filePaths,
       ],
       filesShouldNotExist: [
-        ...gitLabTestData.filesShouldNotExist,
-        ...tailwindCssTestData.filesShouldNotExist,
+        ...gitHubTestData.filePaths,
+        ...bootstrapTestData.filePaths,
       ],
       filesShouldContain: [
         ...gitLabTestData.filesShouldContain,
         ...tailwindCssTestData.filesShouldContain,
       ],
+    },
+  },
+  {
+    options: {
+      template: 'vite',
+      versionControl: 'none',
+      uiFramework: 'none',
+    },
+    templateReference: '',
+    testData: {
+      filesShouldExist: [],
+      filesShouldNotExist: [
+        ...noVersionControlTestData.filePaths,
+        ...bootstrapTestData.filePaths,
+        ...tailwindCssTestData.filePaths,
+      ],
+      filesShouldContain: [],
     },
   },
 ];
@@ -67,14 +86,15 @@ const craTestScenarios: TestScenario[] = [
       versionControl: 'github',
       uiFramework: 'bootstrap',
     },
+    templateReference: craTemplateReference,
     testData: {
       filesShouldExist: [
-        ...gitHubTestData.filesShouldExist,
-        ...bootstrapTestData.filesShouldExist,
+        ...gitHubTestData.filePaths,
+        ...bootstrapTestData.filePaths,
       ],
       filesShouldNotExist: [
-        ...gitHubTestData.filesShouldNotExist,
-        ...bootstrapTestData.filesShouldNotExist,
+        ...gitLabTestData.filePaths,
+        ...tailwindCssTestData.filePaths,
       ],
       filesShouldContain: [
         ...gitHubTestData.filesShouldContain,
@@ -88,17 +108,16 @@ const craTestScenarios: TestScenario[] = [
       versionControl: 'none',
       uiFramework: 'tailwindCss',
     },
+    templateReference: craTemplateReference,
     testData: {
       filesShouldExist: [
-        ...noVersionControlTestData.filesShouldExist,
-        ...tailwindCssTestData.filesShouldExist,
+        ...tailwindCssTestData.filePaths,
       ],
       filesShouldNotExist: [
-        ...noVersionControlTestData.filesShouldNotExist,
-        ...tailwindCssTestData.filesShouldNotExist,
+        ...noVersionControlTestData.filePaths,
+        ...bootstrapTestData.filePaths,
       ],
       filesShouldContain: [
-        ...noVersionControlTestData.filesShouldContain,
         ...tailwindCssTestData.filesShouldContain,
       ],
     },
@@ -128,7 +147,7 @@ describe('generate', () => {
     test
       .stdout()
       .stub(Inquirer, 'prompt', () => scenario.options)
-      .command(['generate', `${projectName}`, testFolderPath, scenario.options.template === 'vite' ? viteTemplateReference : craTemplateReference])
+      .command(['generate', `${projectName}`, testFolderPath, scenario.templateReference])
       .it(
         `generates a ${scenario.options.template} app ${projectName} with ${scenario.options.versionControl} and ${scenario.options.uiFramework}`,
         (ctx) => {

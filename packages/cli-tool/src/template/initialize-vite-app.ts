@@ -1,58 +1,29 @@
 import { CliUx } from '@oclif/core';
 
+import { InitTemplateOptions } from '.';
 import runCommand from '../helpers/child-process';
 import { replaceLine } from '../helpers/file-editor';
-import { downloadRepository } from '../helpers/github';
+import { CopyStrategy, DownloadStrategy } from './fetchingStrategy';
 
-const TEMPLATE_OWNER = 'nimblehq';
-const TEMPLATE_REPO = 'react-templates';
-const replaceAppNameInFiles = ['package.json', 'index.html'];
+const replaceAppNameInFiles = ['index.html'];
+const replcaeNimbleNameInFiles = ['package.json'];
 
-type InitViteOptions = {
-  dest: string;
-  appName: string;
-  branch: string;
+const fetchTemplateFiles = (options: InitTemplateOptions): Promise<void> => {
+  let fetchStrategy: CopyStrategy | DownloadStrategy;
+
+  // TODO: Decide if we want to use DownloadStrategy long-term
+  if (!options.templateReference || options.templateReference.trim() === '') {
+    fetchStrategy = new CopyStrategy('vite-template');
+  } else {
+    fetchStrategy = new DownloadStrategy('vite-template');
+  }
+
+  return fetchStrategy.fetchTemplateFiles(options);
 };
 
-const downloadTemplateRepository = (
-  options: InitViteOptions,
-): Promise<void> => {
-  CliUx.ux.info('Downloading template source files...');
-
-  return downloadRepository(
-    {
-      gitHubAccount: TEMPLATE_OWNER,
-      repositoryName: TEMPLATE_REPO,
-      branch: options.branch,
-    },
-    options.appName,
-    options.dest,
-  );
-};
-
-const extractViteTemplateFolder = (options: InitViteOptions): Promise<void> => {
-  CliUx.ux.info('Extracting template source files...');
-
-  return runCommand(
-    'tar',
-    ['-xz', '-f', `${options.appName}.gz`],
-    options.dest,
-  );
-};
-
-const renameFolder = (options: InitViteOptions): Promise<void> => {
-  CliUx.ux.info('Rename your app folder...');
-  const branchPath = options.branch.replace('/', '-');
-
-  return runCommand(
-    'mv',
-    [`${TEMPLATE_REPO}-${branchPath}/vite-template/`, options.appName],
-    options.dest,
-  );
-};
-
-const replaceAppName = (options: InitViteOptions): void => {
+const replaceAppName = (options: InitTemplateOptions): void => {
   CliUx.ux.info('Setup your application name...');
+
   replaceAppNameInFiles.forEach((fileName) => {
     replaceLine(
       `${options.dest}${options.appName}/${fileName}`,
@@ -60,35 +31,25 @@ const replaceAppName = (options: InitViteOptions): void => {
       options.appName,
     );
   });
-};
 
-const npmInstall = (options: InitViteOptions): Promise<void> => {
-  CliUx.ux.info('Run npm install...');
-  return runCommand('npm', ['i'], `${options.dest}/${options.appName}`);
-};
-
-const cleanTemporaryFiles = (options: InitViteOptions): Promise<void> => {
-  CliUx.ux.info('Remove zip and unwanted files...');
-  const branchPath = options.branch.replace('/', '-');
-
-  // Remove the archive
-  return runCommand('rm', [`${options.appName}.gz`], options.dest).then(() => {
-    // Remove the extracted folder
-    return runCommand(
-      'rm',
-      ['-rf', `${TEMPLATE_REPO}-${branchPath}`],
-      options.dest,
+  replcaeNimbleNameInFiles.forEach((fileName) => {
+    replaceLine(
+      `${options.dest}${options.appName}/${fileName}`,
+      'nimble-vite-template',
+      options.appName,
     );
   });
 };
 
-const initializeViteApp = async(options: InitViteOptions): Promise<void> => {
-  return downloadTemplateRepository(options)
-    .then(() => extractViteTemplateFolder(options))
-    .then(() => renameFolder(options))
-    .then(() => replaceAppName(options))
-    .then(() => npmInstall(options))
-    .then(() => cleanTemporaryFiles(options));
+const npmInstall = (options: InitTemplateOptions): Promise<void> => {
+  CliUx.ux.info('Run npm install...');
+  return runCommand('npm', ['i'], `${options.dest}/${options.appName}`);
+};
+
+const initializeViteApp = async(options: InitTemplateOptions): Promise<void> => {
+  await fetchTemplateFiles(options);
+  await replaceAppName(options);
+  return npmInstall(options);
 };
 
 export default initializeViteApp;
